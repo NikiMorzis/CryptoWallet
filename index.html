@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoWallet | Ваш безопасный криптокошелек</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-coins"></i>
+                <span>CryptoWallet</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#">Кошелек</a></li>
+                    <li><a href="#">Рынок</a></li>
+                    <li><a href="#">Аналитика</a></li>
+                    <li><a href="#">Новости</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline"><i class="fas fa-bell"></i></button>
+                <button class="btn btn-primary" id="profileBtn"><i class="fas fa-user"></i> Профиль</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <h2>Мой баланс</h2>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="balance">
+                        <h3>Общий баланс</h3>
+                        <div class="balance-amount" id="totalBalance">0.00 USD</div>
+                        <div class="balance-equivalent" id="cryptoBalance">0.000000 BTC</div>
+                    </div>
+                    <div class="wallet-actions">
+                        <div class="action-btn" onclick="openModal('receiveModal')">
+                            <i class="fas fa-download"></i>
+                            <div>Пополнить</div>
+                        </div>
+                        <div class="action-btn" onclick="openModal('sendModal')">
+                            <i class="fas fa-paper-plane"></i>
+                            <div>Перевести</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-wallet"></i>
+                    <span>Кошелек</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Транзакции</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Аналитика</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Настройки</span>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="content-header">
+                    <h2>Последние транзакции</h2>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active" onclick="filterTransactions('all')">Все</div>
+                    <div class="tab" onclick="filterTransactions('receive')">Входящие</div>
+                    <div class="tab" onclick="filterTransactions('send')">Исходящие</div>
+                </div>
+
+                <div class="filter-section">
+                    <select class="filter-select" id="monthFilter" onchange="applyFilters()">
+                        <option value="all">Все месяцы</option>
+                        <option value="0">Январь</option>
+                        <option value="1">Февраль</option>
+                        <option value="2">Март</option>
+                        <option value="3">Апрель</option>
+                        <option value="4">Май</option>
+                        <option value="5">Июнь</option>
+                        <option value="6">Июль</option>
+                        <option value="7">Август</option>
+                        <option value="8">Сентябрь</option>
+                        <option value="9">Октябрь</option>
+                        <option value="10">Ноябрь</option>
+                        <option value="11">Декабрь</option>
+                    </select>
+
+                    <select class="filter-select" id="yearFilter" onchange="applyFilters()">
+                        <option value="all">Все годы</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
+
+                    <select class="filter-select" id="currencyFilter" onchange="applyFilters()">
+                        <option value="all">Все валюты</option>
+                        <option value="USD">USD</option>
+                        <option value="BTC">BTC</option>
+                        <option value="ETH">ETH</option>
+                    </select>
+                </div>
+
+                <div class="transaction-list" id="transactionList">
+                    <!-- Transactions will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2023 CryptoWallet. Все права защищены. | Secure Blockchain Technology</p>
+        </div>
+    </div>
+
+    <!-- Receive Modal -->
+    <div class="modal" id="receiveModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Пополнение кошелька</h2>
+                <span class="close" onclick="closeModal('receiveModal')">&times;</span>
+            </div>
+            <div class="currency-select">
+                <div class="currency-option active" onclick="selectCurrency('BTC')">BTC</div>
+                <div class="currency-option" onclick="selectCurrency('ETH')">ETH</div>
+                <div class="currency-option" onclick="selectCurrency('USDT')">USDT</div>
+            </div>
+            <div class="form-group">
+                <label>Сумма пополнения</label>
+                <input type="number" class="form-control" id="depositAmount" placeholder="Введите сумму">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="depositFunds()">Пополнить</button>
+        </div>
+    </div>
+
+    <!-- Send Modal -->
+    <div class="modal" id="sendModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Перевод средств</h2>
+                <span class="close" onclick="closeModal('sendModal')">&times;</span>
+            </div>
+            <div class="form-group">
+                <label>Адрес кошелька получателя</label>
+                <input type="text" class="form-control" id="recipientAddress" placeholder="Введите адрес">
+            </div>
+            <div class="form-group">
+                <label>Сумма перевода</label>
+                <input type="number" class="form-control" id="sendAmount" placeholder="Введите сумму">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="sendFunds()">Перевести</button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Управление профилем</h2>
+                <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            </div>
+            <div class="form-group">
+                <label>Имя профиля</label>
+                <input type="text" class="form-control" id="profileName" placeholder="Введите имя профиля">
+            </div>
+            <div class="admin-controls">
+                <button class="admin-btn" onclick="saveProfile()"><i class="fas fa-save"></i> Сохранить профиль</button>
+                <button class="admin-btn" onclick="loadProfile()"><i class="fas fa-folder-open"></i> Загрузить профиль</button>
+                <button class="admin-btn" onclick="transferToSelf()"><i class="fas fa-exchange-alt"></i> Перевести на свой кошелек</button>
+                <button class="admin-btn" onclick="toggleAdminPanel()"><i class="fas fa-cog"></i> Админ-панель</button>
+            </div>
+
+            <!-- Hidden Admin Panel -->
+            <div class="admin-panel" id="adminPanel" style="display: none; margin-top: 20px;">
+                <div class="admin-section">
+                    <h3>Управление транзакциями</h3>
+                    <div class="admin-controls">
+                        <button class="admin-btn" onclick="addTestTransaction()"><i class="fas fa-plus"></i> Добавить тестовую транзакцию</button>
+                        <button class="admin-btn" onclick="clearAllTransactions()"><i class="fas fa-trash"></i> Удалить все транзакции</button>
+                        <button class="admin-btn" onclick="generatePositiveTransactions()"><i class="fas fa-arrow-up"></i> Сгенерировать доходы</button>
+                        <button class="admin-btn" onclick="generateNegativeTransactions()"><i class="fas fa-arrow-down"></i> Сгенерировать расходы</button>
+                    </div>
+                </div>
+
+                <div class="admin-section">
+                    <h3>Управление балансом</h3>
+                    <div class="admin-controls">
+                        <button class="admin-btn" onclick="setBalance(1000)"><i class="fas fa-dollar-sign"></i> Установить баланс: $1000</button>
+                        <button class="admin-btn" onclick="setBalance(5000)"><i class="fas fa-dollar-sign"></i> Установить баланс: $5000</button>
+                        <button class="admin-btn" onclick="addToBalance(1000)"><i class="fas fa-plus-circle"></i> Пополнить на $1000</button>
+                        <button class="admin-btn" onclick="resetToDefault()"><i class="fas fa-sync"></i> Сбросить настройки</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

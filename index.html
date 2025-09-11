@@ -173,6 +173,7 @@
         
         .sidebar-menu {
             list-style: none;
+            margin-bottom: 20px;
         }
         
         .sidebar-menu li {
@@ -267,6 +268,7 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
         .filter-btn.active {
@@ -313,6 +315,7 @@
         .transaction-details h4 {
             font-weight: 600;
             margin-bottom: 5px;
+            font-size: 1rem;
         }
         
         .transaction-details p {
@@ -378,6 +381,7 @@
         .auth-header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
         }
         
         .auth-title {
@@ -494,6 +498,7 @@
             
             nav ul {
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             .user-actions {
@@ -507,6 +512,23 @@
             .auth-container {
                 margin: 20px;
                 padding: 20px;
+            }
+            
+            .admin-panel {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 12px 12px 0 0;
+                margin-top: 0;
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            
+            .admin-section {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
             }
         }
         
@@ -524,6 +546,15 @@
             
             .transaction-amount {
                 margin-left: 55px;
+            }
+            
+            .filters {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
             }
         }
         
@@ -592,6 +623,8 @@
             max-width: 500px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .modal-header {
@@ -688,6 +721,44 @@
         .notification.error {
             background-color: var(--danger);
         }
+        
+        .logout-btn {
+            background-color: #f8fafc;
+            color: var(--danger);
+            border: 1px solid #e2e8f0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .logout-btn:hover {
+            background-color: #fee2e2;
+            color: var(--danger);
+        }
+        
+        .close-admin-panel {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .close-admin-panel {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--gray-dark);
+                cursor: pointer;
+            }
+        }
     </style>
 </head>
 <body>
@@ -713,7 +784,7 @@
                     </ul>
                 </nav>
                 
-                <div class="user-actions">
+                <div class="user-actions" id="userActions">
                     <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
                     <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
                 </div>
@@ -742,6 +813,10 @@
                     <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
+                
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
             </aside>
             
             <main class="dashboard-content">
@@ -790,6 +865,7 @@
                     
                     <!-- Admin Panel (hidden by default) -->
                     <div class="admin-panel" id="adminPanel">
+                        <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
                         <h3 class="section-title">Админ панель</h3>
                         
                         <div class="admin-password-form">
@@ -1067,6 +1143,9 @@
             const importDataBtn = document.getElementById('importDataBtn');
             const importDataInput = document.getElementById('importDataInput');
             const notification = document.getElementById('notification');
+            const userActions = document.getElementById('userActions');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const closeAdminPanel = document.getElementById('closeAdminPanel');
             
             const loginModal = document.getElementById('loginModal');
             const registerModal = document.getElementById('registerModal');
@@ -1226,6 +1305,11 @@
                 });
             });
             
+            // Close admin panel on mobile
+            closeAdminPanel.addEventListener('click', function() {
+                adminPanel.style.display = 'none';
+            });
+            
             // Switch between login and register modals
             goToRegister.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1245,6 +1329,16 @@
                 if (e.target === registerModal) registerModal.style.display = 'none';
                 if (e.target === topUpModal) topUpModal.style.display = 'none';
                 if (e.target === sendMoneyModal) sendMoneyModal.style.display = 'none';
+            });
+            
+            // Logout function
+            logoutBtn.addEventListener('click', function() {
+                user = null;
+                balance = 0;
+                transactions = [];
+                saveToLocalStorage();
+                updateUI();
+                showNotification('Вы вышли из системы');
             });
             
             // Form submissions
@@ -1503,10 +1597,42 @@
                     sidebar.classList.remove('hidden');
                     userName.textContent = user.name;
                     userEmail.textContent = user.email;
+                    
+                    // Hide login/register buttons, show user info
+                    userActions.innerHTML = `
+                        <span style="color: white;">${user.name}</span>
+                        <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
+                    `;
+                    
+                    document.getElementById('headerLogoutBtn').addEventListener('click', function() {
+                        user = null;
+                        balance = 0;
+                        transactions = [];
+                        saveToLocalStorage();
+                        updateUI();
+                        showNotification('Вы вышли из системы');
+                    });
                 } else {
                     authRequired.classList.remove('hidden');
                     dashboardContent.classList.add('hidden');
                     sidebar.classList.add('hidden');
+                    
+                    // Show login/register buttons
+                    userActions.innerHTML = `
+                        <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
+                        <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
+                    `;
+                    
+                    // Reattach event listeners
+                    document.getElementById('loginBtn').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        loginModal.style.display = 'flex';
+                    });
+                    
+                    document.getElementById('registerBtn').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        registerModal.style.display = 'flex';
+                    });
                 }
                 updateBalance();
                 renderTransactions();

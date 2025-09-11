@@ -323,12 +323,6 @@
             color: var(--gray-dark);
         }
         
-        .transaction-id {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-top: 3px;
-        }
-        
         .transaction-amount {
             font-weight: 600;
             text-align: right;
@@ -639,6 +633,7 @@
         .modal-title {
             font-size: 1.5rem;
             font-weight: 600;
+            color: var(--primary);
         }
         
         .close-modal {
@@ -914,8 +909,8 @@
                             <div class="admin-section">
                                 <h4>Управление транзакциями</h4>
                                 <div class="form-group">
-                                    <label for="transactionId">ID транзакции для удаления</label>
-                                    <input type="text" id="transactionId" class="form-control" placeholder="Введите ID транзакции">
+                                    <label for="transactionIndex">Номер транзакции для удаления</label>
+                                    <input type="number" id="transactionIndex" class="form-control" placeholder="Введите номер транзакции">
                                 </div>
                                 <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
                             </div>
@@ -1117,7 +1112,6 @@
             let user = null;
             let balance = 0;
             let transactions = [];
-            let nextTransactionId = 1;
             let isAdminAuthenticated = false;
             
             // Elements
@@ -1181,8 +1175,7 @@
                 const data = {
                     user: user,
                     balance: balance,
-                    transactions: transactions,
-                    nextTransactionId: nextTransactionId
+                    transactions: transactions
                 };
                 
                 localStorage.setItem('cryptoWalletData', JSON.stringify(data));
@@ -1198,7 +1191,6 @@
                         user = data.user;
                         balance = data.balance || 0;
                         transactions = data.transactions || [];
-                        nextTransactionId = data.nextTransactionId || 1;
                         
                         if (user) {
                             updateUI();
@@ -1215,7 +1207,6 @@
                     user: user,
                     balance: balance,
                     transactions: transactions,
-                    nextTransactionId: nextTransactionId,
                     exportDate: new Date().toISOString()
                 };
                 
@@ -1246,7 +1237,6 @@
                             user = data.user;
                             balance = data.balance;
                             transactions = data.transactions;
-                            nextTransactionId = data.nextTransactionId || nextTransactionId;
                             
                             saveToLocalStorage();
                             updateUI();
@@ -1378,6 +1368,10 @@
                     email: email
                 };
                 
+                // Начальный баланс 0
+                balance = 0;
+                transactions = [];
+                
                 saveToLocalStorage();
                 updateUI();
                 registerModal.style.display = 'none';
@@ -1403,7 +1397,6 @@
                 
                 // Add transaction
                 addTransaction({
-                    id: nextTransactionId++,
                     type: 'send',
                     amount: amount,
                     description: note || `Перевод для ${recipient}`,
@@ -1486,7 +1479,6 @@
                     
                     // Add transaction
                     addTransaction({
-                        id: nextTransactionId++,
                         type: 'receive',
                         amount: amount,
                         description: description,
@@ -1515,7 +1507,6 @@
                 if (amount && amount > 0 && description) {
                     // Add transaction
                     addTransaction({
-                        id: nextTransactionId++,
                         type: type,
                         amount: amount,
                         description: description,
@@ -1550,32 +1541,28 @@
                     return;
                 }
                 
-                const transactionId = parseInt(document.getElementById('transactionId').value);
-                if (transactionId) {
-                    const transactionIndex = transactions.findIndex(t => t.id === transactionId);
-                    if (transactionIndex !== -1) {
-                        const transaction = transactions[transactionIndex];
-                        
-                        // Reverse the transaction effect on balance
-                        if (transaction.type === 'receive') {
-                            balance -= transaction.amount;
-                        } else if (transaction.type === 'send') {
-                            balance += transaction.amount;
-                        }
-                        
-                        // Remove transaction
-                        transactions.splice(transactionIndex, 1);
-                        renderTransactions();
-                        updateBalance();
-                        saveToLocalStorage();
-                        
-                        showNotification(`Транзакция с ID ${transactionId} успешно удалена!`);
-                        document.getElementById('transactionId').value = '';
-                    } else {
-                        showNotification('Транзакция с указанным ID не найдена', false);
+                const transactionIndex = parseInt(document.getElementById('transactionIndex').value) - 1;
+                
+                if (transactionIndex >= 0 && transactionIndex < transactions.length) {
+                    const transaction = transactions[transactionIndex];
+                    
+                    // Reverse the transaction effect on balance
+                    if (transaction.type === 'receive') {
+                        balance -= transaction.amount;
+                    } else if (transaction.type === 'send') {
+                        balance += transaction.amount;
                     }
+                    
+                    // Remove transaction
+                    transactions.splice(transactionIndex, 1);
+                    renderTransactions();
+                    updateBalance();
+                    saveToLocalStorage();
+                    
+                    showNotification(`Транзакция №${transactionIndex + 1} успешно удалена!`);
+                    document.getElementById('transactionIndex').value = '';
                 } else {
-                    showNotification('Пожалуйста, введите ID транзакции', false);
+                    showNotification('Транзакция с указанным номером не найдена', false);
                 }
             });
             
@@ -1659,9 +1646,9 @@
                 }
                 
                 transactionList.innerHTML = '';
-                transactions.forEach(transaction => {
+                transactions.forEach((transaction, index) => {
                     const isReceive = transaction.type === 'receive';
-                    const date = transaction.date.toLocaleDateString('ru-RU', {
+                    const date = new Date(transaction.date).toLocaleDateString('ru-RU', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
@@ -1679,7 +1666,6 @@
                             <div class="transaction-details">
                                 <h4>${transaction.description}</h4>
                                 <p>${date} · Завершено</p>
-                                <div class="transaction-id">ID: ${transaction.id}</div>
                             </div>
                         </div>
                         <div class="transaction-amount ${isReceive ? 'positive' : 'negative'}">

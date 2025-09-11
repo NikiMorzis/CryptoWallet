@@ -3,214 +3,1571 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoWallet | Ваш безопасный криптокошелек</title>
+    <title>CryptoWallet+ | Ваш надежный криптокошелёк</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a71d5;
+            --primary-dark: #1a5bb9;
+            --secondary: #7e57c2;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --gray-dark: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: #ffd166;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #e6e6e6;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 25px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .user-profile {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .balance-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .balance-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .balance-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+        
+        /* Transactions */
+        .transactions {
+            margin-top: 30px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: #f1f5f9;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .transaction-list {
+            list-style: none;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .transaction-icon.receive {
+            background-color: var(--success);
+        }
+        
+        .transaction-icon.send {
+            background-color: var(--danger);
+        }
+        
+        .transaction-details h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .transaction-details p {
+            font-size: 0.85rem;
+            color: var(--gray-dark);
+        }
+        
+        .transaction-id {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 3px;
+        }
+        
+        .transaction-amount {
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .transaction-amount.positive {
+            color: var(--success);
+        }
+        
+        .transaction-amount.negative {
+            color: var(--danger);
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(42, 113, 213, 0.2);
+        }
+        
+        /* Auth Forms */
+        .auth-container {
+            max-width: 450px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .auth-subtitle {
+            color: var(--gray-dark);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .admin-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: var(--gray);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+            
+            .dashboard-content {
+                order: 1;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            .user-actions {
+                justify-content: center;
+            }
+            
+            .balance-actions {
+                flex-direction: column;
+            }
+            
+            .auth-container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .transaction-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .transaction-amount {
+                margin-left: 55px;
+            }
+        }
+        
+        /* Hidden admin access */
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--dark);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .admin-access:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .admin-tooltip {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background-color: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .admin-access:hover .admin-tooltip {
+            opacity: 1;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-dark);
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-dark);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        .empty-state p {
+            margin-bottom: 20px;
+        }
+        
+        .admin-password-form {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .data-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .data-actions .btn {
+            flex: 1;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background-color: var(--success);
+        }
+        
+        .notification.error {
+            background-color: var(--danger);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-coins"></i>
-                <span>CryptoWallet</span>
+    <!-- Notification -->
+    <div class="notification hidden" id="notification"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>CryptoWallet+</span>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Главная</a></li>
+                        <li><a href="#">Переводы</a></li>
+                        <li><a href="#">Транзакции</a></li>
+                        <li><a href="#">Курсы</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
+                    <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
+                </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Главная</a></li>
-                    <li><a href="#">Кошелек</a></li>
-                    <li><a href="#">Рынок</a></li>
-                    <li><a href="#">Аналитика</a></li>
-                    <li><a href="#">Новости</a></li>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="dashboard">
+            <aside class="sidebar hidden" id="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name" id="userName">Алексей Петров</div>
+                    <div class="user-email" id="userEmail">alexey@example.com</div>
+                </div>
+                
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Обзор</a></li>
+                    <li><a href="#"><i class="fas fa-wallet"></i> Кошелек</a></li>
+                    <li><a href="#"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> История</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
-            </nav>
-            <div class="user-actions">
-                <button class="btn btn-outline"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-primary" id="profileBtn"><i class="fas fa-user"></i> Профиль</button>
-            </div>
-        </header>
-
-        <div class="main-content">
-            <div class="sidebar">
-                <div class="wallet-card">
-                    <div class="wallet-header">
-                        <h2>Мой баланс</h2>
-                        <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                    <div class="balance">
-                        <h3>Общий баланс</h3>
-                        <div class="balance-amount" id="totalBalance">0.00 USD</div>
-                        <div class="balance-equivalent" id="cryptoBalance">0.000000 BTC</div>
-                    </div>
-                    <div class="wallet-actions">
-                        <div class="action-btn" onclick="openModal('receiveModal')">
-                            <i class="fas fa-download"></i>
-                            <div>Пополнить</div>
-                        </div>
-                        <div class="action-btn" onclick="openModal('sendModal')">
-                            <i class="fas fa-paper-plane"></i>
-                            <div>Перевести</div>
+            </aside>
+            
+            <main class="dashboard-content">
+                <div id="authRequired">
+                    <div class="empty-state">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Добро пожаловать в CryptoWallet+</h3>
+                        <p>Пожалуйста, войдите или зарегистрируйтесь, чтобы начать пользоваться кошельком</p>
+                        <div style="display: flex; gap: 15px; justify-content: center;">
+                            <a href="#" class="btn btn-primary" id="loginBtn2">Войти</a>
+                            <a href="#" class="btn btn-outline" style="background-color: var(--primary); color: white;" id="registerBtn2">Регистрация</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Главная</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-wallet"></i>
-                    <span>Кошелек</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Транзакции</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Аналитика</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Настройки</span>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="content-header">
-                    <h2>Последние транзакции</h2>
-                </div>
-
-                <div class="tabs">
-                    <div class="tab active" onclick="filterTransactions('all')">Все</div>
-                    <div class="tab" onclick="filterTransactions('receive')">Входящие</div>
-                    <div class="tab" onclick="filterTransactions('send')">Исходящие</div>
-                </div>
-
-                <div class="filter-section">
-                    <select class="filter-select" id="monthFilter" onchange="applyFilters()">
-                        <option value="all">Все месяцы</option>
-                        <option value="0">Январь</option>
-                        <option value="1">Февраль</option>
-                        <option value="2">Март</option>
-                        <option value="3">Апрель</option>
-                        <option value="4">Май</option>
-                        <option value="5">Июнь</option>
-                        <option value="6">Июль</option>
-                        <option value="7">Август</option>
-                        <option value="8">Сентябрь</option>
-                        <option value="9">Октябрь</option>
-                        <option value="10">Ноябрь</option>
-                        <option value="11">Декабрь</option>
-                    </select>
-
-                    <select class="filter-select" id="yearFilter" onchange="applyFilters()">
-                        <option value="all">Все годы</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-
-                    <select class="filter-select" id="currencyFilter" onchange="applyFilters()">
-                        <option value="all">Все валюты</option>
-                        <option value="USD">USD</option>
-                        <option value="BTC">BTC</option>
-                        <option value="ETH">ETH</option>
-                    </select>
-                </div>
-
-                <div class="transaction-list" id="transactionList">
-                    <!-- Transactions will be loaded here -->
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>© 2023 CryptoWallet. Все права защищены. | Secure Blockchain Technology</p>
-        </div>
-    </div>
-
-    <!-- Receive Modal -->
-    <div class="modal" id="receiveModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Пополнение кошелька</h2>
-                <span class="close" onclick="closeModal('receiveModal')">&times;</span>
-            </div>
-            <div class="currency-select">
-                <div class="currency-option active" onclick="selectCurrency('BTC')">BTC</div>
-                <div class="currency-option" onclick="selectCurrency('ETH')">ETH</div>
-                <div class="currency-option" onclick="selectCurrency('USDT')">USDT</div>
-            </div>
-            <div class="form-group">
-                <label>Сумма пополнения</label>
-                <input type="number" class="form-control" id="depositAmount" placeholder="Введите сумму">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="depositFunds()">Пополнить</button>
-        </div>
-    </div>
-
-    <!-- Send Modal -->
-    <div class="modal" id="sendModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Перевод средств</h2>
-                <span class="close" onclick="closeModal('sendModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Адрес кошелька получателя</label>
-                <input type="text" class="form-control" id="recipientAddress" placeholder="Введите адрес">
-            </div>
-            <div class="form-group">
-                <label>Сумма перевода</label>
-                <input type="number" class="form-control" id="sendAmount" placeholder="Введите сумму">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="sendFunds()">Перевести</button>
-        </div>
-    </div>
-
-    <!-- Profile Modal -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Управление профилем</h2>
-                <span class="close" onclick="closeModal('profileModal')">&times;</span>
-            </div>
-            <div class="form-group">
-                <label>Имя профиля</label>
-                <input type="text" class="form-control" id="profileName" placeholder="Введите имя профиля">
-            </div>
-            <div class="admin-controls">
-                <button class="admin-btn" onclick="saveProfile()"><i class="fas fa-save"></i> Сохранить профиль</button>
-                <button class="admin-btn" onclick="loadProfile()"><i class="fas fa-folder-open"></i> Загрузить профиль</button>
-                <button class="admin-btn" onclick="transferToSelf()"><i class="fas fa-exchange-alt"></i> Перевести на свой кошелек</button>
-                <button class="admin-btn" onclick="toggleAdminPanel()"><i class="fas fa-cog"></i> Админ-панель</button>
-            </div>
-
-            <!-- Hidden Admin Panel -->
-            <div class="admin-panel" id="adminPanel" style="display: none; margin-top: 20px;">
-                <div class="admin-section">
-                    <h3>Управление транзакциями</h3>
-                    <div class="admin-controls">
-                        <button class="admin-btn" onclick="addTestTransaction()"><i class="fas fa-plus"></i> Добавить тестовую транзакцию</button>
-                        <button class="admin-btn" onclick="clearAllTransactions()"><i class="fas fa-trash"></i> Удалить все транзакции</button>
-                        <button class="admin-btn" onclick="generatePositiveTransactions()"><i class="fas fa-arrow-up"></i> Сгенерировать доходы</button>
-                        <button class="admin-btn" onclick="generateNegativeTransactions()"><i class="fas fa-arrow-down"></i> Сгенерировать расходы</button>
+                
+                <div id="dashboardContent" class="hidden">
+                    <h2 class="section-title">Обзор кошелька</h2>
+                    
+                    <div class="balance-card">
+                        <div class="balance-title">Общий баланс</div>
+                        <div class="balance-amount">$ <span id="balanceAmount">0.00</span></div>
+                        <div class="balance-actions">
+                            <a href="#" class="btn btn-outline" id="topUpBtn">Пополнить</a>
+                            <a href="#" class="btn btn-outline" id="sendMoneyBtn">Перевести</a>
+                        </div>
+                    </div>
+                    
+                    <div class="transactions">
+                        <h3 class="section-title">Последние транзакции</h3>
+                        
+                        <div class="filters">
+                            <button class="filter-btn active">Все</button>
+                            <button class="filter-btn">Входящие</button>
+                            <button class="filter-btn">Исходящие</button>
+                            <button class="filter-btn">За месяц</button>
+                            <button class="filter-btn">За неделю</button>
+                        </div>
+                        
+                        <ul class="transaction-list" id="transactionList">
+                            <li class="empty-state">
+                                <i class="fas fa-exchange-alt"></i>
+                                <p>У вас пока нет транзакций</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Admin Panel (hidden by default) -->
+                    <div class="admin-panel" id="adminPanel">
+                        <h3 class="section-title">Админ панель</h3>
+                        
+                        <div class="admin-password-form">
+                            <h4>Доступ к админ-панели</h4>
+                            <div class="form-group">
+                                <label for="adminPassword">Пароль администратора</label>
+                                <input type="password" id="adminPassword" class="form-control" placeholder="Введите пароль (1111)">
+                            </div>
+                            <button class="btn btn-primary" id="adminLoginBtn">Войти в админ-панель</button>
+                        </div>
+                        
+                        <div id="adminContent" class="hidden">
+                            <div class="admin-section">
+                                <h4>Управление балансом</h4>
+                                <div class="form-group">
+                                    <label for="adminBalanceAmount">Сумма пополнения</label>
+                                    <input type="number" id="adminBalanceAmount" class="form-control" placeholder="Введите сумму">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topUpDescription">Описание пополнения</label>
+                                    <input type="text" id="topUpDescription" class="form-control" placeholder="Например: Пополнение от Ивана" value="Пополнение через админ-панель">
+                                </div>
+                                <button class="btn btn-primary" id="addBalanceBtn">Пополнить баланс</button>
+                            </div>
+                            
+                            <div class="admin-section">
+                                <h4>Создать транзакцию</h4>
+                                <div class="form-group">
+                                    <label for="transactionType">Тип транзакции</label>
+                                    <select id="transactionType" class="form-control">
+                                        <option value="receive">Входящий перевод</option>
+                                        <option value="send">Исходящий перевод</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transactionAmount">Сумма</label>
+                                    <input type="number" id="transactionAmount" class="form-control" placeholder="Введите сумму">
+                                </div>
+                                <div class="form-group">
+                                    <label for="transactionDescription">Описание</label>
+                                    <input type="text" id="transactionDescription" class="form-control" placeholder="Описание транзакции">
+                                </div>
+                                <button class="btn btn-primary" id="createTransactionBtn">Создать транзакцию</button>
+                            </div>
+                            
+                            <div class="admin-section">
+                                <h4>Управление транзакциями</h4>
+                                <div class="form-group">
+                                    <label for="transactionId">ID транзакции для удаления</label>
+                                    <input type="text" id="transactionId" class="form-control" placeholder="Введите ID транзакции">
+                                </div>
+                                <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
+                            </div>
+                            
+                            <div class="admin-section">
+                                <h4>Управление данными</h4>
+                                <p>Экспортируйте или импортируйте данные вашего профиля для переноса на другие устройства</p>
+                                <div class="data-actions">
+                                    <button class="btn btn-primary" id="exportDataBtn">
+                                        <i class="fas fa-download"></i> Экспорт данных
+                                    </button>
+                                    <button class="btn btn-outline" id="importDataBtn" style="border-color: var(--primary); color: var(--primary);">
+                                        <i class="fas fa-upload"></i> Импорт данных
+                                    </button>
+                                </div>
+                                <input type="file" id="importDataInput" accept=".json" style="display: none;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="admin-section">
-                    <h3>Управление балансом</h3>
-                    <div class="admin-controls">
-                        <button class="admin-btn" onclick="setBalance(1000)"><i class="fas fa-dollar-sign"></i> Установить баланс: $1000</button>
-                        <button class="admin-btn" onclick="setBalance(5000)"><i class="fas fa-dollar-sign"></i> Установить баланс: $5000</button>
-                        <button class="admin-btn" onclick="addToBalance(1000)"><i class="fas fa-plus-circle"></i> Пополнить на $1000</button>
-                        <button class="admin-btn" onclick="resetToDefault()"><i class="fas fa-sync"></i> Сбросить настройки</button>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-coins"></i>
+                        <span>CryptoWallet+</span>
                     </div>
+                    <p class="footer-description">Ваш надежный и безопасный криптовалютный кошелек для повседневного использования и инвестиций.</p>
                 </div>
+                
+                <div>
+                    <h4 class="footer-heading">Продукты</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Криптокошелек</a></li>
+                        <li><a href="#">Обмен валют</a></li>
+                        <li><a href="#">Криптокарта</a></li>
+                        <li><a href="#">Инвестиции</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Поддержка</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="#">Сообщение о ошибке</a></li>
+                        <li><a href="#">Состояние системы</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Компания</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="#">Партнерская программа</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 CryptoWallet+. Все права защищены.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Hidden Admin Access Button -->
+    <div class="admin-access" id="adminAccess">
+        <i class="fas fa-lock"></i>
+        <div class="admin-tooltip">Админ-панель</div>
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Вход в аккаунт</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Ваш пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+            </form>
+            <p class="text-center mt-20">
+                Нет аккаунта? <a href="#" id="goToRegister">Зарегистрироваться</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Создание аккаунта</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Имя</label>
+                    <input type="text" id="registerName" class="form-control" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" class="form-control" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="Придумайте пароль" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Подтверждение пароля</label>
+                    <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Повторите пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Зарегистрироваться</button>
+            </form>
+            <p class="text-center mt-20">
+                Уже есть аккаунт? <a href="#" id="goToLogin">Войти</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="modal" id="topUpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Пополнение баланса</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="topUpAmount">Сумма пополнения</label>
+                <input type="number" id="topUpAmount" class="form-control" placeholder="Введите сумму" required>
+            </div>
+            <div class="form-group">
+                <label for="topUpMethod">Способ оплаты</label>
+                <select id="topUpMethod" class="form-control">
+                    <option value="card">Банковская карта</option>
+                    <option value="crypto">Криптовалюта</option>
+                    <option value="bank">Банковский перевод</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" id="confirmTopUp">Пополнить</button>
+            
+            <div class="mt-20" style="padding: 15px; background-color: #ffecb3; border-radius: 8px;">
+                <p style="color: #ff9800; margin: 0;">
+                    <i class="fas fa-exclamation-circle"></i> В настоящее время пополнение временно недоступно из-за технических работ. Приносим извинения за неудобства.
+                </p>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
+    
+    <div class="modal" id="sendMoneyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Перевод средств</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="sendMoneyForm">
+                <div class="form-group">
+                    <label for="recipient">Получатель</label>
+                    <input type="text" id="recipient" class="form-control" placeholder="Email, номер телефона или адрес кошелька" required>
+                </div>
+                <div class="form-group">
+                    <label for="sendAmount">Сумма перевода</label>
+                    <input type="number" id="sendAmount" class="form-control" placeholder="Введите сумму" required>
+                </div>
+                <div class="form-group">
+                    <label for="sendCurrency">Валюта</label>
+                    <select id="sendCurrency" class="form-control">
+                        <option value="usd">USD</option>
+                        <option value="btc">BTC</option>
+                        <option value="eth">ETH</option>
+                        <option value="rub">RUB</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sendNote">Примечание (необязательно)</label>
+                    <input type="text" id="sendNote" class="form-control" placeholder="Назначение перевода">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Перевести</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // State management
+            let user = null;
+            let balance = 0;
+            let transactions = [];
+            let nextTransactionId = 1;
+            let isAdminAuthenticated = false;
+            
+            // Elements
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtn2 = document.getElementById('loginBtn2');
+            const registerBtn = document.getElementById('registerBtn');
+            const registerBtn2 = document.getElementById('registerBtn2');
+            const topUpBtn = document.getElementById('topUpBtn');
+            const sendMoneyBtn = document.getElementById('sendMoneyBtn');
+            const adminAccess = document.getElementById('adminAccess');
+            const adminPanel = document.getElementById('adminPanel');
+            const authRequired = document.getElementById('authRequired');
+            const dashboardContent = document.getElementById('dashboardContent');
+            const sidebar = document.getElementById('sidebar');
+            const balanceAmount = document.getElementById('balanceAmount');
+            const transactionList = document.getElementById('transactionList');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const adminPassword = document.getElementById('adminPassword');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminContent = document.getElementById('adminContent');
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            const importDataBtn = document.getElementById('importDataBtn');
+            const importDataInput = document.getElementById('importDataInput');
+            const notification = document.getElementById('notification');
+            
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const topUpModal = document.getElementById('topUpModal');
+            const sendMoneyModal = document.getElementById('sendMoneyModal');
+            
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const goToRegister = document.getElementById('goToRegister');
+            const goToLogin = document.getElementById('goToLogin');
+            
+            const confirmTopUp = document.getElementById('confirmTopUp');
+            
+            // Admin panel elements
+            const addBalanceBtn = document.getElementById('addBalanceBtn');
+            const createTransactionBtn = document.getElementById('createTransactionBtn');
+            const deleteTransactionBtn = document.getElementById('deleteTransactionBtn');
+            
+            // Загрузка данных из localStorage при запуске
+            loadFromLocalStorage();
+            
+            // Показать уведомление
+            function showNotification(message, isSuccess = true) {
+                notification.textContent = message;
+                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
+                
+                setTimeout(() => {
+                    notification.className = 'notification hidden';
+                }, 3000);
+            }
+            
+            // Сохранение данных в localStorage
+            function saveToLocalStorage() {
+                const data = {
+                    user: user,
+                    balance: balance,
+                    transactions: transactions,
+                    nextTransactionId: nextTransactionId
+                };
+                
+                localStorage.setItem('cryptoWalletData', JSON.stringify(data));
+            }
+            
+            // Загрузка данных из localStorage
+            function loadFromLocalStorage() {
+                const savedData = localStorage.getItem('cryptoWalletData');
+                
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        user = data.user;
+                        balance = data.balance || 0;
+                        transactions = data.transactions || [];
+                        nextTransactionId = data.nextTransactionId || 1;
+                        
+                        if (user) {
+                            updateUI();
+                        }
+                    } catch (e) {
+                        console.error('Error loading saved data:', e);
+                    }
+                }
+            }
+            
+            // Экспорт данных
+            function exportData() {
+                const data = {
+                    user: user,
+                    balance: balance,
+                    transactions: transactions,
+                    nextTransactionId: nextTransactionId,
+                    exportDate: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `crypto_wallet_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                showNotification('Данные успешно экспортированы');
+            }
+            
+            // Импорт данных
+            function importData(file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data.user && data.balance !== undefined && data.transactions) {
+                            user = data.user;
+                            balance = data.balance;
+                            transactions = data.transactions;
+                            nextTransactionId = data.nextTransactionId || nextTransactionId;
+                            
+                            saveToLocalStorage();
+                            updateUI();
+                            
+                            showNotification('Данные успешно импортированы');
+                        } else {
+                            showNotification('Неверный формат файла', false);
+                        }
+                    } catch (e) {
+                        console.error('Error importing data:', e);
+                        showNotification('Ошибка при импорте данных', false);
+                    }
+                };
+                
+                reader.readAsText(file);
+            }
+            
+            // Open modals
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+            
+            loginBtn2.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+            
+            registerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'flex';
+            });
+            
+            registerBtn2.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'flex';
+            });
+            
+            topUpBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                topUpModal.style.display = 'flex';
+            });
+            
+            sendMoneyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                sendMoneyModal.style.display = 'flex';
+            });
+            
+            // Close modals
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'none';
+                    topUpModal.style.display = 'none';
+                    sendMoneyModal.style.display = 'none';
+                });
+            });
+            
+            // Switch between login and register modals
+            goToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'flex';
+            });
+            
+            goToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) loginModal.style.display = 'none';
+                if (e.target === registerModal) registerModal.style.display = 'none';
+                if (e.target === topUpModal) topUpModal.style.display = 'none';
+                if (e.target === sendMoneyModal) sendMoneyModal.style.display = 'none';
+            });
+            
+            // Form submissions
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple demo login (no real auth)
+                user = {
+                    name: email.split('@')[0],
+                    email: email
+                };
+                
+                saveToLocalStorage();
+                updateUI();
+                loginModal.style.display = 'none';
+                
+                showNotification('Вход выполнен успешно!');
+            });
+            
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    showNotification('Пароли не совпадают', false);
+                    return;
+                }
+                
+                // Simple demo registration (no real auth)
+                user = {
+                    name: name,
+                    email: email
+                };
+                
+                saveToLocalStorage();
+                updateUI();
+                registerModal.style.display = 'none';
+                
+                showNotification('Регистрация прошла успешно!');
+            });
+            
+            document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('sendAmount').value);
+                const recipient = document.getElementById('recipient').value;
+                const note = document.getElementById('sendNote').value;
+                
+                if (amount > balance) {
+                    showNotification('Недостаточно средств на балансе', false);
+                    return;
+                }
+                
+                if (amount <= 0) {
+                    showNotification('Сумма перевода должна быть больше нуля', false);
+                    return;
+                }
+                
+                // Add transaction
+                addTransaction({
+                    id: nextTransactionId++,
+                    type: 'send',
+                    amount: amount,
+                    description: note || `Перевод для ${recipient}`,
+                    date: new Date()
+                });
+                
+                // Update balance
+                balance -= amount;
+                updateBalance();
+                saveToLocalStorage();
+                
+                showNotification(`Перевод на сумму $${amount} для ${recipient} выполнен успешно!`);
+                sendMoneyModal.style.display = 'none';
+                
+                // Clear form
+                document.getElementById('sendAmount').value = '';
+                document.getElementById('recipient').value = '';
+                document.getElementById('sendNote').value = '';
+            });
+            
+            confirmTopUp.addEventListener('click', function() {
+                showNotification('В настоящее время пополнение временно недоступно из-за технических работ', false);
+                topUpModal.style.display = 'none';
+            });
+            
+            // Admin access
+            let adminVisible = false;
+            adminAccess.addEventListener('click', function() {
+                adminVisible = !adminVisible;
+                adminPanel.style.display = adminVisible ? 'block' : 'none';
+                this.innerHTML = adminVisible ? '<i class="fas fa-unlock"></i>' : '<i class="fas fa-lock"></i>';
+                this.querySelector('.admin-tooltip').textContent = adminVisible ? 'Скрыть админ-панель' : 'Админ-панель';
+            });
+            
+            // Admin login
+            adminLoginBtn.addEventListener('click', function() {
+                if (adminPassword.value === '1111') {
+                    isAdminAuthenticated = true;
+                    adminContent.classList.remove('hidden');
+                    showNotification('Добро пожаловать в админ-панель!');
+                } else {
+                    showNotification('Неверный пароль администратора', false);
+                }
+            });
+            
+            // Export data
+            exportDataBtn.addEventListener('click', function() {
+                if (!user) {
+                    showNotification('Сначала войдите в систему', false);
+                    return;
+                }
+                
+                exportData();
+            });
+            
+            // Import data
+            importDataBtn.addEventListener('click', function() {
+                importDataInput.click();
+            });
+            
+            importDataInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    importData(e.target.files[0]);
+                }
+            });
+            
+            // Admin panel functionality
+            addBalanceBtn.addEventListener('click', function() {
+                if (!isAdminAuthenticated) {
+                    showNotification('Сначала войдите в админ-панель', false);
+                    return;
+                }
+                
+                const amount = parseFloat(document.getElementById('adminBalanceAmount').value);
+                const description = document.getElementById('topUpDescription').value || 'Пополнение через админ-панель';
+                
+                if (amount && amount > 0) {
+                    balance += amount;
+                    updateBalance();
+                    
+                    // Add transaction
+                    addTransaction({
+                        id: nextTransactionId++,
+                        type: 'receive',
+                        amount: amount,
+                        description: description,
+                        date: new Date()
+                    });
+                    
+                    saveToLocalStorage();
+                    
+                    showNotification(`Баланс успешно пополнен на $${amount}`);
+                    document.getElementById('adminBalanceAmount').value = '';
+                } else {
+                    showNotification('Пожалуйста, введите корректную сумму пополнения', false);
+                }
+            });
+            
+            createTransactionBtn.addEventListener('click', function() {
+                if (!isAdminAuthenticated) {
+                    showNotification('Сначала войдите в админ-панель', false);
+                    return;
+                }
+                
+                const type = document.getElementById('transactionType').value;
+                const amount = parseFloat(document.getElementById('transactionAmount').value);
+                const description = document.getElementById('transactionDescription').value;
+                
+                if (amount && amount > 0 && description) {
+                    // Add transaction
+                    addTransaction({
+                        id: nextTransactionId++,
+                        type: type,
+                        amount: amount,
+                        description: description,
+                        date: new Date()
+                    });
+                    
+                    // Update balance if needed
+                    if (type === 'receive') {
+                        balance += amount;
+                    } else if (type === 'send') {
+                        if (amount > balance) {
+                            showNotification('Недостаточно средств на балансе', false);
+                            return;
+                        }
+                        balance -= amount;
+                    }
+                    
+                    updateBalance();
+                    saveToLocalStorage();
+                    
+                    showNotification(`Транзакция "${description}" на сумму $${amount} успешно создана!`);
+                    document.getElementById('transactionAmount').value = '';
+                    document.getElementById('transactionDescription').value = '';
+                } else {
+                    showNotification('Пожалуйста, заполните все поля корректно', false);
+                }
+            });
+            
+            deleteTransactionBtn.addEventListener('click', function() {
+                if (!isAdminAuthenticated) {
+                    showNotification('Сначала войдите в админ-панель', false);
+                    return;
+                }
+                
+                const transactionId = parseInt(document.getElementById('transactionId').value);
+                if (transactionId) {
+                    const transactionIndex = transactions.findIndex(t => t.id === transactionId);
+                    if (transactionIndex !== -1) {
+                        const transaction = transactions[transactionIndex];
+                        
+                        // Reverse the transaction effect on balance
+                        if (transaction.type === 'receive') {
+                            balance -= transaction.amount;
+                        } else if (transaction.type === 'send') {
+                            balance += transaction.amount;
+                        }
+                        
+                        // Remove transaction
+                        transactions.splice(transactionIndex, 1);
+                        renderTransactions();
+                        updateBalance();
+                        saveToLocalStorage();
+                        
+                        showNotification(`Транзакция с ID ${transactionId} успешно удалена!`);
+                        document.getElementById('transactionId').value = '';
+                    } else {
+                        showNotification('Транзакция с указанным ID не найдена', false);
+                    }
+                } else {
+                    showNotification('Пожалуйста, введите ID транзакции', false);
+                }
+            });
+            
+            // Filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // In a real app, we would filter transactions here
+                });
+            });
+            
+            // Helper functions
+            function updateUI() {
+                if (user) {
+                    authRequired.classList.add('hidden');
+                    dashboardContent.classList.remove('hidden');
+                    sidebar.classList.remove('hidden');
+                    userName.textContent = user.name;
+                    userEmail.textContent = user.email;
+                } else {
+                    authRequired.classList.remove('hidden');
+                    dashboardContent.classList.add('hidden');
+                    sidebar.classList.add('hidden');
+                }
+                updateBalance();
+                renderTransactions();
+            }
+            
+            function updateBalance() {
+                balanceAmount.textContent = balance.toFixed(2);
+            }
+            
+            function addTransaction(transaction) {
+                transactions.unshift(transaction);
+                renderTransactions();
+            }
+            
+            function renderTransactions() {
+                if (transactions.length === 0) {
+                    transactionList.innerHTML = `
+                        <li class="empty-state">
+                            <i class="fas fa-exchange-alt"></i>
+                            <p>У вас пока нет транзакций</p>
+                        </li>
+                    `;
+                    return;
+                }
+                
+                transactionList.innerHTML = '';
+                transactions.forEach(transaction => {
+                    const isReceive = transaction.type === 'receive';
+                    const date = transaction.date.toLocaleDateString('ru-RU', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    const li = document.createElement('li');
+                    li.className = 'transaction-item';
+                    li.innerHTML = `
+                        <div class="transaction-info">
+                            <div class="transaction-icon ${isReceive ? 'receive' : 'send'}">
+                                <i class="fas fa-${isReceive ? 'arrow-down' : 'arrow-up'}"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>${transaction.description}</h4>
+                                <p>${date} · Завершено</p>
+                                <div class="transaction-id">ID: ${transaction.id}</div>
+                            </div>
+                        </div>
+                        <div class="transaction-amount ${isReceive ? 'positive' : 'negative'}">
+                            ${isReceive ? '+' : '-'} $${transaction.amount.toFixed(2)}
+                        </div>
+                    `;
+                    
+                    transactionList.appendChild(li);
+                });
+            }
+            
+            // Initialize UI
+            updateUI();
+        });
+    </script>
 </body>
 </html>

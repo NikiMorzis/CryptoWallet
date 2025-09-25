@@ -19,27 +19,23 @@
             --gray: #94a3b8;
             --gray-dark: #64748b;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
-        
         body {
             background-color: #f1f5f9;
             color: var(--dark);
             line-height: 1.6;
         }
-        
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
         /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -50,13 +46,11 @@
             top: 0;
             z-index: 100;
         }
-        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
         .logo {
             display: flex;
             align-items: center;
@@ -64,34 +58,28 @@
             font-size: 1.5rem;
             font-weight: 700;
         }
-        
         .logo i {
             color: #ffd166;
         }
-        
         nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-        
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.3s;
         }
-        
         nav a:hover {
             opacity: 0.8;
         }
-        
         .user-actions {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
         .btn {
             padding: 10px 20px;
             border-radius: 8px;
@@ -102,37 +90,30 @@
             text-decoration: none;
             display: inline-block;
         }
-        
         .btn-primary {
             background-color: white;
             color: var(--primary);
         }
-        
         .btn-primary:hover {
             background-color: #e6e6e6;
         }
-        
         .btn-outline {
             background-color: transparent;
             border: 1px solid white;
             color: white;
         }
-        
         .btn-outline:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
         /* Main Content */
         .main-content {
             padding: 40px 0;
         }
-        
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 3fr;
             gap: 25px;
         }
-        
         /* Sidebar */
         .sidebar {
             background-color: white;
@@ -141,12 +122,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             height: fit-content;
         }
-        
         .user-profile {
             text-align: center;
             margin-bottom: 25px;
         }
-        
         .user-avatar {
             width: 80px;
             height: 80px;
@@ -159,27 +138,22 @@
             font-size: 2rem;
             margin: 0 auto 15px;
         }
-        
         .user-name {
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
         }
-        
         .user-email {
             color: var(--gray-dark);
             font-size: 0.9rem;
         }
-        
         .sidebar-menu {
             list-style: none;
             margin-bottom: 20px;
         }
-        
         .sidebar-menu li {
             margin-bottom: 10px;
         }
-        
         .sidebar-menu a {
             display: flex;
             align-items: center;
@@ -190,17 +164,14 @@
             border-radius: 8px;
             transition: all 0.3s;
         }
-        
         .sidebar-menu a:hover, .sidebar-menu a.active {
             background-color: #f1f5f9;
             color: var(--primary);
         }
-        
         .sidebar-menu i {
             width: 20px;
             text-align: center;
         }
-        
         /* Dashboard Content */
         .dashboard-content {
             background-color: white;
@@ -208,7 +179,6 @@
             padding: 25px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-        
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -216,7 +186,6 @@
             padding-bottom: 15px;
             border-bottom: 1px solid #e2e8f0;
         }
-        
         /* Balance Card */
         .balance-card {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -225,41 +194,34 @@
             padding: 25px;
             margin-bottom: 25px;
         }
-        
         .balance-title {
             font-size: 1rem;
             margin-bottom: 10px;
             opacity: 0.9;
         }
-        
         .balance-amount {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 20px;
         }
-        
         .balance-actions {
             display: flex;
             gap: 15px;
         }
-        
         .balance-actions .btn {
             flex: 1;
             text-align: center;
         }
-        
         /* Transactions */
         .transactions {
             margin-top: 30px;
         }
-        
         .filters {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        
         .filter-btn {
             padding: 8px 15px;
             background-color: #f1f5f9;
@@ -270,16 +232,13 @@
             transition: all 0.3s;
             font-size: 0.9rem;
         }
-        
         .filter-btn.active {
             background-color: var(--primary);
             color: white;
         }
-        
         .transaction-list {
             list-style: none;
         }
-        
         .transaction-item {
             display: flex;
             justify-content: space-between;
@@ -287,13 +246,11 @@
             padding: 15px 0;
             border-bottom: 1px solid #e2e8f0;
         }
-        
         .transaction-info {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
         .transaction-icon {
             width: 40px;
             height: 40px;
@@ -303,50 +260,40 @@
             justify-content: center;
             color: white;
         }
-        
         .transaction-icon.receive {
             background-color: var(--success);
         }
-        
         .transaction-icon.send {
             background-color: var(--danger);
         }
-        
         .transaction-details h4 {
             font-weight: 600;
             margin-bottom: 5px;
             font-size: 1rem;
         }
-        
         .transaction-details p {
             font-size: 0.85rem;
             color: var(--gray-dark);
         }
-        
         .transaction-amount {
             font-weight: 600;
             text-align: right;
         }
-        
         .transaction-amount.positive {
             color: var(--success);
         }
-        
         .transaction-amount.negative {
             color: var(--danger);
         }
-        
         /* Forms */
         .form-group {
             margin-bottom: 20px;
         }
-        
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
-        
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -355,13 +302,11 @@
             font-size: 1rem;
             transition: all 0.3s;
         }
-        
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(42, 113, 213, 0.2);
         }
-        
         /* Auth Forms */
         .auth-container {
             max-width: 450px;
@@ -371,24 +316,20 @@
             padding: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        
         .auth-header {
             text-align: center;
             margin-bottom: 30px;
             position: relative;
         }
-        
         .auth-title {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--primary);
         }
-        
         .auth-subtitle {
             color: var(--gray-dark);
         }
-        
         /* Admin Panel */
         .admin-panel {
             display: none;
@@ -398,13 +339,11 @@
             margin-top: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-        
         .admin-section {
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #e2e8f0;
         }
-        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -412,13 +351,11 @@
             padding: 40px 0;
             margin-top: 60px;
         }
-        
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
-        
         .footer-logo {
             font-size: 1.8rem;
             font-weight: 700;
@@ -427,36 +364,29 @@
             align-items: center;
             gap: 10px;
         }
-        
         .footer-description {
             color: var(--gray);
             margin-bottom: 20px;
         }
-        
         .footer-heading {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 20px;
         }
-        
         .footer-links {
             list-style: none;
         }
-        
         .footer-links li {
             margin-bottom: 12px;
         }
-        
         .footer-links a {
             color: var(--gray);
             text-decoration: none;
             transition: color 0.3s;
         }
-        
         .footer-links a:hover {
             color: white;
         }
-        
         .copyright {
             text-align: center;
             padding-top: 30px;
@@ -464,50 +394,40 @@
             border-top: 1px solid #334155;
             color: var(--gray);
         }
-        
         /* Responsive Design */
         @media (max-width: 992px) {
             .dashboard {
                 grid-template-columns: 1fr;
             }
-            
             .sidebar {
                 order: 2;
             }
-            
             .dashboard-content {
                 order: 1;
             }
-            
             nav ul {
                 gap: 15px;
             }
         }
-        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 15px;
             }
-            
             nav ul {
                 justify-content: center;
                 flex-wrap: wrap;
             }
-            
             .user-actions {
                 justify-content: center;
             }
-            
             .balance-actions {
                 flex-direction: column;
             }
-            
             .auth-container {
                 margin: 20px;
                 padding: 20px;
             }
-            
             .admin-panel {
                 position: fixed;
                 bottom: 0;
@@ -519,83 +439,57 @@
                 max-height: 80vh;
                 overflow-y: auto;
             }
-            
             .admin-section {
                 margin-bottom: 20px;
                 padding-bottom: 15px;
             }
         }
-        
         @media (max-width: 576px) {
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
             .transaction-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-            
             .transaction-amount {
                 margin-left: 55px;
             }
-            
             .filters {
                 gap: 8px;
             }
-            
             .filter-btn {
                 padding: 6px 10px;
                 font-size: 0.8rem;
             }
         }
-        
-        /* Hidden admin access */
+        /* Hidden admin access - НОВОЕ РАСПОЛОЖЕНИЕ */
         .admin-access {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--dark);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .admin-access:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-        
-        .admin-tooltip {
-            position: absolute;
-            bottom: 60px;
-            right: 0;
-            background-color: var(--dark);
+            position: static; /* Изменил на static */
+            display: inline-block; /* Сделал inline-block */
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            background-color: var(--gray-dark);
             color: white;
             padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s, background-color 0.3s;
+            z-index: 999;
+            box-shadow: none;
+            font-size: 0.9rem;
+            margin-top: 10px; /* Добавил отступ сверху */
         }
-        
-        .admin-access:hover .admin-tooltip {
+        .admin-access:hover {
             opacity: 1;
+            background-color: var(--gray); /* Светлее при наведении */
         }
-        
+        .admin-access i {
+            margin-right: 6px; /* Отступ для иконки */
+        }
         /* Modal */
         .modal {
             display: none;
@@ -609,7 +503,6 @@
             align-items: center;
             justify-content: center;
         }
-        
         .modal-content {
             background-color: white;
             border-radius: 12px;
@@ -620,7 +513,6 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -629,13 +521,11 @@
             padding-bottom: 15px;
             border-bottom: 1px solid #e2e8f0;
         }
-        
         .modal-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary);
         }
-        
         .close-modal {
             background: none;
             border: none;
@@ -643,36 +533,29 @@
             cursor: pointer;
             color: var(--gray-dark);
         }
-        
         /* Utility Classes */
         .text-center {
             text-align: center;
         }
-        
         .mt-20 {
             margin-top: 20px;
         }
-        
         .hidden {
             display: none;
         }
-        
         .empty-state {
             text-align: center;
             padding: 40px 20px;
             color: var(--gray-dark);
         }
-        
         .empty-state i {
             font-size: 3rem;
             margin-bottom: 15px;
             color: var(--gray);
         }
-        
         .empty-state p {
             margin-bottom: 20px;
         }
-        
         .admin-password-form {
             background-color: #f8fafc;
             padding: 20px;
@@ -680,17 +563,14 @@
             margin-bottom: 20px;
             border-left: 4px solid var(--primary);
         }
-        
         .data-actions {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
-        
         .data-actions .btn {
             flex: 1;
         }
-        
         .notification {
             position: fixed;
             top: 20px;
@@ -703,20 +583,16 @@
             transform: translateY(-20px);
             transition: all 0.3s;
         }
-        
         .notification.show {
             opacity: 1;
             transform: translateY(0);
         }
-        
         .notification.success {
             background-color: var(--success);
         }
-        
         .notification.error {
             background-color: var(--danger);
         }
-        
         .logout-btn {
             background-color: #f8fafc;
             color: var(--danger);
@@ -731,16 +607,13 @@
             width: 100%;
             text-align: left;
         }
-        
         .logout-btn:hover {
             background-color: #fee2e2;
             color: var(--danger);
         }
-        
         .close-admin-panel {
             display: none;
         }
-        
         @media (max-width: 768px) {
             .close-admin-panel {
                 display: block;
@@ -759,7 +632,6 @@
 <body>
     <!-- Notification -->
     <div class="notification hidden" id="notification"></div>
-    
     <!-- Header -->
     <header>
         <div class="container">
@@ -768,7 +640,6 @@
                     <i class="fas fa-coins"></i>
                     <span>CryptoWallet+</span>
                 </div>
-                
                 <nav>
                     <ul>
                         <li><a href="#" class="active">Главная</a></li>
@@ -778,7 +649,6 @@
                         <li><a href="#">Поддержка</a></li>
                     </ul>
                 </nav>
-                
                 <div class="user-actions" id="userActions">
                     <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
                     <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
@@ -786,7 +656,6 @@
             </div>
         </div>
     </header>
-    
     <!-- Main Content -->
     <div class="container main-content">
         <div class="dashboard">
@@ -798,7 +667,6 @@
                     <div class="user-name" id="userName">Алексей Петров</div>
                     <div class="user-email" id="userEmail">alexey@example.com</div>
                 </div>
-                
                 <ul class="sidebar-menu">
                     <li><a href="#" class="active"><i class="fas fa-home"></i> Обзор</a></li>
                     <li><a href="#"><i class="fas fa-wallet"></i> Кошелек</a></li>
@@ -808,12 +676,10 @@
                     <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
-                
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
                 </button>
             </aside>
-            
             <main class="dashboard-content">
                 <div id="authRequired">
                     <div class="empty-state">
@@ -826,10 +692,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <div id="dashboardContent" class="hidden">
                     <h2 class="section-title">Обзор кошелька</h2>
-                    
                     <div class="balance-card">
                         <div class="balance-title">Общий баланс</div>
                         <div class="balance-amount">$ <span id="balanceAmount">0.00</span></div>
@@ -838,10 +702,8 @@
                             <a href="#" class="btn btn-outline" id="sendMoneyBtn">Перевести</a>
                         </div>
                     </div>
-                    
                     <div class="transactions">
                         <h3 class="section-title">Последние транзакции</h3>
-                        
                         <div class="filters">
                             <button class="filter-btn active">Все</button>
                             <button class="filter-btn">Входящие</button>
@@ -849,7 +711,6 @@
                             <button class="filter-btn">За месяц</button>
                             <button class="filter-btn">За неделю</button>
                         </div>
-                        
                         <ul class="transaction-list" id="transactionList">
                             <li class="empty-state">
                                 <i class="fas fa-exchange-alt"></i>
@@ -857,12 +718,10 @@
                             </li>
                         </ul>
                     </div>
-                    
                     <!-- Admin Panel (hidden by default) -->
                     <div class="admin-panel" id="adminPanel">
                         <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
                         <h3 class="section-title">Админ панель</h3>
-                        
                         <div class="admin-password-form">
                             <h4>Доступ к админ-панели</h4>
                             <div class="form-group">
@@ -871,7 +730,6 @@
                             </div>
                             <button class="btn btn-primary" id="adminLoginBtn">Войти в админ-панель</button>
                         </div>
-                        
                         <div id="adminContent" class="hidden">
                             <div class="admin-section">
                                 <h4>Управление балансом</h4>
@@ -885,7 +743,6 @@
                                 </div>
                                 <button class="btn btn-primary" id="addBalanceBtn">Пополнить баланс</button>
                             </div>
-                            
                             <div class="admin-section">
                                 <h4>Создать транзакцию</h4>
                                 <div class="form-group">
@@ -905,7 +762,6 @@
                                 </div>
                                 <button class="btn btn-primary" id="createTransactionBtn">Создать транзакцию</button>
                             </div>
-                            
                             <div class="admin-section">
                                 <h4>Управление транзакциями</h4>
                                 <div class="form-group">
@@ -914,7 +770,6 @@
                                 </div>
                                 <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
                             </div>
-                            
                             <div class="admin-section">
                                 <h4>Управление данными</h4>
                                 <p>Экспортируйте или импортируйте данные вашего профиля для переноса на другие устройства</p>
@@ -934,7 +789,6 @@
             </main>
         </div>
     </div>
-    
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -946,7 +800,6 @@
                     </div>
                     <p class="footer-description">Ваш надежный и безопасный криптовалютный кошелек для повседневного использования и инвестиций.</p>
                 </div>
-                
                 <div>
                     <h4 class="footer-heading">Продукты</h4>
                     <ul class="footer-links">
@@ -956,7 +809,6 @@
                         <li><a href="#">Инвестиции</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
@@ -966,7 +818,6 @@
                         <li><a href="#">Состояние системы</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="footer-heading">Компания</h4>
                     <ul class="footer-links">
@@ -974,22 +825,18 @@
                         <li><a href="#">Блог</a></li>
                         <li><a href="#">Вакансии</a></li>
                         <li><a href="#">Партнерская программа</a></li>
+                        <!-- НОВАЯ КНОПКА АДМИН-ПАНЕЛИ -->
+                        <li><div class="admin-access" id="adminAccess">
+                            <i class="fas fa-lock"></i> Админ-панель
+                        </div></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="copyright">
                 &copy; 2023 CryptoWallet+. Все права защищены.
             </div>
         </div>
     </footer>
-    
-    <!-- Hidden Admin Access Button -->
-    <div class="admin-access" id="adminAccess">
-        <i class="fas fa-lock"></i>
-        <div class="admin-tooltip">Админ-панель</div>
-    </div>
-    
     <!-- Modals -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
@@ -1013,7 +860,6 @@
             </p>
         </div>
     </div>
-    
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1044,7 +890,6 @@
             </p>
         </div>
     </div>
-    
     <div class="modal" id="topUpModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1064,7 +909,6 @@
                 </select>
             </div>
             <button class="btn btn-primary" style="width: 100%;" id="confirmTopUp">Пополнить</button>
-            
             <div class="mt-20" style="padding: 15px; background-color: #ffecb3; border-radius: 8px;">
                 <p style="color: #ff9800; margin: 0;">
                     <i class="fas fa-exclamation-circle"></i> В настоящее время пополнение временно недоступно из-за технических работ. Приносим извинения за неудобства.
@@ -1072,7 +916,6 @@
             </div>
         </div>
     </div>
-    
     <div class="modal" id="sendMoneyModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1105,7 +948,6 @@
             </form>
         </div>
     </div>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // State management
@@ -1113,7 +955,6 @@
             let balance = 0;
             let transactions = [];
             let isAdminAuthenticated = false;
-            
             // Elements
             const loginBtn = document.getElementById('loginBtn');
             const loginBtn2 = document.getElementById('loginBtn2');
@@ -1140,36 +981,28 @@
             const userActions = document.getElementById('userActions');
             const logoutBtn = document.getElementById('logoutBtn');
             const closeAdminPanel = document.getElementById('closeAdminPanel');
-            
             const loginModal = document.getElementById('loginModal');
             const registerModal = document.getElementById('registerModal');
             const topUpModal = document.getElementById('topUpModal');
             const sendMoneyModal = document.getElementById('sendMoneyModal');
-            
             const closeModalButtons = document.querySelectorAll('.close-modal');
             const goToRegister = document.getElementById('goToRegister');
             const goToLogin = document.getElementById('goToLogin');
-            
             const confirmTopUp = document.getElementById('confirmTopUp');
-            
             // Admin panel elements
             const addBalanceBtn = document.getElementById('addBalanceBtn');
             const createTransactionBtn = document.getElementById('createTransactionBtn');
             const deleteTransactionBtn = document.getElementById('deleteTransactionBtn');
-            
             // Загрузка данных из localStorage при запуске
             loadFromLocalStorage();
-            
             // Показать уведомление
             function showNotification(message, isSuccess = true) {
                 notification.textContent = message;
                 notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
-                
                 setTimeout(() => {
                     notification.className = 'notification hidden';
                 }, 3000);
             }
-            
             // Сохранение данных в localStorage
             function saveToLocalStorage() {
                 const data = {
@@ -1177,21 +1010,17 @@
                     balance: balance,
                     transactions: transactions
                 };
-                
                 localStorage.setItem('cryptoWalletData', JSON.stringify(data));
             }
-            
             // Загрузка данных из localStorage
             function loadFromLocalStorage() {
                 const savedData = localStorage.getItem('cryptoWalletData');
-                
                 if (savedData) {
                     try {
                         const data = JSON.parse(savedData);
                         user = data.user;
                         balance = data.balance || 0;
                         transactions = data.transactions || [];
-                        
                         if (user) {
                             updateUI();
                         }
@@ -1200,7 +1029,6 @@
                     }
                 }
             }
-            
             // Экспорт данных
             function exportData() {
                 const data = {
@@ -1209,10 +1037,8 @@
                     transactions: transactions,
                     exportDate: new Date().toISOString()
                 };
-                
                 const dataStr = JSON.stringify(data, null, 2);
                 const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                
                 const url = URL.createObjectURL(dataBlob);
                 const link = document.createElement('a');
                 link.href = url;
@@ -1221,26 +1047,20 @@
                 link.click();
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
-                
                 showNotification('Данные успешно экспортированы');
             }
-            
             // Импорт данных
             function importData(file) {
                 const reader = new FileReader();
-                
                 reader.onload = function(e) {
                     try {
                         const data = JSON.parse(e.target.result);
-                        
                         if (data.user && data.balance !== undefined && data.transactions) {
                             user = data.user;
                             balance = data.balance;
                             transactions = data.transactions;
-                            
                             saveToLocalStorage();
                             updateUI();
-                            
                             showNotification('Данные успешно импортированы');
                         } else {
                             showNotification('Неверный формат файла', false);
@@ -1250,41 +1070,33 @@
                         showNotification('Ошибка при импорте данных', false);
                     }
                 };
-                
                 reader.readAsText(file);
             }
-            
             // Open modals
             loginBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 loginModal.style.display = 'flex';
             });
-            
             loginBtn2.addEventListener('click', function(e) {
                 e.preventDefault();
                 loginModal.style.display = 'flex';
             });
-            
             registerBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 registerModal.style.display = 'flex';
             });
-            
             registerBtn2.addEventListener('click', function(e) {
                 e.preventDefault();
                 registerModal.style.display = 'flex';
             });
-            
             topUpBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 topUpModal.style.display = 'flex';
             });
-            
             sendMoneyBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 sendMoneyModal.style.display = 'flex';
             });
-            
             // Close modals
             closeModalButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -1294,25 +1106,21 @@
                     sendMoneyModal.style.display = 'none';
                 });
             });
-            
             // Close admin panel on mobile
             closeAdminPanel.addEventListener('click', function() {
                 adminPanel.style.display = 'none';
             });
-            
             // Switch between login and register modals
             goToRegister.addEventListener('click', function(e) {
                 e.preventDefault();
                 loginModal.style.display = 'none';
                 registerModal.style.display = 'flex';
             });
-            
             goToLogin.addEventListener('click', function(e) {
                 e.preventDefault();
                 registerModal.style.display = 'none';
                 loginModal.style.display = 'flex';
             });
-            
             // Close modal when clicking outside
             window.addEventListener('click', function(e) {
                 if (e.target === loginModal) loginModal.style.display = 'none';
@@ -1320,7 +1128,6 @@
                 if (e.target === topUpModal) topUpModal.style.display = 'none';
                 if (e.target === sendMoneyModal) sendMoneyModal.style.display = 'none';
             });
-            
             // Logout function
             logoutBtn.addEventListener('click', function() {
                 user = null;
@@ -1330,71 +1137,57 @@
                 updateUI();
                 showNotification('Вы вышли из системы');
             });
-            
             // Form submissions
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const email = document.getElementById('loginEmail').value;
                 const password = document.getElementById('loginPassword').value;
-                
                 // Simple demo login (no real auth)
                 user = {
                     name: email.split('@')[0],
                     email: email
                 };
-                
                 saveToLocalStorage();
                 updateUI();
                 loginModal.style.display = 'none';
-                
                 showNotification('Вход выполнен успешно!');
             });
-            
             document.getElementById('registerForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const name = document.getElementById('registerName').value;
                 const email = document.getElementById('registerEmail').value;
                 const password = document.getElementById('registerPassword').value;
                 const confirmPassword = document.getElementById('registerConfirmPassword').value;
-                
                 if (password !== confirmPassword) {
                     showNotification('Пароли не совпадают', false);
                     return;
                 }
-                
                 // Simple demo registration (no real auth)
                 user = {
                     name: name,
                     email: email
                 };
-                
                 // Начальный баланс 0
                 balance = 0;
                 transactions = [];
-                
                 saveToLocalStorage();
                 updateUI();
                 registerModal.style.display = 'none';
-                
                 showNotification('Регистрация прошла успешно!');
             });
-            
             document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const amount = parseFloat(document.getElementById('sendAmount').value);
                 const recipient = document.getElementById('recipient').value;
                 const note = document.getElementById('sendNote').value;
-                
                 if (amount > balance) {
                     showNotification('Недостаточно средств на балансе', false);
                     return;
                 }
-                
                 if (amount <= 0) {
                     showNotification('Сумма перевода должна быть больше нуля', false);
                     return;
                 }
-                
                 // Add transaction
                 addTransaction({
                     type: 'send',
@@ -1402,35 +1195,33 @@
                     description: note || `Перевод для ${recipient}`,
                     date: new Date()
                 });
-                
                 // Update balance
                 balance -= amount;
                 updateBalance();
                 saveToLocalStorage();
-                
                 showNotification(`Перевод на сумму $${amount} для ${recipient} выполнен успешно!`);
                 sendMoneyModal.style.display = 'none';
-                
                 // Clear form
                 document.getElementById('sendAmount').value = '';
                 document.getElementById('recipient').value = '';
                 document.getElementById('sendNote').value = '';
             });
-            
             confirmTopUp.addEventListener('click', function() {
                 showNotification('В настоящее время пополнение временно недоступно из-за технических работ', false);
                 topUpModal.style.display = 'none';
             });
-            
-            // Admin access
-            let adminVisible = false;
+            // Admin access - НОВАЯ ЛОГИКА
             adminAccess.addEventListener('click', function() {
-                adminVisible = !adminVisible;
-                adminPanel.style.display = adminVisible ? 'block' : 'none';
-                this.innerHTML = adminVisible ? '<i class="fas fa-unlock"></i>' : '<i class="fas fa-lock"></i>';
-                this.querySelector('.admin-tooltip').textContent = adminVisible ? 'Скрыть админ-панель' : 'Админ-панель';
+                // Показываем админ-панель (на десктопе она появляется под "Компания", на мобиле - как модал)
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile) {
+                    adminPanel.style.display = 'block';
+                } else {
+                    adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+                }
+                // Обновляем иконку (необязательно, если не используем иконку внутри кнопки)
+                // this.innerHTML = adminVisible ? '<i class="fas fa-unlock"></i> Скрыть' : '<i class="fas fa-lock"></i> Показать';
             });
-            
             // Admin login
             adminLoginBtn.addEventListener('click', function() {
                 if (adminPassword.value === '1111') {
@@ -1441,42 +1232,34 @@
                     showNotification('Неверный пароль администратора', false);
                 }
             });
-            
             // Export data
             exportDataBtn.addEventListener('click', function() {
                 if (!user) {
                     showNotification('Сначала войдите в систему', false);
                     return;
                 }
-                
                 exportData();
             });
-            
             // Import data
             importDataBtn.addEventListener('click', function() {
                 importDataInput.click();
             });
-            
             importDataInput.addEventListener('change', function(e) {
                 if (e.target.files.length > 0) {
                     importData(e.target.files[0]);
                 }
             });
-            
             // Admin panel functionality
             addBalanceBtn.addEventListener('click', function() {
                 if (!isAdminAuthenticated) {
                     showNotification('Сначала войдите в админ-панель', false);
                     return;
                 }
-                
                 const amount = parseFloat(document.getElementById('adminBalanceAmount').value);
                 const description = document.getElementById('topUpDescription').value || 'Пополнение через админ-панель';
-                
                 if (amount && amount > 0) {
                     balance += amount;
                     updateBalance();
-                    
                     // Add transaction
                     addTransaction({
                         type: 'receive',
@@ -1484,26 +1267,21 @@
                         description: description,
                         date: new Date()
                     });
-                    
                     saveToLocalStorage();
-                    
                     showNotification(`Баланс успешно пополнен на $${amount}`);
                     document.getElementById('adminBalanceAmount').value = '';
                 } else {
                     showNotification('Пожалуйста, введите корректную сумму пополнения', false);
                 }
             });
-            
             createTransactionBtn.addEventListener('click', function() {
                 if (!isAdminAuthenticated) {
                     showNotification('Сначала войдите в админ-панель', false);
                     return;
                 }
-                
                 const type = document.getElementById('transactionType').value;
                 const amount = parseFloat(document.getElementById('transactionAmount').value);
                 const description = document.getElementById('transactionDescription').value;
-                
                 if (amount && amount > 0 && description) {
                     // Add transaction
                     addTransaction({
@@ -1512,7 +1290,6 @@
                         description: description,
                         date: new Date()
                     });
-                    
                     // Update balance if needed
                     if (type === 'receive') {
                         balance += amount;
@@ -1523,10 +1300,8 @@
                         }
                         balance -= amount;
                     }
-                    
                     updateBalance();
                     saveToLocalStorage();
-                    
                     showNotification(`Транзакция "${description}" на сумму $${amount} успешно создана!`);
                     document.getElementById('transactionAmount').value = '';
                     document.getElementById('transactionDescription').value = '';
@@ -1534,38 +1309,31 @@
                     showNotification('Пожалуйста, заполните все поля корректно', false);
                 }
             });
-            
             deleteTransactionBtn.addEventListener('click', function() {
                 if (!isAdminAuthenticated) {
                     showNotification('Сначала войдите в админ-панель', false);
                     return;
                 }
-                
                 const transactionIndex = parseInt(document.getElementById('transactionIndex').value) - 1;
-                
                 if (transactionIndex >= 0 && transactionIndex < transactions.length) {
                     const transaction = transactions[transactionIndex];
-                    
                     // Reverse the transaction effect on balance
                     if (transaction.type === 'receive') {
                         balance -= transaction.amount;
                     } else if (transaction.type === 'send') {
                         balance += transaction.amount;
                     }
-                    
                     // Remove transaction
                     transactions.splice(transactionIndex, 1);
                     renderTransactions();
                     updateBalance();
                     saveToLocalStorage();
-                    
                     showNotification(`Транзакция №${transactionIndex + 1} успешно удалена!`);
                     document.getElementById('transactionIndex').value = '';
                 } else {
                     showNotification('Транзакция с указанным номером не найдена', false);
                 }
             });
-            
             // Filter buttons
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
@@ -1575,7 +1343,6 @@
                     // In a real app, we would filter transactions here
                 });
             });
-            
             // Helper functions
             function updateUI() {
                 if (user) {
@@ -1584,13 +1351,11 @@
                     sidebar.classList.remove('hidden');
                     userName.textContent = user.name;
                     userEmail.textContent = user.email;
-                    
                     // Hide login/register buttons, show user info
                     userActions.innerHTML = `
                         <span style="color: white;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
-                    
                     document.getElementById('headerLogoutBtn').addEventListener('click', function() {
                         user = null;
                         balance = 0;
@@ -1603,19 +1368,16 @@
                     authRequired.classList.remove('hidden');
                     dashboardContent.classList.add('hidden');
                     sidebar.classList.add('hidden');
-                    
                     // Show login/register buttons
                     userActions.innerHTML = `
                         <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
                         <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
                     `;
-                    
                     // Reattach event listeners
                     document.getElementById('loginBtn').addEventListener('click', function(e) {
                         e.preventDefault();
                         loginModal.style.display = 'flex';
                     });
-                    
                     document.getElementById('registerBtn').addEventListener('click', function(e) {
                         e.preventDefault();
                         registerModal.style.display = 'flex';
@@ -1624,16 +1386,13 @@
                 updateBalance();
                 renderTransactions();
             }
-            
             function updateBalance() {
                 balanceAmount.textContent = balance.toFixed(2);
             }
-            
             function addTransaction(transaction) {
                 transactions.unshift(transaction);
                 renderTransactions();
             }
-            
             function renderTransactions() {
                 if (transactions.length === 0) {
                     transactionList.innerHTML = `
@@ -1644,7 +1403,6 @@
                     `;
                     return;
                 }
-                
                 transactionList.innerHTML = '';
                 transactions.forEach((transaction, index) => {
                     const isReceive = transaction.type === 'receive';
@@ -1655,7 +1413,6 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     });
-                    
                     const li = document.createElement('li');
                     li.className = 'transaction-item';
                     li.innerHTML = `
@@ -1672,11 +1429,9 @@
                             ${isReceive ? '+' : '-'} $${transaction.amount.toFixed(2)}
                         </div>
                     `;
-                    
                     transactionList.appendChild(li);
                 });
             }
-            
             // Initialize UI
             updateUI();
         });

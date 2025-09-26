@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoWallet+ | Ваш надежный криптокошелёк</title>
+    <title>Annalith | Ваш надежный цифровой кошелёк</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2a71d5;
-            --primary-dark: #1a5bb9;
-            --secondary: #7e57c2;
-            --success: #4caf50;
-            --danger: #f44336;
-            --warning: #ff9800;
-            --dark: #1e293b;
+            /* Основные цвета Annalith */
+            --primary: #6a11cb; /* Градиент начало */
+            --primary-dark: #2575fc; /* Градиент конец */
+            --secondary: #ff6b6b; /* Акцентный цвет */
+            --accent: #4cc9f0; /* Дополнительный акцент */
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3748;
             --light: #f8fafc;
-            --gray: #94a3b8;
-            --gray-dark: #64748b;
+            --gray: #a0aec0;
+            --gray-dark: #718096;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
         }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', 'Inter', sans-serif; /* Обновлен шрифт */
         }
         body {
-            background-color: #f1f5f9;
-            color: var(--dark);
+            background-color: var(--bg-light);
+            color: var(--text-primary);
             line-height: 1.6;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Легкий фоновый градиент */
+            min-height: 100vh;
+            padding-bottom: 40px; /* Для footer */
         }
         .container {
             width: 100%;
@@ -41,10 +50,11 @@
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .header-content {
             display: flex;
@@ -54,186 +64,234 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
+            gap: 12px; /* Увеличил отступ */
+            font-size: 1.7rem; /* Увеличил размер */
             font-weight: 700;
+            letter-spacing: -0.5px; /* Немного сближенные буквы */
         }
         .logo i {
             color: #ffd166;
+            font-size: 1.8rem; /* Увеличил иконку */
         }
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 28px; /* Увеличил отступ между пунктами */
         }
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: opacity 0.3s;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
         }
         nav a:hover {
-            opacity: 0.8;
+            color: #ffd166;
+            transform: translateY(-2px); /* Легкий подъем при наведении */
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd166;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
         }
         .user-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px; /* Увеличил отступ */
         }
         .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px; /* Увеличил паддинги */
+            border-radius: 10px; /* Более закругленные */
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .btn-primary {
-            background-color: white;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
         }
         .btn-primary:hover {
-            background-color: #e6e6e6;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
         .btn-outline {
             background-color: transparent;
-            border: 1px solid white;
+            border: 2px solid white; /* Более толстая граница */
             color: white;
         }
         .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #ffd166;
+            color: #ffd166;
+            transform: translateY(-2px);
         }
         /* Main Content */
         .main-content {
-            padding: 40px 0;
+            padding: 50px 0; /* Увеличил вертикальный отступ */
         }
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 3fr;
-            gap: 25px;
+            gap: 30px; /* Увеличил отступ */
         }
         /* Sidebar */
         .sidebar {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background-color: var(--card-bg);
+            border-radius: 16px; /* Более закругленные */
+            padding: 30px; /* Увеличил паддинги */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Более мягкая тень */
             height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .user-profile {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px; /* Увеличил отступ */
         }
         .user-avatar {
-            width: 80px;
-            height: 80px;
+            width: 100px; /* Увеличил аватар */
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 15px;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 15px rgba(106, 17, 203, 0.3);
         }
         .user-name {
             font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.4rem; /* Увеличил размер */
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
         .user-email {
-            color: var(--gray-dark);
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 1rem; /* Увеличил размер */
         }
         .sidebar-menu {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Увеличил отступ */
         }
         .sidebar-menu li {
-            margin-bottom: 10px;
+            margin-bottom: 12px; /* Увеличил отступ */
         }
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            color: var(--dark);
+            gap: 15px; /* Увеличил отступ */
+            padding: 14px 18px; /* Увеличил паддинги */
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
+            border-radius: 10px; /* Более закругленные */
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #f1f5f9;
+            background-color: rgba(106, 17, 203, 0.1); /* Цвет фона при наведении */
             color: var(--primary);
+            transform: translateX(5px); /* Легкое смещение */
         }
         .sidebar-menu i {
-            width: 20px;
+            width: 24px; /* Увеличил ширину иконки */
             text-align: center;
+            font-size: 1.1rem;
         }
         /* Dashboard Content */
         .dashboard-content {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background-color: var(--card-bg);
+            border-radius: 16px; /* Более закругленные */
+            padding: 30px; /* Увеличил паддинги */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Более мягкая тень */
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.7rem; /* Увеличил размер */
+            font-weight: 700;
+            margin-bottom: 30px; /* Увеличил отступ */
+            padding-bottom: 18px;
+            border-bottom: 2px solid #edf2f7;
+            color: var(--text-primary);
         }
         /* Balance Card */
         .balance-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
+            border-radius: 16px; /* Более закругленные */
+            padding: 35px; /* Увеличил паддинги */
+            margin-bottom: 30px; /* Увеличил отступ */
+            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .balance-card:hover {
+            transform: translateY(-5px); /* Подъем при наведении */
         }
         .balance-title {
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 12px; /* Увеличил отступ */
             opacity: 0.9;
+            font-weight: 500;
         }
         .balance-amount {
-            font-size: 2.5rem;
+            font-size: 3rem; /* Увеличил размер */
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Увеличил отступ */
+            letter-spacing: -1px; /* Более плотные цифры */
         }
         .balance-actions {
             display: flex;
-            gap: 15px;
+            gap: 20px; /* Увеличил отступ */
         }
         .balance-actions .btn {
             flex: 1;
             text-align: center;
+            padding: 14px 20px; /* Увеличил паддинги */
+            font-weight: 600;
+        }
+        .balance-actions .btn-outline {
+            border: 2px solid white; /* Более толстая граница */
         }
         /* Transactions */
         .transactions {
-            margin-top: 30px;
+            margin-top: 35px; /* Увеличил отступ */
         }
         .filters {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px; /* Увеличил отступ */
+            margin-bottom: 25px; /* Увеличил отступ */
             flex-wrap: wrap;
         }
         .filter-btn {
-            padding: 8px 15px;
-            background-color: #f1f5f9;
+            padding: 10px 20px; /* Увеличил паддинги */
+            background-color: #edf2f7;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px; /* Более закругленные */
             cursor: pointer;
             font-weight: 500;
-            transition: all 0.3s;
-            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .filter-btn:hover {
+            background-color: #e2e8f0;
         }
         .filter-btn.active {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
         }
         .transaction-list {
@@ -243,41 +301,48 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0; /* Увеличил вертикальный паддинг */
+            border-bottom: 1px solid #edf2f7;
+            transition: background-color 0.2s ease;
+        }
+        .transaction-item:hover {
+            background-color: #f9fafb;
         }
         .transaction-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px; /* Увеличил отступ */
         }
         .transaction-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px; /* Увеличил иконку */
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
         }
         .transaction-icon.receive {
-            background-color: var(--success);
+            background: linear-gradient(135deg, var(--success), #27ae60);
         }
         .transaction-icon.send {
-            background-color: var(--danger);
+            background: linear-gradient(135deg, var(--danger), #c0392b);
         }
         .transaction-details h4 {
             font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 1rem;
+            margin-bottom: 6px; /* Увеличил отступ */
+            font-size: 1.1rem;
+            color: var(--text-primary);
         }
         .transaction-details p {
-            font-size: 0.85rem;
-            color: var(--gray-dark);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
         .transaction-amount {
-            font-weight: 600;
+            font-weight: 700;
             text-align: right;
+            font-size: 1.1rem;
         }
         .transaction-amount.positive {
             color: var(--success);
@@ -287,112 +352,126 @@
         }
         /* Forms */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px; /* Увеличил отступ */
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px; /* Увеличил отступ */
             font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 14px 18px; /* Увеличил паддинги */
+            border: 1px solid #cbd5e0;
+            border-radius: 10px; /* Более закругленные */
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
         }
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(42, 113, 213, 0.2);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
         }
         /* Auth Forms */
         .auth-container {
-            max-width: 450px;
-            margin: 40px auto;
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 500px; /* Увеличил ширину */
+            margin: 50px auto; /* Увеличил отступ */
+            background-color: var(--card-bg);
+            border-radius: 16px; /* Более закругленные */
+            padding: 40px; /* Увеличил паддинги */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .auth-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px; /* Увеличил отступ */
             position: relative;
         }
         .auth-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem; /* Увеличил размер */
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px; /* Увеличил отступ */
             color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .auth-subtitle {
-            color: var(--gray-dark);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
         /* Admin Panel */
         .admin-panel {
             display: none;
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background-color: var(--card-bg);
+            border-radius: 16px; /* Более закругленные */
+            padding: 30px;
+            margin-top: 35px; /* Увеличил отступ */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .admin-section {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 35px; /* Увеличил отступ */
+            padding-bottom: 25px;
+            border-bottom: 1px solid #edf2f7;
         }
         /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 40px 0;
+            padding: 50px 0 20px; /* Увеличил верхний отступ */
             margin-top: 60px;
         }
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 35px; /* Увеличил отступ */
         }
         .footer-logo {
-            font-size: 1.8rem;
+            font-size: 2rem; /* Увеличил размер */
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 18px; /* Увеличил отступ */
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .footer-description {
             color: var(--gray);
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Увеличил отступ */
+            font-size: 0.95rem;
         }
         .footer-heading {
-            font-size: 1.2rem;
+            font-size: 1.3rem; /* Увеличил размер */
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 22px; /* Увеличил отступ */
         }
         .footer-links {
             list-style: none;
         }
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 14px; /* Увеличил отступ */
         }
         .footer-links a {
             color: var(--gray);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
         }
         .footer-links a:hover {
             color: white;
         }
         .copyright {
             text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid #334155;
+            padding-top: 35px; /* Увеличил отступ */
+            margin-top: 35px; /* Увеличил отступ */
+            border-top: 1px solid #4a5568;
             color: var(--gray);
+            font-size: 0.9rem;
         }
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -401,18 +480,19 @@
             }
             .sidebar {
                 order: 2;
+                margin-top: 30px;
             }
             .dashboard-content {
                 order: 1;
             }
             nav ul {
-                gap: 15px;
+                gap: 20px;
             }
         }
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
             }
             nav ul {
                 justify-content: center;
@@ -425,23 +505,23 @@
                 flex-direction: column;
             }
             .auth-container {
-                margin: 20px;
-                padding: 20px;
+                margin: 30px 20px; /* Уменьшил боковые отступы */
+                padding: 30px;
             }
             .admin-panel {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                border-radius: 12px 12px 0 0;
+                border-radius: 16px 16px 0 0;
                 margin-top: 0;
                 z-index: 1000;
                 max-height: 80vh;
                 overflow-y: auto;
             }
             .admin-section {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
+                margin-bottom: 25px;
+                padding-bottom: 20px;
             }
         }
         @media (max-width: 576px) {
@@ -452,43 +532,46 @@
             .transaction-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 15px;
             }
             .transaction-amount {
-                margin-left: 55px;
+                margin-left: 70px; /* Увеличил отступ для суммы */
             }
             .filters {
-                gap: 8px;
+                gap: 10px;
             }
             .filter-btn {
-                padding: 6px 10px;
-                font-size: 0.8rem;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .balance-actions .btn {
+                padding: 12px 15px;
             }
         }
-        /* Hidden admin access - НОВОЕ РАСПОЛОЖЕНИЕ */
+        /* Hidden admin access */
         .admin-access {
-            position: static; /* Изменил на static */
-            display: inline-block; /* Сделал inline-block */
+            position: static;
+            display: inline-block;
             width: auto;
             height: auto;
-            border-radius: 8px;
-            background-color: var(--gray-dark);
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--gray-dark), var(--gray));
             color: white;
-            padding: 8px 12px;
+            padding: 10px 15px;
             cursor: pointer;
             opacity: 0.9;
-            transition: opacity 0.3s, background-color 0.3s;
+            transition: opacity 0.3s ease, background 0.3s ease;
             z-index: 999;
-            box-shadow: none;
-            font-size: 0.9rem;
-            margin-top: 10px; /* Добавил отступ сверху */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.95rem;
+            margin-top: 12px;
         }
         .admin-access:hover {
             opacity: 1;
-            background-color: var(--gray); /* Светлее при наведении */
+            background: linear-gradient(135deg, var(--gray), var(--gray-dark));
         }
         .admin-access i {
-            margin-right: 6px; /* Отступ для иконки */
+            margin-right: 8px;
         }
         /* Modal */
         .modal {
@@ -498,40 +581,55 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6); /* Более темный оверлей */
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.3s ease; /* Анимация появления */
+        }
+         @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .modal-content {
-            background-color: white;
-            border-radius: 12px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
             width: 100%;
-            max-width: 500px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 550px; /* Увеличил ширину */
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
             max-height: 90vh;
             overflow-y: auto;
+            animation: scaleIn 0.3s ease; /* Анимация масштаба */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+         @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 25px; /* Увеличил отступ */
+            padding-bottom: 18px;
+            border-bottom: 1px solid #edf2f7;
         }
         .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.6rem; /* Увеличил размер */
+            font-weight: 700;
             color: var(--primary);
         }
         .close-modal {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: var(--gray-dark);
+            transition: color 0.3s ease;
+        }
+        .close-modal:hover {
+            color: var(--danger);
         }
         /* Utility Classes */
         .text-center {
@@ -545,28 +643,29 @@
         }
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
-            color: var(--gray-dark);
+            padding: 50px 20px; /* Увеличил паддинги */
+            color: var(--text-secondary);
         }
         .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 4rem; /* Увеличил иконку */
+            margin-bottom: 20px;
             color: var(--gray);
         }
         .empty-state p {
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Увеличил отступ */
+            font-size: 1.1rem;
         }
         .admin-password-form {
             background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary);
         }
         .data-actions {
             display: flex;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 20px; /* Увеличил отступ */
+            margin-top: 20px;
         }
         .data-actions .btn {
             flex: 1;
@@ -575,41 +674,45 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 15px 20px;
-            border-radius: 8px;
+            padding: 16px 24px; /* Увеличил паддинги */
+            border-radius: 10px; /* Более закругленные */
             color: white;
             z-index: 1000;
             opacity: 0;
             transform: translateY(-20px);
-            transition: all 0.3s;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         .notification.show {
             opacity: 1;
             transform: translateY(0);
         }
         .notification.success {
-            background-color: var(--success);
+            background: linear-gradient(135deg, var(--success), #27ae60);
         }
         .notification.error {
-            background-color: var(--danger);
+            background: linear-gradient(135deg, var(--danger), #c0392b);
         }
         .logout-btn {
-            background-color: #f8fafc;
+            background-color: #fff5f5;
             color: var(--danger);
-            border: 1px solid #e2e8f0;
-            padding: 10px 15px;
-            border-radius: 8px;
+            border: 2px solid #fed7d7;
+            padding: 12px 18px; /* Увеличил паддинги */
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             width: 100%;
             text-align: left;
+            font-weight: 500;
         }
         .logout-btn:hover {
-            background-color: #fee2e2;
+            background-color: #fed7d7;
             color: var(--danger);
+            border-color: #feb2b2;
         }
         .close-admin-panel {
             display: none;
@@ -622,10 +725,14 @@
                 right: 15px;
                 background: none;
                 border: none;
-                font-size: 1.5rem;
+                font-size: 1.8rem;
                 color: var(--gray-dark);
                 cursor: pointer;
+                transition: color 0.3s ease;
             }
+             .close-admin-panel:hover {
+                 color: var(--danger);
+             }
         }
     </style>
 </head>
@@ -637,8 +744,8 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <i class="fas fa-coins"></i>
-                    <span>CryptoWallet+</span>
+                    <i class="fas fa-gem"></i> <!-- Сменил иконку -->
+                    <span>Annalith</span>
                 </div>
                 <nav>
                     <ul>
@@ -684,11 +791,11 @@
                 <div id="authRequired">
                     <div class="empty-state">
                         <i class="fas fa-wallet"></i>
-                        <h3>Добро пожаловать в CryptoWallet+</h3>
+                        <h3>Добро пожаловать в Annalith</h3>
                         <p>Пожалуйста, войдите или зарегистрируйтесь, чтобы начать пользоваться кошельком</p>
-                        <div style="display: flex; gap: 15px; justify-content: center;">
+                        <div style="display: flex; gap: 18px; justify-content: center; margin-top: 20px;">
                             <a href="#" class="btn btn-primary" id="loginBtn2">Войти</a>
-                            <a href="#" class="btn btn-outline" style="background-color: var(--primary); color: white;" id="registerBtn2">Регистрация</a>
+                            <a href="#" class="btn btn-outline" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none;" id="registerBtn2">Регистрация</a>
                         </div>
                     </div>
                 </div>
@@ -795,15 +902,15 @@
             <div class="footer-content">
                 <div>
                     <div class="footer-logo">
-                        <i class="fas fa-coins"></i>
-                        <span>CryptoWallet+</span>
+                        <i class="fas fa-gem"></i> <!-- Сменил иконку -->
+                        <span>Annalith</span>
                     </div>
-                    <p class="footer-description">Ваш надежный и безопасный криптовалютный кошелек для повседневного использования и инвестиций.</p>
+                    <p class="footer-description">Ваш надежный и безопасный цифровой кошелек для повседневного использования и инвестиций.</p>
                 </div>
                 <div>
                     <h4 class="footer-heading">Продукты</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Криптокошелек</a></li>
+                        <li><a href="#">Цифровой кошелек</a></li>
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
                         <li><a href="#">Инвестиции</a></li>
@@ -833,7 +940,7 @@
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 CryptoWallet+. Все права защищены.
+                &copy; 2024 Annalith. Все права защищены.
             </div>
         </div>
     </footer>
@@ -856,7 +963,7 @@
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
             </form>
             <p class="text-center mt-20">
-                Нет аккаунта? <a href="#" id="goToRegister">Зарегистрироваться</a>
+                Нет аккаунта? <a href="#" id="goToRegister" style="color: var(--primary); font-weight: 500;">Зарегистрироваться</a>
             </p>
         </div>
     </div>
@@ -886,7 +993,7 @@
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Зарегистрироваться</button>
             </form>
             <p class="text-center mt-20">
-                Уже есть аккаунт? <a href="#" id="goToLogin">Войти</a>
+                Уже есть аккаунт? <a href="#" id="goToLogin" style="color: var(--primary); font-weight: 500;">Войти</a>
             </p>
         </div>
     </div>
@@ -909,8 +1016,8 @@
                 </select>
             </div>
             <button class="btn btn-primary" style="width: 100%;" id="confirmTopUp">Пополнить</button>
-            <div class="mt-20" style="padding: 15px; background-color: #ffecb3; border-radius: 8px;">
-                <p style="color: #ff9800; margin: 0;">
+            <div class="mt-20" style="padding: 18px; background-color: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                <p style="color: #856404; margin: 0; font-size: 0.95rem;">
                     <i class="fas fa-exclamation-circle"></i> В настоящее время пополнение временно недоступно из-за технических работ. Приносим извинения за неудобства.
                 </p>
             </div>
@@ -1010,11 +1117,11 @@
                     balance: balance,
                     transactions: transactions
                 };
-                localStorage.setItem('cryptoWalletData', JSON.stringify(data));
+                localStorage.setItem('annalithWalletData', JSON.stringify(data)); // Обновлен ключ
             }
             // Загрузка данных из localStorage
             function loadFromLocalStorage() {
-                const savedData = localStorage.getItem('cryptoWalletData');
+                const savedData = localStorage.getItem('annalithWalletData'); // Обновлен ключ
                 if (savedData) {
                     try {
                         const data = JSON.parse(savedData);
@@ -1042,7 +1149,7 @@
                 const url = URL.createObjectURL(dataBlob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `crypto_wallet_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                link.download = `annalith_wallet_backup_${new Date().toISOString().slice(0, 10)}.json`; // Обновлено имя файла
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -1353,7 +1460,7 @@
                     userEmail.textContent = user.email;
                     // Hide login/register buttons, show user info
                     userActions.innerHTML = `
-                        <span style="color: white;">${user.name}</span>
+                        <span style="color: white; font-weight: 500;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
                     document.getElementById('headerLogoutBtn').addEventListener('click', function() {

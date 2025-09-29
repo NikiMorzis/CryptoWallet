@@ -329,9 +329,6 @@
         .transaction-icon.send {
             background: linear-gradient(135deg, var(--danger), #c0392b);
         }
-        .transaction-icon.invest {
-            background: linear-gradient(135deg, var(--warning), #e67e22); /* Цвет для инвестиций */
-        }
         .transaction-details h4 {
             font-weight: 600;
             margin-bottom: 6px; /* Увеличил отступ */
@@ -755,9 +752,8 @@
                         <li><a href="#" class="active">Главная</a></li>
                         <li><a href="#">Переводы</a></li>
                         <li><a href="#">Транзакции</a></li>
-                        <li><a href="investments.html">Инвестиции</a></li> <!-- Ссылка на investments.html -->
-                        <li><a href="settings.html">Настройки</a></li> <!-- Ссылка на settings.html -->
-                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="#">Курсы</a></li>
+                        <li><a href="#">Поддержка</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
@@ -782,10 +778,10 @@
                     <li><a href="#" class="active"><i class="fas fa-home"></i> Обзор</a></li>
                     <li><a href="#"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="#"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
-                    <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
-                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li> <!-- Ссылка на settings.html -->
-                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
                     <li><a href="#"><i class="fas fa-history"></i> История</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
@@ -846,7 +842,7 @@
                                 <h4>Управление балансом</h4>
                                 <div class="form-group">
                                     <label for="adminBalanceAmount">Сумма пополнения</label>
-                                    <input type="number" id="adminBalanceAmount" class="form-control" placeholder="Введите сумму" step="0.01">
+                                    <input type="number" id="adminBalanceAmount" class="form-control" placeholder="Введите сумму">
                                 </div>
                                 <div class="form-group">
                                     <label for="topUpDescription">Описание пополнения</label>
@@ -865,7 +861,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="transactionAmount">Сумма</label>
-                                    <input type="number" id="transactionAmount" class="form-control" placeholder="Введите сумму" step="0.01">
+                                    <input type="number" id="transactionAmount" class="form-control" placeholder="Введите сумму">
                                 </div>
                                 <div class="form-group">
                                     <label for="transactionDescription">Описание</label>
@@ -880,6 +876,18 @@
                                     <input type="number" id="transactionIndex" class="form-control" placeholder="Введите номер транзакции">
                                 </div>
                                 <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
+                            </div>
+                            <div class="admin-section">
+                                <h4>Изменить удачу акций</h4>
+                                <div class="form-group">
+                                    <label for="stockSymbol">Символ акции (например, AAPL)</label>
+                                    <input type="text" id="stockSymbol" class="form-control" placeholder="Введите символ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="luckMultiplier">Множитель удачи (например, 1.5, 2, 0.5)</label>
+                                    <input type="number" id="luckMultiplier" class="form-control" placeholder="Введите множитель" step="0.1" min="0.1">
+                                </div>
+                                <button class="btn btn-warning" id="applyLuckBtn">Применить удачу</button>
                             </div>
                             <div class="admin-section">
                                 <h4>Управление данными</h4>
@@ -917,13 +925,13 @@
                         <li><a href="#">Цифровой кошелек</a></li>
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
-                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="#">Инвестиции</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="#">Центр помощи</a></li>
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -1009,7 +1017,7 @@
             </div>
             <div class="form-group">
                 <label for="topUpAmount">Сумма пополнения</label>
-                <input type="number" id="topUpAmount" class="form-control" placeholder="Введите сумму" step="0.01" required>
+                <input type="number" id="topUpAmount" class="form-control" placeholder="Введите сумму" required>
             </div>
             <div class="form-group">
                 <label for="topUpMethod">Способ оплаты</label>
@@ -1040,7 +1048,7 @@
                 </div>
                 <div class="form-group">
                     <label for="sendAmount">Сумма перевода</label>
-                    <input type="number" id="sendAmount" class="form-control" placeholder="Введите сумму" step="0.01" required>
+                    <input type="number" id="sendAmount" class="form-control" placeholder="Введите сумму" required>
                 </div>
                 <div class="form-group">
                     <label for="sendCurrency">Валюта</label>
@@ -1104,6 +1112,9 @@
             const addBalanceBtn = document.getElementById('addBalanceBtn');
             const createTransactionBtn = document.getElementById('createTransactionBtn');
             const deleteTransactionBtn = document.getElementById('deleteTransactionBtn');
+            const applyLuckBtn = document.getElementById('applyLuckBtn'); // Новая кнопка
+            const stockSymbolInput = document.getElementById('stockSymbol'); // Новый инпут
+            const luckMultiplierInput = document.getElementById('luckMultiplier'); // Новый инпут
             // Загрузка данных из localStorage при запуске
             loadFromLocalStorage();
             // Показать уведомление
@@ -1288,22 +1299,17 @@
             });
             document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const rawAmount = document.getElementById('sendAmount').value;
-                const amount = parseFloat(rawAmount);
-
-                if (isNaN(amount) || amount <= 0) {
-                    showNotification('Пожалуйста, введите корректную сумму перевода', false);
-                    return;
-                }
-
+                const amount = parseFloat(document.getElementById('sendAmount').value);
                 const recipient = document.getElementById('recipient').value;
                 const note = document.getElementById('sendNote').value;
-
                 if (amount > balance) {
                     showNotification('Недостаточно средств на балансе', false);
                     return;
                 }
-
+                if (amount <= 0) {
+                    showNotification('Сумма перевода должна быть больше нуля', false);
+                    return;
+                }
                 // Add transaction
                 addTransaction({
                     type: 'send',
@@ -1315,7 +1321,7 @@
                 balance -= amount;
                 updateBalance();
                 saveToLocalStorage();
-                showNotification(`Перевод на сумму $${amount.toFixed(2)} для ${recipient} выполнен успешно!`);
+                showNotification(`Перевод на сумму $${amount} для ${recipient} выполнен успешно!`);
                 sendMoneyModal.style.display = 'none';
                 // Clear form
                 document.getElementById('sendAmount').value = '';
@@ -1371,27 +1377,24 @@
                     showNotification('Сначала войдите в админ-панель', false);
                     return;
                 }
-                const rawAmount = document.getElementById('adminBalanceAmount').value;
-                const amount = parseFloat(rawAmount);
+                const amount = parseFloat(document.getElementById('adminBalanceAmount').value);
                 const description = document.getElementById('topUpDescription').value || 'Пополнение через админ-панель';
-
-                if (isNaN(amount) || amount <= 0) {
+                if (amount && amount > 0) {
+                    balance += amount;
+                    updateBalance();
+                    // Add transaction
+                    addTransaction({
+                        type: 'receive',
+                        amount: amount,
+                        description: description,
+                        date: new Date()
+                    });
+                    saveToLocalStorage();
+                    showNotification(`Баланс успешно пополнен на $${amount}`);
+                    document.getElementById('adminBalanceAmount').value = '';
+                } else {
                     showNotification('Пожалуйста, введите корректную сумму пополнения', false);
-                    return;
                 }
-
-                balance += amount;
-                updateBalance();
-                // Add transaction
-                addTransaction({
-                    type: 'receive',
-                    amount: amount,
-                    description: description,
-                    date: new Date()
-                });
-                saveToLocalStorage();
-                showNotification(`Баланс успешно пополнен на $${amount.toFixed(2)}`);
-                document.getElementById('adminBalanceAmount').value = '';
             });
             createTransactionBtn.addEventListener('click', function() {
                 if (!isAdminAuthenticated) {
@@ -1399,37 +1402,34 @@
                     return;
                 }
                 const type = document.getElementById('transactionType').value;
-                const rawAmount = document.getElementById('transactionAmount').value;
-                const amount = parseFloat(rawAmount);
+                const amount = parseFloat(document.getElementById('transactionAmount').value);
                 const description = document.getElementById('transactionDescription').value;
-
-                if (isNaN(amount) || amount <= 0 || !description) {
-                    showNotification('Пожалуйста, заполните все поля корректно', false);
-                    return;
-                }
-
-                // Add transaction
-                addTransaction({
-                    type: type,
-                    amount: amount,
-                    description: description,
-                    date: new Date()
-                });
-                // Update balance if needed
-                if (type === 'receive') {
-                    balance += amount;
-                } else if (type === 'send') {
-                    if (amount > balance) {
-                        showNotification('Недостаточно средств на балансе', false);
-                        return;
+                if (amount && amount > 0 && description) {
+                    // Add transaction
+                    addTransaction({
+                        type: type,
+                        amount: amount,
+                        description: description,
+                        date: new Date()
+                    });
+                    // Update balance if needed
+                    if (type === 'receive') {
+                        balance += amount;
+                    } else if (type === 'send') {
+                        if (amount > balance) {
+                            showNotification('Недостаточно средств на балансе', false);
+                            return;
+                        }
+                        balance -= amount;
                     }
-                    balance -= amount;
+                    updateBalance();
+                    saveToLocalStorage();
+                    showNotification(`Транзакция "${description}" на сумму $${amount} успешно создана!`);
+                    document.getElementById('transactionAmount').value = '';
+                    document.getElementById('transactionDescription').value = '';
+                } else {
+                    showNotification('Пожалуйста, заполните все поля корректно', false);
                 }
-                updateBalance();
-                saveToLocalStorage();
-                showNotification(`Транзакция "${description}" на сумму $${amount.toFixed(2)} успешно создана!`);
-                document.getElementById('transactionAmount').value = '';
-                document.getElementById('transactionDescription').value = '';
             });
             deleteTransactionBtn.addEventListener('click', function() {
                 if (!isAdminAuthenticated) {
@@ -1442,7 +1442,7 @@
                     // Reverse the transaction effect on balance
                     if (transaction.type === 'receive') {
                         balance -= transaction.amount;
-                    } else if (transaction.type === 'send' || transaction.type === 'invest' || transaction.type === 'dividend' || transaction.type === 'sell_stock') { // Добавлен тип sell_stock
+                    } else if (transaction.type === 'send') {
                         balance += transaction.amount;
                     }
                     // Remove transaction
@@ -1455,6 +1455,47 @@
                 } else {
                     showNotification('Транзакция с указанным номером не найдена', false);
                 }
+            });
+            // Apply Luck functionality
+            applyLuckBtn.addEventListener('click', function() {
+                if (!isAdminAuthenticated) {
+                    showNotification('Сначала войдите в админ-панель', false);
+                    return;
+                }
+                const symbol = stockSymbolInput.value.toUpperCase().trim();
+                const multiplier = parseFloat(luckMultiplierInput.value);
+
+                if (!symbol || isNaN(multiplier) || multiplier <= 0) {
+                    showNotification('Пожалуйста, введите корректный символ акции и множитель удачи', false);
+                    return;
+                }
+
+                // Предположим, что myStocks хранится в localStorage и содержит купленные акции
+                // Для простоты, мы не будем реализовывать сложную логику хранения myStocks в этом файле,
+                // но представим, что они есть в объекте `user` или как-то иначе доступны.
+                // ПОДДЕРЖКА ДАННОГО ФУНКЦИОНАЛА ТРЕБУЕТ РАСШИРЕННОЙ СТРУКТУРЫ ДАННЫХ И СВЯЗАННЫХ ФАЙЛОВ (investments.html).
+                // В текущем `index.html` myStocks не хранится, но если бы хранилась, логика была бы такой:
+                /*
+                if (user.myStocks && user.myStocks[symbol]) {
+                    user.myStocks[symbol].avgPrice = user.myStocks[symbol].avgPrice / multiplier; // Корректируем среднюю цену покупки
+                    // Пересчитываем общую стоимость портфеля для акций этого символа
+                    // user.myStocks[symbol].totalValue = user.myStocks[symbol].quantity * currentMarketPrice * multiplier;
+                    // (currentMarketPrice нужно получить из другого источника)
+                    saveToLocalStorage();
+                    updateUI(); // Обновить баланс и транзакции
+                    showNotification(`Удача применена к акциям ${symbol} с множителем ${multiplier}!`);
+                } else {
+                    showNotification('У вас нет купленных акций ' + symbol, false);
+                }
+                */
+
+                // Так как myStocks не хранится в index.html, мы просто покажем уведомление
+                showNotification(`Функция "Удача акций" требует интеграции с системой инвестиций.`, false);
+                console.log(`Админ: Попытка применить удачу к ${symbol} с множителем ${multiplier}. Требуется интеграция с investments.html/myStocks.`);
+
+                // Очищаем поля
+                stockSymbolInput.value = '';
+                luckMultiplierInput.value = '';
             });
             // Filter buttons
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -1528,9 +1569,6 @@
                 transactionList.innerHTML = '';
                 transactions.forEach((transaction, index) => {
                     const isReceive = transaction.type === 'receive';
-                    const isInvest = transaction.type === 'invest'; // Новый тип
-                    const isDividend = transaction.type === 'dividend'; // Новый тип
-                    const isSellStock = transaction.type === 'sell_stock'; // Новый тип
                     const date = new Date(transaction.date).toLocaleDateString('ru-RU', {
                         day: 'numeric',
                         month: 'short',
@@ -1542,16 +1580,16 @@
                     li.className = 'transaction-item';
                     li.innerHTML = `
                         <div class="transaction-info">
-                            <div class="transaction-icon ${isReceive ? 'receive' : (isInvest || isDividend || isSellStock ? 'invest' : 'send')}">
-                                <i class="fas fa-${isReceive ? 'arrow-down' : (isInvest ? 'chart-line' : (isDividend ? 'coins' : (isSellStock ? 'arrow-up' : 'arrow-up')))}"></i>
+                            <div class="transaction-icon ${isReceive ? 'receive' : 'send'}">
+                                <i class="fas fa-${isReceive ? 'arrow-down' : 'arrow-up'}"></i>
                             </div>
                             <div class="transaction-details">
                                 <h4>${transaction.description}</h4>
-                                <p>${date} · ${isReceive ? 'Получено' : (isInvest ? 'Инвестировано' : (isDividend ? 'Дивиденды' : (isSellStock ? 'Продажа акций' : 'Отправлено')))}</p>
+                                <p>${date} · Завершено</p>
                             </div>
                         </div>
-                        <div class="transaction-amount ${isReceive || isDividend || isSellStock ? 'positive' : 'negative'}"> <!-- isSellStock теперь positive -->
-                            ${(isReceive || isDividend || isSellStock) ? '+' : '-'} $${transaction.amount.toFixed(2)} <!-- isSellStock теперь с плюсом -->
+                        <div class="transaction-amount ${isReceive ? 'positive' : 'negative'}">
+                            ${isReceive ? '+' : '-'} $${transaction.amount.toFixed(2)}
                         </div>
                     `;
                     transactionList.appendChild(li);

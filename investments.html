@@ -745,8 +745,7 @@
             let transactions = []; // Транзакции из основного кошелька
             let stocks = {}; // Состояние акций (цена, история)
             let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
-            // lastUpdateTime нужно сохранять, чтобы симуляция продолжалась с последнего момента
-            let lastUpdateTime = Date.now();
+            let lastUpdateTime = Date.now(); // Время последнего обновления цен
 
             // Elements
             const balanceAmount = document.getElementById('balanceAmount');
@@ -782,7 +781,7 @@
                     user: user,
                     balance: balance,
                     transactions: transactions, // Сохраняем транзакции
-                    stocks: stocks,
+                    stocks: stocks, // Сохраняем акции
                     myStocks: myStocks,
                     investmentsLastUpdateTime: lastUpdateTime // Сохраняем время последнего обновления цен
                 };
@@ -798,7 +797,7 @@
                         user = data.user;
                         balance = data.balance || 0;
                         transactions = data.transactions || []; // Загружаем транзакции
-                        stocks = data.stocks || {};
+                        stocks = data.stocks || {}; // Загружаем акции
                         myStocks = data.myStocks || {};
                         // Загружаем lastUpdateTime, если он был сохранён
                         lastUpdateTime = data.investmentsLastUpdateTime || Date.now();
@@ -818,21 +817,41 @@
             // Инициализация акций (только если их нет в сохранённых данных)
             function initializeStocks() {
                 const initialStocks = {
-                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, trend: 0.0001, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, trend: 0.00005, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, trend: 0.00015, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, trend: -0.0001, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, trend: 0.0002, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, trend: 0.00012, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, trend: 0.00025, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
-                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, trend: 0.00008, trendDuration: 0, trendChange: 0, momentum: 0, history: [] }
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, history: [] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, history: [] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, history: [] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, history: [] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, history: [] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, history: [] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, history: [] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, history: [] }
                 };
 
                 for (const symbol in initialStocks) {
                     if (!stocks[symbol]) {
-                        stocks[symbol] = initialStocks[symbol];
-                        // Инициализируем историю цен
-                        stocks[symbol].history.push(stocks[symbol].initialPrice);
+                        const stock = initialStocks[symbol];
+                        // Генерация начальной истории цен (например, 5-10 случайных изменений от initialPrice)
+                        const initialHistoryLength = Math.floor(Math.random() * 6) + 5; // 5-10 точек
+                        let currentPrice = stock.initialPrice;
+                        const history = [currentPrice];
+                        for (let i = 1; i < initialHistoryLength; i++) {
+                            const randomChange = (Math.random() - 0.5) * 2 * stock.volatility * currentPrice; // Случайное изменение
+                            currentPrice = Math.max(0.01, currentPrice + randomChange); // Цена не может быть отрицательной или 0
+                            history.push(currentPrice);
+                        }
+
+                        // Установка начальных параметров
+                        stocks[symbol] = {
+                            name: stock.name,
+                            initialPrice: stock.initialPrice,
+                            volatility: stock.volatility,
+                            history: history,
+                            // Генерация случайных начальных параметров тренда и импульса
+                            trend: (Math.random() - 0.5) * 0.0002, // Случайный начальный тренд
+                            trendDuration: Math.floor(Math.random() * 500) + 100, // Случайная продолжительность
+                            trendChange: (Math.random() - 0.5) * 0.0001, // Случайное изменение тренда
+                            momentum: (Math.random() - 0.5) * stock.volatility * currentPrice * 0.1 // Случайный начальный импульс
+                        };
                     }
                     // Устанавливаем currentPrice на основе последней цены из истории
                     stocks[symbol].currentPrice = stocks[symbol].history[stocks[symbol].history.length - 1];

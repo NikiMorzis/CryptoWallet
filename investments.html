@@ -662,8 +662,8 @@
                     <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
                     <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
                     <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
-                    <li><a href="index.html#settings"><i class="fas fa-cog"></i> Настройки</a></li>
-                    <li><a href="index.html#support"><i class="fas fa-question-circle"></i> Помощь</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
@@ -745,6 +745,7 @@
             let transactions = []; // Транзакции из основного кошелька
             let stocks = {}; // Состояние акций (цена, история)
             let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
+            let luckMultiplier = 1.0; // Множитель удачи, по умолчанию 1.0 (нейтральный)
 
             // Elements
             const balanceAmount = document.getElementById('balanceAmount');
@@ -781,7 +782,8 @@
                     balance: balance,
                     transactions: transactions, // Сохраняем транзакции
                     stocks: stocks,
-                    myStocks: myStocks
+                    myStocks: myStocks,
+                    luckMultiplier: luckMultiplier // Сохраняем множитель удачи
                 };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
@@ -797,6 +799,7 @@
                         transactions = data.transactions || []; // Загружаем транзакции
                         stocks = data.stocks || {};
                         myStocks = data.myStocks || {};
+                        luckMultiplier = data.luckMultiplier || 1.0; // Загружаем множитель удачи
                         if (user) {
                             updateUI();
                         }
@@ -875,13 +878,30 @@
                         transactions = [];
                         stocks = {};
                         myStocks = {};
+                        luckMultiplier = 1.0; // Сбросить множитель
                         saveToLocalStorage();
                         window.location.href = 'index.html'; // Перенаправить на главную после выхода
                     });
 
                     initializeStocks(); // Инициализируем акции при первом запуске
+                    applyLastLuckChange(); // Применяем последнюю удачу
                     renderStocks();
                     renderMyStocks();
+                }
+            }
+
+            // Применить последнюю транзакцию удачи
+            function applyLastLuckChange() {
+                // Находим последнюю транзакцию типа 'luck_change'
+                const luckTransaction = transactions.findLast(t => t.type === 'luck_change'); // Используем findLast, если поддерживается, или ищем в цикле
+                if (luckTransaction) {
+                    // Парсим множитель из описания
+                    const match = luckTransaction.description.match(/x(\d+\.?\d*)/);
+                    if (match) {
+                        luckMultiplier = parseFloat(match[1]);
+                        console.log(`Применён множитель удачи: ${luckMultiplier}`);
+                        showNotification(`Применён множитель удачи: x${luckMultiplier}`, true);
+                    }
                 }
             }
 
@@ -891,19 +911,21 @@
                 for (const symbol in stocks) {
                     const stock = stocks[symbol];
                     const currentPrice = stock.currentPrice || stock.history[stock.history.length - 1];
-                    const previousPrice = stock.history[stock.history.length - 2] || stock.initialPrice;
-                    const isUp = currentPrice >= previousPrice;
-                    const changePercent = ((currentPrice - previousPrice) / previousPrice * 100).toFixed(2);
+                    // Применяем множитель удачи к отображаемой цене
+                    const displayedPrice = currentPrice * luckMultiplier;
+                    const previousPrice = (stock.history[stock.history.length - 2] || stock.initialPrice) * luckMultiplier; // Учитываем удачу и для предыдущей цены
+                    const isUp = displayedPrice >= previousPrice;
+                    const changePercent = ((displayedPrice - previousPrice) / previousPrice * 100).toFixed(2);
 
                     const div = document.createElement('div');
                     div.className = 'stock-item';
                     div.innerHTML = `
                         <div class="stock-header">
                             <div class="stock-name">${symbol} - ${stock.name}</div>
-                            <div class="stock-price ${isUp ? 'up' : 'down'}">$${currentPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
+                            <div class="stock-price ${isUp ? 'up' : 'down'}">$${displayedPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
                         </div>
                         <div class="stock-description">
-                            Текущая цена акции ${symbol} на симулированном рынке.
+                            Текущая цена акции ${symbol} на симулированном рынке. (Удача: x${luckMultiplier.toFixed(2)})
                         </div>
                         <div class="stock-actions">
                             <input type="number" id="quantity_${symbol}" class="form-control" placeholder="Количество" step="1" min="1" value="1">
@@ -947,8 +969,10 @@
                 for (const symbol in myStocks) {
                     const stockData = myStocks[symbol];
                     const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1] || 0;
-                    const totalValue = stockData.quantity * currentPrice;
-                    const totalCost = stockData.quantity * stockData.avgPrice;
+                    // Применяем множитель удачи к текущей цене для расчёта стоимости
+                    const currentPriceWithLuck = currentPrice * luckMultiplier;
+                    const totalValue = stockData.quantity * currentPriceWithLuck;
+                    const totalCost = stockData.quantity * stockData.avgPrice; // Средняя цена покупки не меняется
                     const profit = totalValue - totalCost;
                     const profitPercent = (profit / totalCost) * 100;
 
@@ -960,7 +984,7 @@
                             <div class="my-stock-details">
                                 <span>Количество: <span class="my-stock-quantity">${stockData.quantity}</span></span>
                                 <span>Средняя цена: $${stockData.avgPrice.toFixed(2)}</span>
-                                <span>Текущая цена: $${currentPrice.toFixed(2)}</span>
+                                <span>Текущая цена (с учётом удачи): $${currentPriceWithLuck.toFixed(2)}</span>
                                 <span class="my-stock-current-value">Стоимость: $${totalValue.toFixed(2)}</span>
                             </div>
                         </div>
@@ -974,7 +998,7 @@
 
             // Обновление стоимости моих акций
             function updateMyStocksValue() {
-                // Просто перерисовываем список, чтобы обновить цены и прибыль
+                // Просто перерисовываем список, чтобы обновить цены и прибыль с учётом удачи
                 renderMyStocks();
             }
 
@@ -989,6 +1013,7 @@
                     showNotification('Ошибка получения цены акции', false);
                     return;
                 }
+                // Цена покупки НЕ умножается на luckMultiplier, так как это реальная цена на момент покупки
                 const totalCost = quantity * currentPrice;
 
                 if (totalCost > balance) {
@@ -1037,6 +1062,7 @@
                     showNotification('Ошибка получения цены акции', false);
                     return;
                 }
+                // Цена продажи НЕ умножается на luckMultiplier, так как это реальная цена на момент продажи
                 const totalValue = quantity * currentPrice;
 
                 // Обновляем баланс
@@ -1051,7 +1077,7 @@
                 // Добавляем транзакцию "invest" (продажа)
                 transactions.unshift({
                     type: 'invest',
-                    amount: totalValue,
+                    amount: totalValue, // Сумма положительная при продаже
                     description: `Продажа ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
                     date: new Date()
                 });
@@ -1071,6 +1097,7 @@
                 transactions = [];
                 stocks = {};
                 myStocks = {};
+                luckMultiplier = 1.0; // Сбросить множитель
                 saveToLocalStorage();
                 window.location.href = 'index.html';
             });

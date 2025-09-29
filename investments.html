@@ -635,8 +635,8 @@
                         <li><a href="index.html#transfer">Переводы</a></li>
                         <li><a href="index.html#transactions">Транзакции</a></li>
                         <li><a href="#" class="active">Инвестиции</a></li> <!-- Активная ссылка -->
-                        <li><a href="#">Курсы</a></li>
-                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="settings.html">Настройки</a></li> <!-- Ссылка на settings.html -->
+                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
@@ -661,9 +661,9 @@
                     <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
                     <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li> <!-- Ссылка на settings.html -->
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
                     <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
@@ -716,7 +716,7 @@
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -745,7 +745,7 @@
             let transactions = []; // Транзакции из основного кошелька
             let stocks = {}; // Состояние акций (цена, история)
             let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
-            let luckMultiplier = 1.0; // Множитель удачи, по умолчанию 1.0 (нейтральный)
+            let lastUpdateTime = Date.now(); // Время последнего обновления цен
 
             // Elements
             const balanceAmount = document.getElementById('balanceAmount');
@@ -781,9 +781,9 @@
                     user: user,
                     balance: balance,
                     transactions: transactions, // Сохраняем транзакции
-                    stocks: stocks,
+                    stocks: stocks, // Сохраняем акции
                     myStocks: myStocks,
-                    luckMultiplier: luckMultiplier // Сохраняем множитель удачи
+                    investmentsLastUpdateTime: lastUpdateTime // Сохраняем время последнего обновления цен
                 };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
@@ -797,9 +797,10 @@
                         user = data.user;
                         balance = data.balance || 0;
                         transactions = data.transactions || []; // Загружаем транзакции
-                        stocks = data.stocks || {};
+                        stocks = data.stocks || {}; // Загружаем акции
                         myStocks = data.myStocks || {};
-                        luckMultiplier = data.luckMultiplier || 1.0; // Загружаем множитель удачи
+                        // Загружаем lastUpdateTime, если он был сохранён
+                        lastUpdateTime = data.investmentsLastUpdateTime || Date.now();
                         if (user) {
                             updateUI();
                         }
@@ -813,36 +814,84 @@
                 }
             }
 
-            // Инициализация акций
+            // Инициализация акций (только если их нет в сохранённых данных)
             function initializeStocks() {
                 const initialStocks = {
-                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, trend: 0.0001, history: [] },
-                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, trend: 0.00005, history: [] },
-                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, trend: 0.00015, history: [] },
-                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, trend: -0.0001, history: [] },
-                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, trend: 0.0002, history: [] },
-                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, trend: 0.00012, history: [] },
-                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, trend: 0.00025, history: [] },
-                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, trend: 0.00008, history: [] }
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, history: [] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, history: [] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, history: [] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, history: [] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, history: [] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, history: [] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, history: [] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, history: [] }
                 };
 
                 for (const symbol in initialStocks) {
                     if (!stocks[symbol]) {
-                        stocks[symbol] = initialStocks[symbol];
-                        // Инициализируем историю цен
-                        stocks[symbol].history.push(stocks[symbol].initialPrice);
+                        const stock = initialStocks[symbol];
+                        // Генерация начальной истории цен (например, 5-10 случайных изменений от initialPrice)
+                        const initialHistoryLength = Math.floor(Math.random() * 6) + 5; // 5-10 точек
+                        let currentPrice = stock.initialPrice;
+                        const history = [currentPrice];
+                        for (let i = 1; i < initialHistoryLength; i++) {
+                            const randomChange = (Math.random() - 0.5) * 2 * stock.volatility * currentPrice; // Случайное изменение
+                            currentPrice = Math.max(0.01, currentPrice + randomChange); // Цена не может быть отрицательной или 0
+                            history.push(currentPrice);
+                        }
+
+                        // Установка начальных параметров
+                        stocks[symbol] = {
+                            name: stock.name,
+                            initialPrice: stock.initialPrice,
+                            volatility: stock.volatility,
+                            history: history,
+                            // Генерация случайных начальных параметров тренда и импульса
+                            trend: (Math.random() - 0.5) * 0.0002, // Случайный начальный тренд
+                            trendDuration: Math.floor(Math.random() * 500) + 100, // Случайная продолжительность
+                            trendChange: (Math.random() - 0.5) * 0.0001, // Случайное изменение тренда
+                            momentum: (Math.random() - 0.5) * stock.volatility * currentPrice * 0.1 // Случайный начальный импульс
+                        };
                     }
+                    // Устанавливаем currentPrice на основе последней цены из истории
+                    stocks[symbol].currentPrice = stocks[symbol].history[stocks[symbol].history.length - 1];
                 }
             }
 
-            // Симуляция движения цены акции
+            // Симуляция движения цены акции (более "умная")
             function simulateStockPrice(stock) {
                 const lastPrice = stock.history[stock.history.length - 1];
-                // Случайное изменение цены на основе волатильности и тренда
+                const now = Date.now();
+                const timeElapsed = (now - lastUpdateTime) / 1000; // в секундах
+
+                // Обновление тренда с вероятностью (например, 1% на тик)
+                if (Math.random() < 0.01) {
+                    const newTrendChange = (Math.random() - 0.5) * 0.0005; // Новый тренд от -0.05% до +0.05% в час
+                    stock.trendChange = newTrendChange;
+                    stock.trendDuration = Math.floor(Math.random() * 1000) + 100; // Продолжительность тренда
+                }
+
+                // Применение текущего тренда
+                if (stock.trendDuration > 0) {
+                    stock.trend = stock.trendChange;
+                    stock.trendDuration--;
+                } else {
+                    // Если тренд истек, плавно возвращаем к 0
+                    stock.trend *= 0.99; // Замедляем возврат
+                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0; // "Останавливаем" тренд
+                }
+
+                // Импульс (momentum) - делает движение цены более плавным
+                const targetPrice = lastPrice * (1 + stock.trend * timeElapsed);
+                const priceDifference = targetPrice - lastPrice;
+                stock.momentum = stock.momentum * 0.9 + priceDifference * 0.1; // 10% влияния от разницы
+
+                // Случайное изменение цены на основе волатильности, тренда и импульса
                 const randomFactor = (Math.random() - 0.5) * 2; // от -1 до 1
                 const volatilityChange = randomFactor * stock.volatility * lastPrice;
-                const trendChange = stock.trend * lastPrice;
-                const newPrice = Math.max(0.01, lastPrice + volatilityChange + trendChange); // Цена не может быть отрицательной или 0
+                const totalChange = volatilityChange + stock.momentum;
+                const newPrice = Math.max(0.01, lastPrice + totalChange); // Цена не может быть отрицательной или 0
+
                 stock.history.push(newPrice);
                 // Ограничиваем историю для производительности
                 if (stock.history.length > 100) {
@@ -853,11 +902,14 @@
 
             // Обновление цен акций (симуляция рынка)
             function updateStockPrices() {
+                lastUpdateTime = Date.now(); // Обновляем время ПЕРЕД симуляцией
                 for (const symbol in stocks) {
                     stocks[symbol].currentPrice = simulateStockPrice(stocks[symbol]);
                 }
                 renderStocks();
                 updateMyStocksValue(); // Обновляем стоимость портфеля
+                // Сохраняем изменения после обновления
+                saveToLocalStorage();
             }
 
             // Обновление интерфейса
@@ -878,30 +930,14 @@
                         transactions = [];
                         stocks = {};
                         myStocks = {};
-                        luckMultiplier = 1.0; // Сбросить множитель
+                        lastUpdateTime = Date.now();
                         saveToLocalStorage();
                         window.location.href = 'index.html'; // Перенаправить на главную после выхода
                     });
 
-                    initializeStocks(); // Инициализируем акции при первом запуске
-                    applyLastLuckChange(); // Применяем последнюю удачу
+                    initializeStocks(); // Инициализируем акции при первом запуске или если они не были загружены
                     renderStocks();
                     renderMyStocks();
-                }
-            }
-
-            // Применить последнюю транзакцию удачи
-            function applyLastLuckChange() {
-                // Находим последнюю транзакцию типа 'luck_change'
-                const luckTransaction = transactions.findLast(t => t.type === 'luck_change'); // Используем findLast, если поддерживается, или ищем в цикле
-                if (luckTransaction) {
-                    // Парсим множитель из описания
-                    const match = luckTransaction.description.match(/x(\d+\.?\d*)/);
-                    if (match) {
-                        luckMultiplier = parseFloat(match[1]);
-                        console.log(`Применён множитель удачи: ${luckMultiplier}`);
-                        showNotification(`Применён множитель удачи: x${luckMultiplier}`, true);
-                    }
                 }
             }
 
@@ -911,21 +947,19 @@
                 for (const symbol in stocks) {
                     const stock = stocks[symbol];
                     const currentPrice = stock.currentPrice || stock.history[stock.history.length - 1];
-                    // Применяем множитель удачи к отображаемой цене
-                    const displayedPrice = currentPrice * luckMultiplier;
-                    const previousPrice = (stock.history[stock.history.length - 2] || stock.initialPrice) * luckMultiplier; // Учитываем удачу и для предыдущей цены
-                    const isUp = displayedPrice >= previousPrice;
-                    const changePercent = ((displayedPrice - previousPrice) / previousPrice * 100).toFixed(2);
+                    const previousPrice = stock.history[stock.history.length - 2] || stock.initialPrice;
+                    const isUp = currentPrice >= previousPrice;
+                    const changePercent = ((currentPrice - previousPrice) / previousPrice * 100).toFixed(2);
 
                     const div = document.createElement('div');
                     div.className = 'stock-item';
                     div.innerHTML = `
                         <div class="stock-header">
                             <div class="stock-name">${symbol} - ${stock.name}</div>
-                            <div class="stock-price ${isUp ? 'up' : 'down'}">$${displayedPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
+                            <div class="stock-price ${isUp ? 'up' : 'down'}">$${currentPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
                         </div>
                         <div class="stock-description">
-                            Текущая цена акции ${symbol} на симулированном рынке. (Удача: x${luckMultiplier.toFixed(2)})
+                            Текущая цена акции ${symbol} на симулированном рынке.
                         </div>
                         <div class="stock-actions">
                             <input type="number" id="quantity_${symbol}" class="form-control" placeholder="Количество" step="1" min="1" value="1">
@@ -969,10 +1003,8 @@
                 for (const symbol in myStocks) {
                     const stockData = myStocks[symbol];
                     const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1] || 0;
-                    // Применяем множитель удачи к текущей цене для расчёта стоимости
-                    const currentPriceWithLuck = currentPrice * luckMultiplier;
-                    const totalValue = stockData.quantity * currentPriceWithLuck;
-                    const totalCost = stockData.quantity * stockData.avgPrice; // Средняя цена покупки не меняется
+                    const totalValue = stockData.quantity * currentPrice;
+                    const totalCost = stockData.quantity * stockData.avgPrice;
                     const profit = totalValue - totalCost;
                     const profitPercent = (profit / totalCost) * 100;
 
@@ -984,7 +1016,7 @@
                             <div class="my-stock-details">
                                 <span>Количество: <span class="my-stock-quantity">${stockData.quantity}</span></span>
                                 <span>Средняя цена: $${stockData.avgPrice.toFixed(2)}</span>
-                                <span>Текущая цена (с учётом удачи): $${currentPriceWithLuck.toFixed(2)}</span>
+                                <span>Текущая цена: $${currentPrice.toFixed(2)}</span>
                                 <span class="my-stock-current-value">Стоимость: $${totalValue.toFixed(2)}</span>
                             </div>
                         </div>
@@ -998,7 +1030,7 @@
 
             // Обновление стоимости моих акций
             function updateMyStocksValue() {
-                // Просто перерисовываем список, чтобы обновить цены и прибыль с учётом удачи
+                // Просто перерисовываем список, чтобы обновить цены и прибыль
                 renderMyStocks();
             }
 
@@ -1013,7 +1045,6 @@
                     showNotification('Ошибка получения цены акции', false);
                     return;
                 }
-                // Цена покупки НЕ умножается на luckMultiplier, так как это реальная цена на момент покупки
                 const totalCost = quantity * currentPrice;
 
                 if (totalCost > balance) {
@@ -1062,7 +1093,6 @@
                     showNotification('Ошибка получения цены акции', false);
                     return;
                 }
-                // Цена продажи НЕ умножается на luckMultiplier, так как это реальная цена на момент продажи
                 const totalValue = quantity * currentPrice;
 
                 // Обновляем баланс
@@ -1074,10 +1104,10 @@
                     delete myStocks[symbol]; // Удаляем запись, если акций не осталось
                 }
 
-                // Добавляем транзакцию "invest" (продажа)
+                // Добавляем транзакцию "sell_stock" (продажа) - ИСПРАВЛЕНО
                 transactions.unshift({
-                    type: 'invest',
-                    amount: totalValue, // Сумма положительная при продаже
+                    type: 'sell_stock', // <-- ИСПОЛЬЗУЕМ НОВЫЙ ТИП
+                    amount: totalValue, // <-- СУММА ПОЛОЖИТЕЛЬНАЯ
                     description: `Продажа ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
                     date: new Date()
                 });
@@ -1088,6 +1118,7 @@
             }
 
             // Запускаем симуляцию цен каждые 10 секунд (для демонстрации)
+            // ВАЖНО: clearInterval может понадобиться при выходе или переходе, но для простоты не добавляю
             setInterval(updateStockPrices, 10000); // 10 секунд
 
             // Обработчик кнопки "Выйти"
@@ -1097,7 +1128,7 @@
                 transactions = [];
                 stocks = {};
                 myStocks = {};
-                luckMultiplier = 1.0; // Сбросить множитель
+                lastUpdateTime = Date.now();
                 saveToLocalStorage();
                 window.location.href = 'index.html';
             });

@@ -745,7 +745,8 @@
             let transactions = []; // Транзакции из основного кошелька
             let stocks = {}; // Состояние акций (цена, история)
             let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
-            let lastUpdateTime = Date.now(); // Время последнего обновления цен
+            // lastUpdateTime нужно сохранять, чтобы симуляция продолжалась с последнего момента
+            let lastUpdateTime = Date.now();
 
             // Elements
             const balanceAmount = document.getElementById('balanceAmount');
@@ -782,7 +783,8 @@
                     balance: balance,
                     transactions: transactions, // Сохраняем транзакции
                     stocks: stocks,
-                    myStocks: myStocks
+                    myStocks: myStocks,
+                    investmentsLastUpdateTime: lastUpdateTime // Сохраняем время последнего обновления цен
                 };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
@@ -798,6 +800,8 @@
                         transactions = data.transactions || []; // Загружаем транзакции
                         stocks = data.stocks || {};
                         myStocks = data.myStocks || {};
+                        // Загружаем lastUpdateTime, если он был сохранён
+                        lastUpdateTime = data.investmentsLastUpdateTime || Date.now();
                         if (user) {
                             updateUI();
                         }
@@ -811,7 +815,7 @@
                 }
             }
 
-            // Инициализация акций
+            // Инициализация акций (только если их нет в сохранённых данных)
             function initializeStocks() {
                 const initialStocks = {
                     "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, trend: 0.0001, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
@@ -830,6 +834,8 @@
                         // Инициализируем историю цен
                         stocks[symbol].history.push(stocks[symbol].initialPrice);
                     }
+                    // Устанавливаем currentPrice на основе последней цены из истории
+                    stocks[symbol].currentPrice = stocks[symbol].history[stocks[symbol].history.length - 1];
                 }
             }
 
@@ -877,12 +883,14 @@
 
             // Обновление цен акций (симуляция рынка)
             function updateStockPrices() {
-                lastUpdateTime = Date.now();
+                lastUpdateTime = Date.now(); // Обновляем время ПЕРЕД симуляцией
                 for (const symbol in stocks) {
                     stocks[symbol].currentPrice = simulateStockPrice(stocks[symbol]);
                 }
                 renderStocks();
                 updateMyStocksValue(); // Обновляем стоимость портфеля
+                // Сохраняем изменения после обновления
+                saveToLocalStorage();
             }
 
             // Обновление интерфейса
@@ -903,11 +911,12 @@
                         transactions = [];
                         stocks = {};
                         myStocks = {};
+                        lastUpdateTime = Date.now();
                         saveToLocalStorage();
                         window.location.href = 'index.html'; // Перенаправить на главную после выхода
                     });
 
-                    initializeStocks(); // Инициализируем акции при первом запуске
+                    initializeStocks(); // Инициализируем акции при первом запуске или если они не были загружены
                     renderStocks();
                     renderMyStocks();
                 }
@@ -1090,6 +1099,7 @@
             }
 
             // Запускаем симуляцию цен каждые 10 секунд (для демонстрации)
+            // ВАЖНО: clearInterval может понадобиться при выходе или переходе, но для простоты не добавляю
             setInterval(updateStockPrices, 10000); // 10 секунд
 
             // Обработчик кнопки "Выйти"
@@ -1099,6 +1109,7 @@
                 transactions = [];
                 stocks = {};
                 myStocks = {};
+                lastUpdateTime = Date.now();
                 saveToLocalStorage();
                 window.location.href = 'index.html';
             });

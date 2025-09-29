@@ -332,9 +332,6 @@
         .transaction-icon.invest {
             background: linear-gradient(135deg, var(--warning), #e67e22); /* Цвет для инвестиций */
         }
-        .transaction-icon.luck {
-            background: linear-gradient(135deg, var(--success), #8e44ad); /* Цвет для удачи */
-        }
         .transaction-details h4 {
             font-weight: 600;
             margin-bottom: 6px; /* Увеличил отступ */
@@ -885,18 +882,6 @@
                                 <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
                             </div>
                             <div class="admin-section">
-                                <h4>Изменить удачу акций</h4>
-                                <div class="form-group">
-                                    <label for="luckMultiplier">Множитель удачи (1.5, 2, 3 или 0.5, 0.7)</label>
-                                    <input type="number" id="luckMultiplier" class="form-control" placeholder="Введите множитель (например, 1.5)" step="0.1" min="0.1" value="1.5">
-                                </div>
-                                <div class="form-group">
-                                    <label for="luckDescription">Описание события</label>
-                                    <input type="text" id="luckDescription" class="form-control" placeholder="Например: Бонус за удачу" value="Изменение удачи акций">
-                                </div>
-                                <button class="btn btn-warning" id="applyLuckBtn">Применить удачу</button>
-                            </div>
-                            <div class="admin-section">
                                 <h4>Управление данными</h4>
                                 <p>Экспортируйте или импортируйте данные вашего профиля для переноса на другие устройства</p>
                                 <div class="data-actions">
@@ -932,7 +917,7 @@
                         <li><a href="#">Цифровой кошелек</a></li>
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
-                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li> <!-- Ссылка на investments.html -->
                     </ul>
                 </div>
                 <div>
@@ -1119,9 +1104,6 @@
             const addBalanceBtn = document.getElementById('addBalanceBtn');
             const createTransactionBtn = document.getElementById('createTransactionBtn');
             const deleteTransactionBtn = document.getElementById('deleteTransactionBtn');
-            const applyLuckBtn = document.getElementById('applyLuckBtn');
-            const luckMultiplier = document.getElementById('luckMultiplier');
-            const luckDescription = document.getElementById('luckDescription');
             // Загрузка данных из localStorage при запуске
             loadFromLocalStorage();
             // Показать уведомление
@@ -1154,7 +1136,7 @@
                             updateUI();
                         }
                     } catch (e) {
-                        console.error('Error loading saved data:', e);
+                        console.error('Error loading saved ', e);
                     }
                 }
             }
@@ -1195,7 +1177,7 @@
                             showNotification('Неверный формат файла', false);
                         }
                     } catch (e) {
-                        console.error('Error importing data:', e);
+                        console.error('Error importing ', e);
                         showNotification('Ошибка при импорте данных', false);
                     }
                 };
@@ -1460,7 +1442,7 @@
                     // Reverse the transaction effect on balance
                     if (transaction.type === 'receive') {
                         balance -= transaction.amount;
-                    } else if (transaction.type === 'send' || transaction.type === 'invest' || transaction.type === 'dividend' || transaction.type === 'sell_stock' || transaction.type === 'luck_change') { // Добавлен тип luck_change
+                    } else if (transaction.type === 'send' || transaction.type === 'invest' || transaction.type === 'dividend' || transaction.type === 'sell_stock') { // Добавлен тип sell_stock
                         balance += transaction.amount;
                     }
                     // Remove transaction
@@ -1473,34 +1455,6 @@
                 } else {
                     showNotification('Транзакция с указанным номером не найдена', false);
                 }
-            });
-            // Apply luck functionality
-            applyLuckBtn.addEventListener('click', function() {
-                if (!isAdminAuthenticated) {
-                    showNotification('Сначала войдите в админ-панель', false);
-                    return;
-                }
-                const multiplier = parseFloat(luckMultiplier.value);
-                const description = luckDescription.value || 'Изменение удачи акций';
-
-                if (isNaN(multiplier) || multiplier <= 0) {
-                    showNotification('Пожалуйста, введите корректный множитель удачи', false);
-                    return;
-                }
-
-                // Add transaction for luck change
-                const luckAmount = 0; // Удача не меняет баланс напрямую, но может повлиять на инвестиции
-                addTransaction({
-                    type: 'luck_change',
-                    amount: luckAmount,
-                    description: `${description} (x${multiplier.toFixed(2)})`,
-                    date: new Date()
-                });
-
-                saveToLocalStorage();
-                showNotification(`Удача изменена на x${multiplier.toFixed(2)}: ${description}`);
-                luckMultiplier.value = '1.5'; // Сбросить значение по умолчанию
-                luckDescription.value = 'Изменение удачи акций'; // Сбросить значение по умолчанию
             });
             // Filter buttons
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -1577,7 +1531,6 @@
                     const isInvest = transaction.type === 'invest'; // Новый тип
                     const isDividend = transaction.type === 'dividend'; // Новый тип
                     const isSellStock = transaction.type === 'sell_stock'; // Новый тип
-                    const isLuckChange = transaction.type === 'luck_change'; // Новый тип
                     const date = new Date(transaction.date).toLocaleDateString('ru-RU', {
                         day: 'numeric',
                         month: 'short',
@@ -1589,16 +1542,16 @@
                     li.className = 'transaction-item';
                     li.innerHTML = `
                         <div class="transaction-info">
-                            <div class="transaction-icon ${isReceive ? 'receive' : (isInvest || isDividend || isSellStock || isLuckChange ? (isLuckChange ? 'luck' : 'invest') : 'send')}">
-                                <i class="fas fa-${isReceive ? 'arrow-down' : (isInvest ? 'chart-line' : (isDividend ? 'coins' : (isSellStock ? 'arrow-up' : (isLuckChange ? 'star' : 'arrow-up'))))}"></i>
+                            <div class="transaction-icon ${isReceive ? 'receive' : (isInvest || isDividend || isSellStock ? 'invest' : 'send')}">
+                                <i class="fas fa-${isReceive ? 'arrow-down' : (isInvest ? 'chart-line' : (isDividend ? 'coins' : (isSellStock ? 'arrow-up' : 'arrow-up')))}"></i>
                             </div>
                             <div class="transaction-details">
                                 <h4>${transaction.description}</h4>
-                                <p>${date} · ${isReceive ? 'Получено' : (isInvest ? 'Инвестировано' : (isDividend ? 'Дивиденды' : (isSellStock ? 'Продажа акций' : (isLuckChange ? 'Удача' : 'Отправлено'))))}</p>
+                                <p>${date} · ${isReceive ? 'Получено' : (isInvest ? 'Инвестировано' : (isDividend ? 'Дивиденды' : (isSellStock ? 'Продажа акций' : 'Отправлено')))}</p>
                             </div>
                         </div>
-                        <div class="transaction-amount ${isReceive || isDividend || isSellStock || isLuckChange ? 'positive' : 'negative'}">
-                            ${(isReceive || isDividend || isSellStock || isLuckChange) ? '+' : '-'} $${transaction.amount.toFixed(2)}
+                        <div class="transaction-amount ${isReceive || isDividend || isSellStock ? 'positive' : 'negative'}"> <!-- isSellStock теперь positive -->
+                            ${(isReceive || isDividend || isSellStock) ? '+' : '-'} $${transaction.amount.toFixed(2)} <!-- isSellStock теперь с плюсом -->
                         </div>
                     `;
                     transactionList.appendChild(li);

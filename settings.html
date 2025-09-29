@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annalith | Настройки</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Основные цвета Annalith */
+            --primary: #6a11cb; /* Градиент начало */
+            --primary-dark: #2575fc; /* Градиент конец */
+            --secondary: #ff6b6b; /* Акцентный цвет */
+            --accent: #4cc9f0; /* Дополнительный акцент */
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3748;
+            --light: #f8fafc;
+            --gray: #a0aec0;
+            --gray-dark: #718096;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: #ffd166;
+            font-size: 1.8rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        nav a:hover {
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd166;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #ffd166;
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        .main-content {
+            padding: 50px 0;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .user-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 15px rgba(106, 17, 203, 0.3);
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .user-email {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        /* Dashboard Content */
+        .dashboard-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #edf2f7;
+            color: var(--text-primary);
+        }
+        /* Settings Form */
+        .settings-section {
+            margin-bottom: 40px;
+        }
+        .settings-group {
+            margin-bottom: 25px;
+        }
+        .settings-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .settings-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        .settings-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
+        }
+        .settings-checkbox {
+            width: auto;
+            margin-right: 10px;
+        }
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+        .settings-row-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .settings-row-value {
+            color: var(--text-secondary);
+        }
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        /* Forms */
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
+        }
+        /* Auth Forms */
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        .auth-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 35px;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .footer-heading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 22px;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid #4a5568;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: 2;
+                margin-top: 30px;
+            }
+            .dashboard-content {
+                order: 1;
+            }
+            nav ul {
+                gap: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .user-actions {
+                justify-content: center;
+            }
+            .balance-actions {
+                flex-direction: column;
+            }
+            .auth-container {
+                margin: 30px 20px;
+                padding: 30px;
+            }
+        }
+        @media (max-width: 576px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .filters {
+                gap: 10px;
+            }
+            .filter-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .balance-actions .btn {
+                padding: 12px 15px;
+            }
+        }
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
+        }
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        .empty-state p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+        }
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+        }
+        .logout-btn {
+            background-color: #fff5f5;
+            color: var(--danger);
+            border: 2px solid #fed7d7;
+            padding: 12px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background-color: #fed7d7;
+            color: var(--danger);
+            border-color: #feb2b2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification hidden" id="notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Annalith</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#transfer">Переводы</a></li>
+                        <li><a href="index.html#transactions">Транзакции</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="#" class="active">Настройки</a></li> <!-- Активная ссылка -->
+                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
+                    </ul>
+                </nav>
+                <div class="user-actions" id="userActions">
+                    <!-- Информация о пользователе будет вставлена JS -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="dashboard">
+            <aside class="sidebar" id="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name" id="userName">Загрузка...</div>
+                    <div class="user-email" id="userEmail">Загрузка...</div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Обзор</a></li>
+                    <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
+                    <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
+                    <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
+                    <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
+                </ul>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </aside>
+            <main class="dashboard-content">
+                <h2 class="section-title">Настройки</h2>
+                <div class="settings-section">
+                    <h3 class="section-title">Общие</h3>
+                    <div class="settings-group">
+                        <label for="userNameInput">Имя</label>
+                        <input type="text" id="userNameInput" class="settings-control" placeholder="Введите ваше имя">
+                    </div>
+                    <div class="settings-group">
+                        <label for="userEmailInput">Email</label>
+                        <input type="email" id="userEmailInput" class="settings-control" placeholder="Введите ваш email" disabled> <!-- Email нельзя менять -->
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Уведомления</h3>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Email-уведомления</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="emailNotificationsToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Push-уведомления</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="pushNotificationsToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Язык и тема</h3>
+                    <div class="settings-group">
+                        <label for="languageSelect">Язык</label>
+                        <select id="languageSelect" class="settings-control">
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Темная тема</div>
+                        <label class="theme-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="themeToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Безопасность</h3>
+                    <div class="settings-group">
+                        <label for="currentPassword">Текущий пароль</label>
+                        <input type="password" id="currentPassword" class="settings-control" placeholder="Введите текущий пароль">
+                    </div>
+                    <div class="settings-group">
+                        <label for="newPassword">Новый пароль</label>
+                        <input type="password" id="newPassword" class="settings-control" placeholder="Введите новый пароль">
+                    </div>
+                    <div class="settings-group">
+                        <label for="confirmNewPassword">Подтвердите новый пароль</label>
+                        <input type="password" id="confirmNewPassword" class="settings-control" placeholder="Подтвердите новый пароль">
+                    </div>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Двухфакторная аутентификация (2FA)</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="twoFactorToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Приватность</h3>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Показывать баланс в списках</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="showBalanceToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-row">
+                        <div class="settings-row-label">Разрешить аналитику</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="analyticsToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="saveSettingsBtn" style="margin-top: 20px;">Сохранить изменения</button>
+            </main>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-gem"></i>
+                        <span>Annalith</span>
+                    </div>
+                    <p class="footer-description">Ваш надежный и безопасный цифровой кошелек для повседневного использования и инвестиций.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Продукты</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Цифровой кошелек</a></li>
+                        <li><a href="#">Обмен валют</a></li>
+                        <li><a href="#">Криптокарта</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Поддержка</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="#">Сообщение о ошибке</a></li>
+                        <li><a href="#">Состояние системы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Компания</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="#">Партнерская программа</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Annalith. Все права защищены.
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // State management
+            let user = null;
+            let settings = {
+                emailNotifications: true,
+                pushNotifications: false,
+                language: 'ru',
+                darkTheme: false,
+                twoFactor: false,
+                showBalance: true,
+                analytics: true
+            };
+
+            // Elements
+            const userNameInput = document.getElementById('userNameInput');
+            const userEmailInput = document.getElementById('userEmailInput');
+            const emailNotificationsToggle = document.getElementById('emailNotificationsToggle');
+            const pushNotificationsToggle = document.getElementById('pushNotificationsToggle');
+            const languageSelect = document.getElementById('languageSelect');
+            const themeToggle = document.getElementById('themeToggle');
+            const twoFactorToggle = document.getElementById('twoFactorToggle');
+            const showBalanceToggle = document.getElementById('showBalanceToggle');
+            const analyticsToggle = document.getElementById('analyticsToggle');
+            const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userActions = document.getElementById('userActions');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const sidebar = document.getElementById('sidebar');
+            const notification = document.getElementById('notification');
+
+            // Загрузка данных из localStorage при запуске
+            loadFromLocalStorage();
+
+            // Проверка авторизации
+            if (!user) {
+                window.location.href = 'index.html'; // Перенаправить на главную, если не авторизован
+                return;
+            }
+
+            // Показать уведомление
+            function showNotification(message, isSuccess = true) {
+                notification.textContent = message;
+                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
+                setTimeout(() => {
+                    notification.className = 'notification hidden';
+                }, 3000);
+            }
+
+            // Сохранение данных в localStorage
+            function saveToLocalStorage() {
+                const data = {
+                    user: user,
+                    settings: settings
+                };
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
+            }
+
+            // Загрузка данных из localStorage
+            function loadFromLocalStorage() {
+                const savedData = localStorage.getItem('annalithWalletData');
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        user = data.user;
+                        settings = data.settings || settings; // Загружаем настройки или используем дефолтные
+                        if (user) {
+                            updateUI();
+                        }
+                    } catch (e) {
+                        console.error('Error loading saved data:', e);
+                        showNotification('Ошибка при загрузке данных', false);
+                    }
+                } else {
+                    // Если данных нет, перенаправить на главную
+                    window.location.href = 'index.html';
+                }
+            }
+
+            // Обновление интерфейса
+            function updateUI() {
+                if (user) {
+                    userName.textContent = user.name;
+                    userEmail.textContent = user.email;
+                    userNameInput.value = user.name;
+                    userEmailInput.value = user.email;
+
+                    // Установка настроек
+                    emailNotificationsToggle.checked = settings.emailNotifications;
+                    pushNotificationsToggle.checked = settings.pushNotifications;
+                    languageSelect.value = settings.language;
+                    themeToggle.checked = settings.darkTheme;
+                    twoFactorToggle.checked = settings.twoFactor;
+                    showBalanceToggle.checked = settings.showBalance;
+                    analyticsToggle.checked = settings.analytics;
+
+                    // Применение темы
+                    if (settings.darkTheme) {
+                        document.body.classList.add('dark-theme');
+                    } else {
+                        document.body.classList.remove('dark-theme');
+                    }
+
+                    // Обновление информации о пользователе в шапке
+                    userActions.innerHTML = `
+                        <span style="color: white; font-weight: 500;">${user.name}</span>
+                        <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
+                    `;
+                    document.getElementById('headerLogoutBtn').addEventListener('click', function() {
+                        user = null;
+                        settings = null;
+                        saveToLocalStorage();
+                        window.location.href = 'index.html'; // Перенаправить на главную после выхода
+                    });
+
+                    sidebar.classList.remove('hidden');
+                }
+            }
+
+            // Обработчики изменений настроек
+            emailNotificationsToggle.addEventListener('change', function() {
+                settings.emailNotifications = this.checked;
+            });
+            pushNotificationsToggle.addEventListener('change', function() {
+                settings.pushNotifications = this.checked;
+            });
+            languageSelect.addEventListener('change', function() {
+                settings.language = this.value;
+            });
+            themeToggle.addEventListener('change', function() {
+                settings.darkTheme = this.checked;
+                if (this.checked) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                }
+            });
+            twoFactorToggle.addEventListener('change', function() {
+                settings.twoFactor = this.checked;
+            });
+            showBalanceToggle.addEventListener('change', function() {
+                settings.showBalance = this.checked;
+            });
+            analyticsToggle.addEventListener('change', function() {
+                settings.analytics = this.checked;
+            });
+
+            // Обработчик кнопки сохранения
+            saveSettingsBtn.addEventListener('click', function() {
+                // Валидация и обновление данных пользователя (имени)
+                const newName = userNameInput.value.trim();
+                if (newName && newName !== user.name) {
+                    user.name = newName;
+                }
+
+                saveToLocalStorage();
+                showNotification('Настройки успешно сохранены!');
+            });
+
+            // Обработчик кнопки "Выйти"
+            logoutBtn.addEventListener('click', function() {
+                user = null;
+                settings = null;
+                saveToLocalStorage();
+                window.location.href = 'index.html';
+            });
+
+            // Инициализация UI
+            updateUI();
+        });
+    </script>
+</body>
+</html>

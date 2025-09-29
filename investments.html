@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annalith | Инвестиции</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Основные цвета Annalith */
+            --primary: #6a11cb; /* Градиент начало */
+            --primary-dark: #2575fc; /* Градиент конец */
+            --secondary: #ff6b6b; /* Акцентный цвет */
+            --accent: #4cc9f0; /* Дополнительный акцент */
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3748;
+            --light: #f8fafc;
+            --gray: #a0aec0;
+            --gray-dark: #718096;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: #ffd166;
+            font-size: 1.8rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        nav a:hover {
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd166;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #ffd166;
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        .main-content {
+            padding: 50px 0;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .user-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 15px rgba(106, 17, 203, 0.3);
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .user-email {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        /* Dashboard Content */
+        .dashboard-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #edf2f7;
+            color: var(--text-primary);
+        }
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .balance-card:hover {
+            transform: translateY(-5px);
+        }
+        .balance-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        .balance-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+        /* Stocks Market */
+        .stocks-market {
+            margin-top: 35px;
+        }
+        .stock-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stock-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .stock-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .stock-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .stock-price.up {
+            color: var(--success);
+        }
+        .stock-price.down {
+            color: var(--danger);
+        }
+        .stock-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .stock-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .stock-actions input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        .buy-btn, .sell-btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .buy-btn {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+        }
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #27ae60, var(--success));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .sell-btn {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+        }
+        .sell-btn:hover {
+            background: linear-gradient(135deg, #c0392b, var(--danger));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* My Stocks */
+        .my-stocks {
+            margin-top: 50px;
+        }
+        .my-stock-item {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--warning);
+        }
+        .my-stock-info {
+            flex: 1;
+        }
+        .my-stock-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        .my-stock-details {
+            display: flex;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .my-stock-quantity, .my-stock-current-value, .my-stock-profit {
+            font-weight: 600;
+        }
+        .my-stock-profit {
+            color: var(--success);
+        }
+        .my-stock-profit.loss {
+            color: var(--danger);
+        }
+        /* Forms */
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
+        }
+        /* Auth Forms */
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        .auth-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 35px;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .footer-heading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 22px;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid #4a5568;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: 2;
+                margin-top: 30px;
+            }
+            .dashboard-content {
+                order: 1;
+            }
+            nav ul {
+                gap: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .user-actions {
+                justify-content: center;
+            }
+            .balance-actions {
+                flex-direction: column;
+            }
+            .auth-container {
+                margin: 30px 20px;
+                padding: 30px;
+            }
+            .stock-actions {
+                flex-direction: column;
+            }
+            .buy-btn, .sell-btn {
+                width: 100%;
+            }
+        }
+        @media (max-width: 576px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .my-stock-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .my-stock-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            }
+            .filters {
+                gap: 10px;
+            }
+            .filter-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .balance-actions .btn {
+                padding: 12px 15px;
+            }
+        }
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
+        }
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        .empty-state p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+        }
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+        }
+        .logout-btn {
+            background-color: #fff5f5;
+            color: var(--danger);
+            border: 2px solid #fed7d7;
+            padding: 12px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background-color: #fed7d7;
+            color: var(--danger);
+            border-color: #feb2b2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification hidden" id="notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Annalith</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#transfer">Переводы</a></li>
+                        <li><a href="index.html#transactions">Транзакции</a></li>
+                        <li><a href="#" class="active">Инвестиции</a></li> <!-- Активная ссылка -->
+                        <li><a href="settings.html">Настройки</a></li> <!-- Ссылка на settings.html -->
+                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
+                    </ul>
+                </nav>
+                <div class="user-actions" id="userActions">
+                    <!-- Информация о пользователе будет вставлена JS -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="dashboard">
+            <aside class="sidebar" id="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name" id="userName">Загрузка...</div>
+                    <div class="user-email" id="userEmail">Загрузка...</div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Обзор</a></li>
+                    <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
+                    <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li> <!-- Ссылка на settings.html -->
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
+                    <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
+                </ul>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </aside>
+            <main class="dashboard-content">
+                <h2 class="section-title">Инвестиции</h2>
+                <div class="balance-card">
+                    <div class="balance-title">Доступный баланс</div>
+                    <div class="balance-amount">$ <span id="balanceAmount">0.00</span></div>
+                </div>
+                <div class="stocks-market">
+                    <h3 class="section-title">Рынок акций</h3>
+                    <div id="stocksList">
+                        <!-- Список акций будет вставлен JS -->
+                    </div>
+                </div>
+                <div class="my-stocks">
+                    <h3 class="section-title">Мои акции</h3>
+                    <div id="myStocksList">
+                        <div class="empty-state">
+                            <i class="fas fa-chart-line"></i>
+                            <p>У вас пока нет купленных акций</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-gem"></i>
+                        <span>Annalith</span>
+                    </div>
+                    <p class="footer-description">Ваш надежный и безопасный цифровой кошелек для повседневного использования и инвестиций.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Продукты</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Цифровой кошелек</a></li>
+                        <li><a href="#">Обмен валют</a></li>
+                        <li><a href="#">Криптокарта</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Поддержка</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="#">Сообщение о ошибке</a></li>
+                        <li><a href="#">Состояние системы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Компания</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="#">Партнерская программа</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Annalith. Все права защищены.
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // State management
+            let user = null;
+            let balance = 0;
+            let transactions = []; // Транзакции из основного кошелька
+            let stocks = {}; // Состояние акций (цена, история)
+            let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
+            let lastUpdateTime = Date.now(); // Время последнего обновления цен
+
+            // Elements
+            const balanceAmount = document.getElementById('balanceAmount');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userActions = document.getElementById('userActions');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const notification = document.getElementById('notification');
+            const stocksList = document.getElementById('stocksList');
+            const myStocksList = document.getElementById('myStocksList');
+
+            // Загрузка данных из localStorage при запуске
+            loadFromLocalStorage();
+
+            // Проверка авторизации
+            if (!user) {
+                window.location.href = 'index.html'; // Перенаправить на главную, если не авторизован
+                return;
+            }
+
+            // Показать уведомление
+            function showNotification(message, isSuccess = true) {
+                notification.textContent = message;
+                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
+                setTimeout(() => {
+                    notification.className = 'notification hidden';
+                }, 3000);
+            }
+
+            // Сохранение данных в localStorage
+            function saveToLocalStorage() {
+                const data = {
+                    user: user,
+                    balance: balance,
+                    transactions: transactions, // Сохраняем транзакции
+                    stocks: stocks,
+                    myStocks: myStocks
+                };
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
+            }
+
+            // Загрузка данных из localStorage
+            function loadFromLocalStorage() {
+                const savedData = localStorage.getItem('annalithWalletData');
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        user = data.user;
+                        balance = data.balance || 0;
+                        transactions = data.transactions || []; // Загружаем транзакции
+                        stocks = data.stocks || {};
+                        myStocks = data.myStocks || {};
+                        if (user) {
+                            updateUI();
+                        }
+                    } catch (e) {
+                        console.error('Error loading saved data:', e);
+                        showNotification('Ошибка при загрузке данных', false);
+                    }
+                } else {
+                    // Если данных нет, перенаправить на главную
+                    window.location.href = 'index.html';
+                }
+            }
+
+            // Инициализация акций
+            function initializeStocks() {
+                const initialStocks = {
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, trend: 0.0001, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, trend: 0.00005, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, trend: 0.00015, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, trend: -0.0001, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, trend: 0.0002, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, trend: 0.00012, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, trend: 0.00025, trendDuration: 0, trendChange: 0, momentum: 0, history: [] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, trend: 0.00008, trendDuration: 0, trendChange: 0, momentum: 0, history: [] }
+                };
+
+                for (const symbol in initialStocks) {
+                    if (!stocks[symbol]) {
+                        stocks[symbol] = initialStocks[symbol];
+                        // Инициализируем историю цен
+                        stocks[symbol].history.push(stocks[symbol].initialPrice);
+                    }
+                }
+            }
+
+            // Симуляция движения цены акции (более "умная")
+            function simulateStockPrice(stock) {
+                const lastPrice = stock.history[stock.history.length - 1];
+                const now = Date.now();
+                const timeElapsed = (now - lastUpdateTime) / 1000; // в секундах
+
+                // Обновление тренда с вероятностью (например, 1% на тик)
+                if (Math.random() < 0.01) {
+                    const newTrendChange = (Math.random() - 0.5) * 0.0005; // Новый тренд от -0.05% до +0.05% в час
+                    stock.trendChange = newTrendChange;
+                    stock.trendDuration = Math.floor(Math.random() * 1000) + 100; // Продолжительность тренда
+                }
+
+                // Применение текущего тренда
+                if (stock.trendDuration > 0) {
+                    stock.trend = stock.trendChange;
+                    stock.trendDuration--;
+                } else {
+                    // Если тренд истек, плавно возвращаем к 0
+                    stock.trend *= 0.99; // Замедляем возврат
+                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0; // "Останавливаем" тренд
+                }
+
+                // Импульс (momentum) - делает движение цены более плавным
+                const targetPrice = lastPrice * (1 + stock.trend * timeElapsed);
+                const priceDifference = targetPrice - lastPrice;
+                stock.momentum = stock.momentum * 0.9 + priceDifference * 0.1; // 10% влияния от разницы
+
+                // Случайное изменение цены на основе волатильности, тренда и импульса
+                const randomFactor = (Math.random() - 0.5) * 2; // от -1 до 1
+                const volatilityChange = randomFactor * stock.volatility * lastPrice;
+                const totalChange = volatilityChange + stock.momentum;
+                const newPrice = Math.max(0.01, lastPrice + totalChange); // Цена не может быть отрицательной или 0
+
+                stock.history.push(newPrice);
+                // Ограничиваем историю для производительности
+                if (stock.history.length > 100) {
+                    stock.history.shift();
+                }
+                return newPrice;
+            }
+
+            // Обновление цен акций (симуляция рынка)
+            function updateStockPrices() {
+                lastUpdateTime = Date.now();
+                for (const symbol in stocks) {
+                    stocks[symbol].currentPrice = simulateStockPrice(stocks[symbol]);
+                }
+                renderStocks();
+                updateMyStocksValue(); // Обновляем стоимость портфеля
+            }
+
+            // Обновление интерфейса
+            function updateUI() {
+                if (user) {
+                    userName.textContent = user.name;
+                    userEmail.textContent = user.email;
+                    balanceAmount.textContent = balance.toFixed(2);
+
+                    // Обновление информации о пользователе в шапке
+                    userActions.innerHTML = `
+                        <span style="color: white; font-weight: 500;">${user.name}</span>
+                        <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
+                    `;
+                    document.getElementById('headerLogoutBtn').addEventListener('click', function() {
+                        user = null;
+                        balance = 0;
+                        transactions = [];
+                        stocks = {};
+                        myStocks = {};
+                        saveToLocalStorage();
+                        window.location.href = 'index.html'; // Перенаправить на главную после выхода
+                    });
+
+                    initializeStocks(); // Инициализируем акции при первом запуске
+                    renderStocks();
+                    renderMyStocks();
+                }
+            }
+
+            // Рендер списка акций
+            function renderStocks() {
+                stocksList.innerHTML = '';
+                for (const symbol in stocks) {
+                    const stock = stocks[symbol];
+                    const currentPrice = stock.currentPrice || stock.history[stock.history.length - 1];
+                    const previousPrice = stock.history[stock.history.length - 2] || stock.initialPrice;
+                    const isUp = currentPrice >= previousPrice;
+                    const changePercent = ((currentPrice - previousPrice) / previousPrice * 100).toFixed(2);
+
+                    const div = document.createElement('div');
+                    div.className = 'stock-item';
+                    div.innerHTML = `
+                        <div class="stock-header">
+                            <div class="stock-name">${symbol} - ${stock.name}</div>
+                            <div class="stock-price ${isUp ? 'up' : 'down'}">$${currentPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
+                        </div>
+                        <div class="stock-description">
+                            Текущая цена акции ${symbol} на симулированном рынке.
+                        </div>
+                        <div class="stock-actions">
+                            <input type="number" id="quantity_${symbol}" class="form-control" placeholder="Количество" step="1" min="1" value="1">
+                            <button class="buy-btn" data-symbol="${symbol}">Купить</button>
+                            <button class="sell-btn" data-symbol="${symbol}">Продать</button>
+                        </div>
+                    `;
+                    stocksList.appendChild(div);
+                }
+
+                // Добавляем обработчики для кнопок покупки/продажи
+                document.querySelectorAll('.buy-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const symbol = this.getAttribute('data-symbol');
+                        const quantity = parseInt(document.getElementById(`quantity_${symbol}`).value);
+                        buyStock(symbol, quantity);
+                    });
+                });
+                document.querySelectorAll('.sell-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const symbol = this.getAttribute('data-symbol');
+                        const quantity = parseInt(document.getElementById(`quantity_${symbol}`).value);
+                        sellStock(symbol, quantity);
+                    });
+                });
+            }
+
+            // Рендер списка моих акций
+            function renderMyStocks() {
+                if (Object.keys(myStocks).length === 0) {
+                    myStocksList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-chart-line"></i>
+                            <p>У вас пока нет купленных акций</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                myStocksList.innerHTML = '';
+                for (const symbol in myStocks) {
+                    const stockData = myStocks[symbol];
+                    const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1] || 0;
+                    const totalValue = stockData.quantity * currentPrice;
+                    const totalCost = stockData.quantity * stockData.avgPrice;
+                    const profit = totalValue - totalCost;
+                    const profitPercent = (profit / totalCost) * 100;
+
+                    const div = document.createElement('div');
+                    div.className = 'my-stock-item';
+                    div.innerHTML = `
+                        <div class="my-stock-info">
+                            <div class="my-stock-name">${symbol} - ${stocks[symbol]?.name || 'Неизвестная акция'}</div>
+                            <div class="my-stock-details">
+                                <span>Количество: <span class="my-stock-quantity">${stockData.quantity}</span></span>
+                                <span>Средняя цена: $${stockData.avgPrice.toFixed(2)}</span>
+                                <span>Текущая цена: $${currentPrice.toFixed(2)}</span>
+                                <span class="my-stock-current-value">Стоимость: $${totalValue.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div class="my-stock-profit ${profit >= 0 ? '' : 'loss'}">
+                            ${profit >= 0 ? '+' : ''}$${profit.toFixed(2)} (${profitPercent.toFixed(2)}%)
+                        </div>
+                    `;
+                    myStocksList.appendChild(div);
+                }
+            }
+
+            // Обновление стоимости моих акций
+            function updateMyStocksValue() {
+                // Просто перерисовываем список, чтобы обновить цены и прибыль
+                renderMyStocks();
+            }
+
+            // Функция покупки акции
+            function buyStock(symbol, quantity) {
+                if (quantity <= 0) {
+                    showNotification('Количество акций должно быть больше 0', false);
+                    return;
+                }
+                const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1];
+                if (!currentPrice) {
+                    showNotification('Ошибка получения цены акции', false);
+                    return;
+                }
+                const totalCost = quantity * currentPrice;
+
+                if (totalCost > balance) {
+                    showNotification('Недостаточно средств для покупки', false);
+                    return;
+                }
+
+                // Обновляем баланс
+                balance -= totalCost;
+
+                // Обновляем или создаем запись о моих акциях
+                if (!myStocks[symbol]) {
+                    myStocks[symbol] = { quantity: 0, avgPrice: 0 };
+                }
+                const oldTotalCost = myStocks[symbol].quantity * myStocks[symbol].avgPrice;
+                const newTotalQuantity = myStocks[symbol].quantity + quantity;
+                const newTotalCost = oldTotalCost + totalCost;
+                myStocks[symbol].avgPrice = newTotalCost / newTotalQuantity;
+                myStocks[symbol].quantity = newTotalQuantity;
+
+                // Добавляем транзакцию "invest"
+                transactions.unshift({
+                    type: 'invest',
+                    amount: totalCost,
+                    description: `Покупка ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
+                    date: new Date()
+                });
+
+                saveToLocalStorage();
+                updateUI();
+                showNotification(`Куплено ${quantity} акций ${symbol} за $${totalCost.toFixed(2)}`);
+            }
+
+            // Функция продажи акции
+            function sellStock(symbol, quantity) {
+                if (quantity <= 0) {
+                    showNotification('Количество акций должно быть больше 0', false);
+                    return;
+                }
+                if (!myStocks[symbol] || myStocks[symbol].quantity < quantity) {
+                    showNotification('У вас недостаточно акций для продажи', false);
+                    return;
+                }
+                const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1];
+                if (!currentPrice) {
+                    showNotification('Ошибка получения цены акции', false);
+                    return;
+                }
+                const totalValue = quantity * currentPrice;
+
+                // Обновляем баланс
+                balance += totalValue;
+
+                // Обновляем запись о моих акциях
+                myStocks[symbol].quantity -= quantity;
+                if (myStocks[symbol].quantity === 0) {
+                    delete myStocks[symbol]; // Удаляем запись, если акций не осталось
+                }
+
+                // Добавляем транзакцию "sell_stock" (продажа) - ИСПРАВЛЕНО
+                transactions.unshift({
+                    type: 'sell_stock', // <-- ИСПОЛЬЗУЕМ НОВЫЙ ТИП
+                    amount: totalValue, // <-- СУММА ПОЛОЖИТЕЛЬНАЯ
+                    description: `Продажа ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
+                    date: new Date()
+                });
+
+                saveToLocalStorage();
+                updateUI();
+                showNotification(`Продано ${quantity} акций ${symbol} за $${totalValue.toFixed(2)}`);
+            }
+
+            // Запускаем симуляцию цен каждые 10 секунд (для демонстрации)
+            setInterval(updateStockPrices, 10000); // 10 секунд
+
+            // Обработчик кнопки "Выйти"
+            logoutBtn.addEventListener('click', function() {
+                user = null;
+                balance = 0;
+                transactions = [];
+                stocks = {};
+                myStocks = {};
+                saveToLocalStorage();
+                window.location.href = 'index.html';
+            });
+
+            // Инициализация UI
+            updateUI();
+        });
+    </script>
+</body>
+</html>

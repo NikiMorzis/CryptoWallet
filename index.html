@@ -276,6 +276,7 @@
             gap: 18px; /* Увеличил отступ */
             margin-bottom: 25px; /* Увеличил отступ */
             flex-wrap: wrap;
+            align-items: center; /* Выравнивание по центру */
         }
         .filter-btn {
             padding: 10px 20px; /* Увеличил паддинги */
@@ -293,6 +294,21 @@
         .filter-btn.active {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
+        }
+        .filter-select {
+            padding: 10px 15px; /* Паддинги для селекта */
+            border: 1px solid #cbd5e0;
+            border-radius: 10px; /* Более закругленные */
+            background-color: #f8fafc;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
         }
         .transaction-list {
             list-style: none;
@@ -541,11 +557,12 @@
                 margin-left: 70px; /* Увеличил отступ для суммы */
             }
             .filters {
+                flex-direction: column; /* На мобиле - вертикальный стек */
+                align-items: stretch; /* Растягиваем элементы */
                 gap: 10px;
             }
-            .filter-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
+            .filter-btn, .filter-select {
+                width: 100%; /* На мобиле - вся ширина */
             }
             .balance-actions .btn {
                 padding: 12px 15px;
@@ -816,11 +833,28 @@
                     <div class="transactions">
                         <h3 class="section-title">Последние транзакции</h3>
                         <div class="filters">
-                            <button class="filter-btn active">Все</button>
-                            <button class="filter-btn">Входящие</button>
-                            <button class="filter-btn">Исходящие</button>
-                            <button class="filter-btn">За месяц</button>
-                            <button class="filter-btn">За неделю</button>
+                            <button class="filter-btn active" data-filter="all">Все</button>
+                            <button class="filter-btn" data-filter="receive">Входящие</button>
+                            <button class="filter-btn" data-filter="send">Исходящие</button>
+                            <select class="filter-select" id="monthFilter">
+                                <option value="">Все месяцы</option>
+                                <option value="0">Январь</option>
+                                <option value="1">Февраль</option>
+                                <option value="2">Март</option>
+                                <option value="3">Апрель</option>
+                                <option value="4">Май</option>
+                                <option value="5">Июнь</option>
+                                <option value="6">Июль</option>
+                                <option value="7">Август</option>
+                                <option value="8">Сентябрь</option>
+                                <option value="9">Октябрь</option>
+                                <option value="10">Ноябрь</option>
+                                <option value="11">Декабрь</option>
+                            </select>
+                            <select class="filter-select" id="yearFilter">
+                                <option value="">Все годы</option>
+                                <!-- Опции будут добавлены динамически -->
+                            </select>
                         </div>
                         <ul class="transaction-list" id="transactionList">
                             <li class="empty-state">
@@ -1100,6 +1134,10 @@
             const goToRegister = document.getElementById('goToRegister');
             const goToLogin = document.getElementById('goToLogin');
             const confirmTopUp = document.getElementById('confirmTopUp');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const monthFilter = document.getElementById('monthFilter');
+            const yearFilter = document.getElementById('yearFilter');
+
             // Admin panel elements
             const addBalanceBtn = document.getElementById('addBalanceBtn');
             const createTransactionBtn = document.getElementById('createTransactionBtn');
@@ -1184,29 +1222,32 @@
                 reader.readAsText(file);
             }
             // Open modals
+            function openModal(modal) {
+                modal.style.display = 'flex';
+            }
             loginBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                loginModal.style.display = 'flex';
+                openModal(loginModal);
             });
             loginBtn2.addEventListener('click', function(e) {
                 e.preventDefault();
-                loginModal.style.display = 'flex';
+                openModal(loginModal);
             });
             registerBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                registerModal.style.display = 'flex';
+                openModal(registerModal);
             });
             registerBtn2.addEventListener('click', function(e) {
                 e.preventDefault();
-                registerModal.style.display = 'flex';
+                openModal(registerModal);
             });
             topUpBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                topUpModal.style.display = 'flex';
+                openModal(topUpModal);
             });
             sendMoneyBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                sendMoneyModal.style.display = 'flex';
+                openModal(sendMoneyModal);
             });
             // Close modals
             closeModalButtons.forEach(button => {
@@ -1225,12 +1266,12 @@
             goToRegister.addEventListener('click', function(e) {
                 e.preventDefault();
                 loginModal.style.display = 'none';
-                registerModal.style.display = 'flex';
+                openModal(registerModal);
             });
             goToLogin.addEventListener('click', function(e) {
                 e.preventDefault();
                 registerModal.style.display = 'none';
-                loginModal.style.display = 'flex';
+                openModal(loginModal);
             });
             // Close modal when clicking outside
             window.addEventListener('click', function(e) {
@@ -1290,20 +1331,16 @@
                 e.preventDefault();
                 const rawAmount = document.getElementById('sendAmount').value;
                 const amount = parseFloat(rawAmount);
-
                 if (isNaN(amount) || amount <= 0) {
                     showNotification('Пожалуйста, введите корректную сумму перевода', false);
                     return;
                 }
-
                 const recipient = document.getElementById('recipient').value;
                 const note = document.getElementById('sendNote').value;
-
                 if (amount > balance) {
                     showNotification('Недостаточно средств на балансе', false);
                     return;
                 }
-
                 // Add transaction
                 addTransaction({
                     type: 'send',
@@ -1374,12 +1411,10 @@
                 const rawAmount = document.getElementById('adminBalanceAmount').value;
                 const amount = parseFloat(rawAmount);
                 const description = document.getElementById('topUpDescription').value || 'Пополнение через админ-панель';
-
                 if (isNaN(amount) || amount <= 0) {
                     showNotification('Пожалуйста, введите корректную сумму пополнения', false);
                     return;
                 }
-
                 balance += amount;
                 updateBalance();
                 // Add transaction
@@ -1402,12 +1437,10 @@
                 const rawAmount = document.getElementById('transactionAmount').value;
                 const amount = parseFloat(rawAmount);
                 const description = document.getElementById('transactionDescription').value;
-
                 if (isNaN(amount) || amount <= 0 || !description) {
                     showNotification('Пожалуйста, заполните все поля корректно', false);
                     return;
                 }
-
                 // Add transaction
                 addTransaction({
                     type: type,
@@ -1456,15 +1489,45 @@
                     showNotification('Транзакция с указанным номером не найдена', false);
                 }
             });
-            // Filter buttons
-            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            // Фильтрация и сортировка транзакций
+            let currentFilter = 'all';
+            let selectedMonth = null;
+            let selectedYear = null;
+
+            // Инициализация селекта годов
+            function initializeYearSelect() {
+                const currentYear = new Date().getFullYear();
+                const startYear = currentYear - 5; // Диапазон 5 лет назад
+                for (let year = currentYear; year >= startYear; year--) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    yearFilter.appendChild(option);
+                }
+            }
+            initializeYearSelect();
+
+            // Обработчики фильтров
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    // In a real app, we would filter transactions here
+                    currentFilter = this.getAttribute('data-filter');
+                    renderTransactions();
                 });
             });
+
+            monthFilter.addEventListener('change', function() {
+                selectedMonth = this.value === '' ? null : parseInt(this.value);
+                renderTransactions();
+            });
+
+            yearFilter.addEventListener('change', function() {
+                selectedYear = this.value === '' ? null : parseInt(this.value);
+                renderTransactions();
+            });
+
             // Helper functions
             function updateUI() {
                 if (user) {
@@ -1498,11 +1561,11 @@
                     // Reattach event listeners
                     document.getElementById('loginBtn').addEventListener('click', function(e) {
                         e.preventDefault();
-                        loginModal.style.display = 'flex';
+                        openModal(loginModal);
                     });
                     document.getElementById('registerBtn').addEventListener('click', function(e) {
                         e.preventDefault();
-                        registerModal.style.display = 'flex';
+                        openModal(registerModal);
                     });
                 }
                 updateBalance();
@@ -1515,6 +1578,7 @@
                 transactions.unshift(transaction);
                 renderTransactions();
             }
+
             function renderTransactions() {
                 if (transactions.length === 0) {
                     transactionList.innerHTML = `
@@ -1525,8 +1589,31 @@
                     `;
                     return;
                 }
+
+                // Сортировка по дате (новые первыми)
+                const sortedTransactions = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // Фильтрация
+                const filteredTransactions = sortedTransactions.filter(transaction => {
+                    const transactionDate = new Date(transaction.date);
+                    const monthMatch = selectedMonth === null || transactionDate.getMonth() === selectedMonth;
+                    const yearMatch = selectedYear === null || transactionDate.getFullYear() === selectedYear;
+                    const typeMatch = currentFilter === 'all' || transaction.type === currentFilter;
+                    return monthMatch && yearMatch && typeMatch;
+                });
+
+                if (filteredTransactions.length === 0) {
+                    transactionList.innerHTML = `
+                        <li class="empty-state">
+                            <i class="fas fa-exchange-alt"></i>
+                            <p>Нет транзакций по выбранным фильтрам</p>
+                        </li>
+                    `;
+                    return;
+                }
+
                 transactionList.innerHTML = '';
-                transactions.forEach((transaction, index) => {
+                filteredTransactions.forEach((transaction, index) => {
                     const isReceive = transaction.type === 'receive';
                     const isInvest = transaction.type === 'invest'; // Новый тип
                     const isDividend = transaction.type === 'dividend'; // Новый тип

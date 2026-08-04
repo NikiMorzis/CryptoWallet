@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* все стили как в предыдущей версии (без изменений) */
         :root {
-            /* Основные цвета Annalith */
-            --primary: #6a11cb; /* Градиент начало */
-            --primary-dark: #2575fc; /* Градиент конец */
-            --secondary: #ff6b6b; /* Акцентный цвет */
-            --accent: #4cc9f0; /* Дополнительный акцент */
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -45,7 +45,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -148,7 +147,6 @@
             grid-template-columns: 1fr 3fr;
             gap: 30px;
         }
-        /* Sidebar */
         .sidebar {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -212,7 +210,6 @@
             text-align: center;
             font-size: 1.1rem;
         }
-        /* Dashboard Content */
         .dashboard-content {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -228,7 +225,6 @@
             border-bottom: 2px solid #edf2f7;
             color: var(--text-primary);
         }
-        /* Balance Card */
         .balance-card {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -253,7 +249,6 @@
             margin-bottom: 25px;
             letter-spacing: -1px;
         }
-        /* Stocks Market */
         .stocks-market {
             margin-top: 35px;
         }
@@ -335,7 +330,6 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        /* My Stocks */
         .my-stocks {
             margin-top: 50px;
         }
@@ -372,7 +366,6 @@
         .my-stock-profit.loss {
             color: var(--danger);
         }
-        /* Forms */
         .form-group {
             margin-bottom: 22px;
         }
@@ -398,7 +391,6 @@
             box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
             background-color: white;
         }
-        /* Auth Forms */
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -427,7 +419,6 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
-        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
@@ -480,7 +471,6 @@
             color: var(--gray);
             font-size: 0.9rem;
         }
-        /* Responsive Design */
         @media (max-width: 992px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -537,18 +527,7 @@
                 display: flex;
                 justify-content: flex-end;
             }
-            .filters {
-                gap: 10px;
-            }
-            .filter-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-            }
-            .balance-actions .btn {
-                padding: 12px 15px;
-            }
         }
-        /* Utility Classes */
         .text-center {
             text-align: center;
         }
@@ -616,6 +595,14 @@
             color: var(--danger);
             border-color: #feb2b2;
         }
+        .admin-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .admin-link:hover {
+            color: #ffd166;
+        }
     </style>
 </head>
 <body>
@@ -634,13 +621,15 @@
                         <li><a href="index.html">Главная</a></li>
                         <li><a href="index.html#transfer">Переводы</a></li>
                         <li><a href="index.html#transactions">Транзакции</a></li>
-                        <li><a href="#" class="active">Инвестиции</a></li> <!-- Активная ссылка -->
-                        <li><a href="settings.html">Настройки</a></li> <!-- Ссылка на settings.html -->
-                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="#" class="active">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="settings.html">Настройки</a></li>
+                        <li><a href="help.html">Помощь</a></li>
+                        <li><a href="admin.html" style="color: #ffd166;">Админ</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
-                    <!-- Информация о пользователе будет вставлена JS -->
+                    <!-- Информация о пользователе -->
                 </div>
             </div>
         </div>
@@ -661,8 +650,9 @@
                     <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
                     <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
-                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li> <!-- Ссылка на settings.html -->
-                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
+                    <li><a href="my_stocks.html"><i class="fas fa-folder-open"></i> Мои акции</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li>
                     <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
@@ -678,7 +668,7 @@
                 <div class="stocks-market">
                     <h3 class="section-title">Рынок акций</h3>
                     <div id="stocksList">
-                        <!-- Список акций будет вставлен JS -->
+                        <!-- Список акций -->
                     </div>
                 </div>
                 <div class="my-stocks">
@@ -711,12 +701,13 @@
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
                         <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="help.html">Центр помощи</a></li>
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -729,6 +720,7 @@
                         <li><a href="#">Блог</a></li>
                         <li><a href="#">Вакансии</a></li>
                         <li><a href="#">Партнерская программа</a></li>
+                        <li><a href="admin.html" class="admin-link"><i class="fas fa-lock"></i> Админ-панель</a></li>
                     </ul>
                 </div>
             </div>
@@ -739,15 +731,15 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // State management
+            // ========== Состояние ==========
             let user = null;
             let balance = 0;
-            let transactions = []; // Транзакции из основного кошелька
-            let stocks = {}; // Состояние акций (цена, история)
-            let myStocks = {}; // Купленные пользователем акции {symbol: {quantity: 10, avgPrice: 100}}
-            let lastUpdateTime = Date.now(); // Время последнего обновления цен
+            let transactions = [];
+            let stocks = {};
+            let myStocks = {};
+            let lastUpdateTime = Date.now();
 
-            // Elements
+            // ========== Элементы ==========
             const balanceAmount = document.getElementById('balanceAmount');
             const userName = document.getElementById('userName');
             const userEmail = document.getElementById('userEmail');
@@ -757,174 +749,151 @@
             const stocksList = document.getElementById('stocksList');
             const myStocksList = document.getElementById('myStocksList');
 
-            // Загрузка данных из localStorage при запуске
-            loadFromLocalStorage();
-
-            // Проверка авторизации
-            if (!user) {
-                window.location.href = 'index.html'; // Перенаправить на главную, если не авторизован
-                return;
-            }
-
-            // Показать уведомление
-            function showNotification(message, isSuccess = true) {
-                notification.textContent = message;
-                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
-                setTimeout(() => {
-                    notification.className = 'notification hidden';
-                }, 3000);
-            }
-
-            // Сохранение данных в localStorage
+            // ========== localStorage ==========
             function saveToLocalStorage() {
-                const data = {
-                    user: user,
-                    balance: balance,
-                    transactions: transactions, // Сохраняем транзакции
-                    stocks: stocks, // Сохраняем акции
-                    myStocks: myStocks,
-                    investmentsLastUpdateTime: lastUpdateTime // Сохраняем время последнего обновления цен
-                };
+                const data = { user, balance, transactions, stocks, myStocks, investmentsLastUpdateTime: lastUpdateTime };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
 
-            // Загрузка данных из localStorage
             function loadFromLocalStorage() {
-                const savedData = localStorage.getItem('annalithWalletData');
-                if (savedData) {
+                const saved = localStorage.getItem('annalithWalletData');
+                if (saved) {
                     try {
-                        const data = JSON.parse(savedData);
-                        user = data.user;
-                        balance = data.balance || 0;
-                        transactions = data.transactions || []; // Загружаем транзакции
-                        stocks = data.stocks || {}; // Загружаем акции
+                        const data = JSON.parse(saved);
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
+                        transactions = data.transactions || [];
+                        stocks = data.stocks || {};
                         myStocks = data.myStocks || {};
-                        // Загружаем lastUpdateTime, если он был сохранён
                         lastUpdateTime = data.investmentsLastUpdateTime || Date.now();
                         if (user) {
+                            let needSave = false;
+                            if (balance === undefined) { balance = 0; needSave = true; }
+                            if (!transactions) { transactions = []; needSave = true; }
+                            if (!stocks) { stocks = {}; needSave = true; }
+                            if (!myStocks) { myStocks = {}; needSave = true; }
+                            if (needSave) saveToLocalStorage();
                             updateUI();
+                        } else {
+                            window.location.href = 'index.html';
                         }
-                    } catch (e) {
-                        console.error('Error loading saved data:', e);
-                        showNotification('Ошибка при загрузке данных', false);
-                    }
+                    } catch (e) { console.error(e); localStorage.removeItem('annalithWalletData'); window.location.href = 'index.html'; }
                 } else {
-                    // Если данных нет, перенаправить на главную
                     window.location.href = 'index.html';
                 }
             }
 
-            // Инициализация акций (только если их нет в сохранённых данных)
-            function initializeStocks() {
-                const initialStocks = {
-                    "AAPL": { name: "Apple Inc.", initialPrice: 150.00, volatility: 0.02, history: [] },
-                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300.00, volatility: 0.015, history: [] },
-                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500.00, volatility: 0.025, history: [] },
-                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200.00, volatility: 0.03, history: [] },
-                    "TSLA": { name: "Tesla Inc.", initialPrice: 800.00, volatility: 0.04, history: [] },
-                    "META": { name: "Meta Platforms Inc.", initialPrice: 200.00, volatility: 0.022, history: [] },
-                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450.00, volatility: 0.035, history: [] },
-                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150.00, volatility: 0.01, history: [] }
+            // ========== Инициализация акций ==========
+            function initStocks() {
+                const defaultStocks = {
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150, volatility: 0.02, history: [] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300, volatility: 0.015, history: [] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500, volatility: 0.025, history: [] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200, volatility: 0.03, history: [] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800, volatility: 0.04, history: [] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200, volatility: 0.022, history: [] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450, volatility: 0.035, history: [] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150, volatility: 0.01, history: [] }
                 };
-
-                for (const symbol in initialStocks) {
-                    if (!stocks[symbol]) {
-                        const stock = initialStocks[symbol];
-                        // Генерация начальной истории цен (например, 5-10 случайных изменений от initialPrice)
-                        const initialHistoryLength = Math.floor(Math.random() * 6) + 5; // 5-10 точек
-                        let currentPrice = stock.initialPrice;
-                        const history = [currentPrice];
-                        for (let i = 1; i < initialHistoryLength; i++) {
-                            const randomChange = (Math.random() - 0.5) * 2 * stock.volatility * currentPrice; // Случайное изменение
-                            currentPrice = Math.max(0.01, currentPrice + randomChange); // Цена не может быть отрицательной или 0
-                            history.push(currentPrice);
+                let changed = false;
+                for (const [sym, val] of Object.entries(defaultStocks)) {
+                    if (!stocks[sym]) {
+                        const histLength = Math.floor(Math.random() * 10) + 5;
+                        let price = val.initialPrice;
+                        const history = [price];
+                        for (let i = 1; i < histLength; i++) {
+                            const change = (Math.random() - 0.5) * 2 * val.volatility * price;
+                            price = Math.max(0.01, price + change);
+                            history.push(price);
                         }
-
-                        // Установка начальных параметров
-                        stocks[symbol] = {
-                            name: stock.name,
-                            initialPrice: stock.initialPrice,
-                            volatility: stock.volatility,
+                        stocks[sym] = {
+                            name: val.name,
+                            initialPrice: val.initialPrice,
+                            volatility: val.volatility,
                             history: history,
-                            // Генерация случайных начальных параметров тренда и импульса
-                            trend: (Math.random() - 0.5) * 0.0002, // Случайный начальный тренд
-                            trendDuration: Math.floor(Math.random() * 500) + 100, // Случайная продолжительность
-                            trendChange: (Math.random() - 0.5) * 0.0001, // Случайное изменение тренда
-                            momentum: (Math.random() - 0.5) * stock.volatility * currentPrice * 0.1 // Случайный начальный импульс
+                            currentPrice: price,
+                            trend: (Math.random() - 0.5) * 0.0002,
+                            trendDuration: Math.floor(Math.random() * 500) + 100,
+                            trendChange: (Math.random() - 0.5) * 0.0001,
+                            momentum: (Math.random() - 0.5) * val.volatility * val.initialPrice * 0.1,
+                            newsTimer: 0
                         };
+                        changed = true;
+                    } else {
+                        if (!stocks[sym].currentPrice) {
+                            stocks[sym].currentPrice = stocks[sym].history[stocks[sym].history.length - 1] || val.initialPrice;
+                            changed = true;
+                        }
+                        if (!stocks[sym].trend) stocks[sym].trend = 0;
+                        if (!stocks[sym].momentum) stocks[sym].momentum = 0;
+                        if (!stocks[sym].newsTimer) stocks[sym].newsTimer = 0;
                     }
-                    // Устанавливаем currentPrice на основе последней цены из истории
-                    stocks[symbol].currentPrice = stocks[symbol].history[stocks[symbol].history.length - 1];
                 }
+                if (changed) saveToLocalStorage();
             }
 
-            // Симуляция движения цены акции (более "умная")
-            function simulateStockPrice(stock) {
-                const lastPrice = stock.history[stock.history.length - 1];
-                const now = Date.now();
-                const timeElapsed = (now - lastUpdateTime) / 1000; // в секундах
-
-                // Обновление тренда с вероятностью (например, 1% на тик)
-                if (Math.random() < 0.01) {
-                    const newTrendChange = (Math.random() - 0.5) * 0.0005; // Новый тренд от -0.05% до +0.05% в час
-                    stock.trendChange = newTrendChange;
-                    stock.trendDuration = Math.floor(Math.random() * 1000) + 100; // Продолжительность тренда
+            // ========== Умная симуляция ==========
+            function simulateStockPrice(symbol) {
+                const stock = stocks[symbol];
+                if (!stock) return;
+                const lastPrice = stock.currentPrice || stock.history[stock.history.length - 1] || stock.initialPrice;
+                // Тренд
+                if (Math.random() < 0.02) {
+                    stock.trendChange = (Math.random() - 0.5) * 0.001;
+                    stock.trendDuration = Math.floor(Math.random() * 800) + 200;
                 }
-
-                // Применение текущего тренда
                 if (stock.trendDuration > 0) {
-                    stock.trend = stock.trendChange;
+                    stock.trend += (stock.trendChange - stock.trend) * 0.1;
                     stock.trendDuration--;
                 } else {
-                    // Если тренд истек, плавно возвращаем к 0
-                    stock.trend *= 0.99; // Замедляем возврат
-                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0; // "Останавливаем" тренд
+                    stock.trend *= 0.995;
+                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0;
                 }
-
-                // Импульс (momentum) - делает движение цены более плавным
-                const targetPrice = lastPrice * (1 + stock.trend * timeElapsed);
-                const priceDifference = targetPrice - lastPrice;
-                stock.momentum = stock.momentum * 0.9 + priceDifference * 0.1; // 10% влияния от разницы
-
-                // Случайное изменение цены на основе волатильности, тренда и импульса
-                const randomFactor = (Math.random() - 0.5) * 2; // от -1 до 1
+                // Импульс
+                const targetPrice = lastPrice * (1 + stock.trend * 0.1);
+                stock.momentum = stock.momentum * 0.9 + (targetPrice - lastPrice) * 0.1;
+                // Новости
+                let newsEffect = 0;
+                if (Math.random() < 0.005) {
+                    const direction = Math.random() > 0.5 ? 1 : -1;
+                    const magnitude = 0.05 + Math.random() * 0.15;
+                    newsEffect = direction * magnitude * lastPrice;
+                    stock.newsTimer = 5;
+                }
+                if (stock.newsTimer > 0) {
+                    newsEffect *= stock.newsTimer / 5;
+                    stock.newsTimer--;
+                }
+                // Итог
+                const randomFactor = (Math.random() - 0.5) * 2;
                 const volatilityChange = randomFactor * stock.volatility * lastPrice;
-                const totalChange = volatilityChange + stock.momentum;
-                const newPrice = Math.max(0.01, lastPrice + totalChange); // Цена не может быть отрицательной или 0
-
+                const totalChange = volatilityChange + stock.momentum + newsEffect;
+                let newPrice = Math.max(0.01, lastPrice + totalChange);
                 stock.history.push(newPrice);
-                // Ограничиваем историю для производительности
-                if (stock.history.length > 100) {
-                    stock.history.shift();
-                }
-                return newPrice;
+                if (stock.history.length > 150) stock.history.shift();
+                stock.currentPrice = newPrice;
             }
 
-            // Обновление цен акций (симуляция рынка)
-            function updateStockPrices() {
-                lastUpdateTime = Date.now(); // Обновляем время ПЕРЕД симуляцией
-                for (const symbol in stocks) {
-                    stocks[symbol].currentPrice = simulateStockPrice(stocks[symbol]);
+            function updateAllPrices() {
+                for (const sym in stocks) {
+                    simulateStockPrice(sym);
                 }
-                renderStocks();
-                updateMyStocksValue(); // Обновляем стоимость портфеля
-                // Сохраняем изменения после обновления
                 saveToLocalStorage();
+                renderStocks();
+                renderMyStocks();
             }
 
-            // Обновление интерфейса
+            // ========== Рендер ==========
             function updateUI() {
                 if (user) {
                     userName.textContent = user.name;
                     userEmail.textContent = user.email;
                     balanceAmount.textContent = balance.toFixed(2);
-
-                    // Обновление информации о пользователе в шапке
                     userActions.innerHTML = `
                         <span style="color: white; font-weight: 500;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
-                    document.getElementById('headerLogoutBtn').addEventListener('click', function() {
+                    document.getElementById('headerLogoutBtn').addEventListener('click', () => {
                         user = null;
                         balance = 0;
                         transactions = [];
@@ -932,25 +901,23 @@
                         myStocks = {};
                         lastUpdateTime = Date.now();
                         saveToLocalStorage();
-                        window.location.href = 'index.html'; // Перенаправить на главную после выхода
+                        window.location.href = 'index.html';
                     });
-
-                    initializeStocks(); // Инициализируем акции при первом запуске или если они не были загружены
+                    if (Object.keys(stocks).length === 0) initStocks();
                     renderStocks();
                     renderMyStocks();
                 }
             }
 
-            // Рендер списка акций
             function renderStocks() {
+                if (!stocks || Object.keys(stocks).length === 0) return;
                 stocksList.innerHTML = '';
                 for (const symbol in stocks) {
                     const stock = stocks[symbol];
-                    const currentPrice = stock.currentPrice || stock.history[stock.history.length - 1];
-                    const previousPrice = stock.history[stock.history.length - 2] || stock.initialPrice;
-                    const isUp = currentPrice >= previousPrice;
-                    const changePercent = ((currentPrice - previousPrice) / previousPrice * 100).toFixed(2);
-
+                    const currentPrice = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                    const prevPrice = stock.history[stock.history.length - 2] || stock.initialPrice || currentPrice;
+                    const isUp = currentPrice >= prevPrice;
+                    const changePercent = ((currentPrice - prevPrice) / prevPrice * 100).toFixed(2);
                     const div = document.createElement('div');
                     div.className = 'stock-item';
                     div.innerHTML = `
@@ -958,9 +925,7 @@
                             <div class="stock-name">${symbol} - ${stock.name}</div>
                             <div class="stock-price ${isUp ? 'up' : 'down'}">$${currentPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
                         </div>
-                        <div class="stock-description">
-                            Текущая цена акции ${symbol} на симулированном рынке.
-                        </div>
+                        <div class="stock-description">Текущая цена акции ${symbol} на симулированном рынке.</div>
                         <div class="stock-actions">
                             <input type="number" id="quantity_${symbol}" class="form-control" placeholder="Количество" step="1" min="1" value="1">
                             <button class="buy-btn" data-symbol="${symbol}">Купить</button>
@@ -969,17 +934,15 @@
                     `;
                     stocksList.appendChild(div);
                 }
-
-                // Добавляем обработчики для кнопок покупки/продажи
-                document.querySelectorAll('.buy-btn').forEach(button => {
-                    button.addEventListener('click', function() {
+                document.querySelectorAll('.buy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
                         const symbol = this.getAttribute('data-symbol');
                         const quantity = parseInt(document.getElementById(`quantity_${symbol}`).value);
                         buyStock(symbol, quantity);
                     });
                 });
-                document.querySelectorAll('.sell-btn').forEach(button => {
-                    button.addEventListener('click', function() {
+                document.querySelectorAll('.sell-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
                         const symbol = this.getAttribute('data-symbol');
                         const quantity = parseInt(document.getElementById(`quantity_${symbol}`).value);
                         sellStock(symbol, quantity);
@@ -987,7 +950,6 @@
                 });
             }
 
-            // Рендер списка моих акций
             function renderMyStocks() {
                 if (Object.keys(myStocks).length === 0) {
                     myStocksList.innerHTML = `
@@ -998,25 +960,23 @@
                     `;
                     return;
                 }
-
                 myStocksList.innerHTML = '';
                 for (const symbol in myStocks) {
-                    const stockData = myStocks[symbol];
-                    const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1] || 0;
-                    const totalValue = stockData.quantity * currentPrice;
-                    const totalCost = stockData.quantity * stockData.avgPrice;
+                    const data = myStocks[symbol];
+                    const price = stocks[symbol]?.currentPrice || 0;
+                    const totalValue = data.quantity * price;
+                    const totalCost = data.quantity * data.avgPrice;
                     const profit = totalValue - totalCost;
                     const profitPercent = (profit / totalCost) * 100;
-
                     const div = document.createElement('div');
                     div.className = 'my-stock-item';
                     div.innerHTML = `
                         <div class="my-stock-info">
-                            <div class="my-stock-name">${symbol} - ${stocks[symbol]?.name || 'Неизвестная акция'}</div>
+                            <div class="my-stock-name">${symbol} - ${stocks[symbol]?.name || 'Неизвестная'}</div>
                             <div class="my-stock-details">
-                                <span>Количество: <span class="my-stock-quantity">${stockData.quantity}</span></span>
-                                <span>Средняя цена: $${stockData.avgPrice.toFixed(2)}</span>
-                                <span>Текущая цена: $${currentPrice.toFixed(2)}</span>
+                                <span>Количество: <span class="my-stock-quantity">${data.quantity}</span></span>
+                                <span>Средняя цена: $${data.avgPrice.toFixed(2)}</span>
+                                <span>Текущая цена: $${price.toFixed(2)}</span>
                                 <span class="my-stock-current-value">Стоимость: $${totalValue.toFixed(2)}</span>
                             </div>
                         </div>
@@ -1028,101 +988,53 @@
                 }
             }
 
-            // Обновление стоимости моих акций
-            function updateMyStocksValue() {
-                // Просто перерисовываем список, чтобы обновить цены и прибыль
-                renderMyStocks();
-            }
-
-            // Функция покупки акции
+            // ========== Покупка/продажа ==========
             function buyStock(symbol, quantity) {
-                if (quantity <= 0) {
-                    showNotification('Количество акций должно быть больше 0', false);
-                    return;
-                }
-                const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1];
-                if (!currentPrice) {
-                    showNotification('Ошибка получения цены акции', false);
-                    return;
-                }
-                const totalCost = quantity * currentPrice;
-
-                if (totalCost > balance) {
-                    showNotification('Недостаточно средств для покупки', false);
-                    return;
-                }
-
-                // Обновляем баланс
+                if (quantity <= 0) { showNotification('Количество > 0', false); return; }
+                const price = stocks[symbol]?.currentPrice;
+                if (!price) { showNotification('Ошибка цены', false); return; }
+                const totalCost = quantity * price;
+                if (totalCost > balance) { showNotification('Недостаточно средств', false); return; }
                 balance -= totalCost;
-
-                // Обновляем или создаем запись о моих акциях
-                if (!myStocks[symbol]) {
-                    myStocks[symbol] = { quantity: 0, avgPrice: 0 };
-                }
-                const oldTotalCost = myStocks[symbol].quantity * myStocks[symbol].avgPrice;
-                const newTotalQuantity = myStocks[symbol].quantity + quantity;
-                const newTotalCost = oldTotalCost + totalCost;
-                myStocks[symbol].avgPrice = newTotalCost / newTotalQuantity;
-                myStocks[symbol].quantity = newTotalQuantity;
-
-                // Добавляем транзакцию "invest"
-                transactions.unshift({
-                    type: 'invest',
-                    amount: totalCost,
-                    description: `Покупка ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
-                    date: new Date()
-                });
-
+                if (!myStocks[symbol]) myStocks[symbol] = { quantity: 0, avgPrice: 0 };
+                const oldTotal = myStocks[symbol].quantity * myStocks[symbol].avgPrice;
+                const newTotal = oldTotal + totalCost;
+                const newQty = myStocks[symbol].quantity + quantity;
+                myStocks[symbol].avgPrice = newTotal / newQty;
+                myStocks[symbol].quantity = newQty;
+                transactions.unshift({ type: 'invest', amount: totalCost, description: `Покупка ${quantity} ${symbol} по $${price.toFixed(2)}`, date: new Date() });
                 saveToLocalStorage();
                 updateUI();
-                showNotification(`Куплено ${quantity} акций ${symbol} за $${totalCost.toFixed(2)}`);
+                showNotification(`Куплено ${quantity} ${symbol} за $${totalCost.toFixed(2)}`);
             }
 
-            // Функция продажи акции
             function sellStock(symbol, quantity) {
-                if (quantity <= 0) {
-                    showNotification('Количество акций должно быть больше 0', false);
-                    return;
-                }
+                if (quantity <= 0) { showNotification('Количество > 0', false); return; }
                 if (!myStocks[symbol] || myStocks[symbol].quantity < quantity) {
-                    showNotification('У вас недостаточно акций для продажи', false);
+                    showNotification('Недостаточно акций', false);
                     return;
                 }
-                const currentPrice = stocks[symbol]?.currentPrice || stocks[symbol]?.history[stocks[symbol]?.history.length - 1];
-                if (!currentPrice) {
-                    showNotification('Ошибка получения цены акции', false);
-                    return;
-                }
-                const totalValue = quantity * currentPrice;
-
-                // Обновляем баланс
+                const price = stocks[symbol]?.currentPrice;
+                if (!price) { showNotification('Ошибка цены', false); return; }
+                const totalValue = quantity * price;
                 balance += totalValue;
-
-                // Обновляем запись о моих акциях
                 myStocks[symbol].quantity -= quantity;
-                if (myStocks[symbol].quantity === 0) {
-                    delete myStocks[symbol]; // Удаляем запись, если акций не осталось
-                }
-
-                // Добавляем транзакцию "sell_stock" (продажа) - ИСПРАВЛЕНО
-                transactions.unshift({
-                    type: 'sell_stock', // <-- ИСПОЛЬЗУЕМ НОВЫЙ ТИП
-                    amount: totalValue, // <-- СУММА ПОЛОЖИТЕЛЬНАЯ
-                    description: `Продажа ${quantity} акций ${symbol} по $${currentPrice.toFixed(2)}`,
-                    date: new Date()
-                });
-
+                if (myStocks[symbol].quantity === 0) delete myStocks[symbol];
+                transactions.unshift({ type: 'sell_stock', amount: totalValue, description: `Продажа ${quantity} ${symbol} по $${price.toFixed(2)}`, date: new Date() });
                 saveToLocalStorage();
                 updateUI();
-                showNotification(`Продано ${quantity} акций ${symbol} за $${totalValue.toFixed(2)}`);
+                showNotification(`Продано ${quantity} ${symbol} за $${totalValue.toFixed(2)}`);
             }
 
-            // Запускаем симуляцию цен каждые 10 секунд (для демонстрации)
-            // ВАЖНО: clearInterval может понадобиться при выходе или переходе, но для простоты не добавляю
-            setInterval(updateStockPrices, 10000); // 10 секунд
+            // ========== Уведомления ==========
+            function showNotification(msg, ok = true) {
+                notification.textContent = msg;
+                notification.className = `notification ${ok ? 'success' : 'error'} show`;
+                setTimeout(() => { notification.className = 'notification hidden'; }, 3000);
+            }
 
-            // Обработчик кнопки "Выйти"
-            logoutBtn.addEventListener('click', function() {
+            // ========== Выход ==========
+            logoutBtn.addEventListener('click', () => {
                 user = null;
                 balance = 0;
                 transactions = [];
@@ -1133,8 +1045,11 @@
                 window.location.href = 'index.html';
             });
 
-            // Инициализация UI
-            updateUI();
+            // ========== Запуск ==========
+            loadFromLocalStorage();
+            // Запускаем обновление каждые 5 секунд
+            setInterval(updateAllPrices, 5000);
+            updateAllPrices();
         });
     </script>
 </body>

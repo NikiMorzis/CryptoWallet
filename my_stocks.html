@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* все стили как в предыдущей версии */
+        /* все стили без изменений (как в предыдущей версии) */
         :root {
             --primary: #6a11cb;
             --primary-dark: #2575fc;
@@ -462,7 +462,7 @@
                         <li><a href="#" class="active">Мои акции</a></li>
                         <li><a href="settings.html">Настройки</a></li>
                         <li><a href="help.html">Помощь</a></li>
-                        <li><a href="admin.html" style="color: #ffd166;">Админ</a></li>
+                        <li><a href="admin.html" style="color:#ffd166;">Админ</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
@@ -562,6 +562,7 @@
             let transactions = [];
             let stocks = {};
             let myStocks = {};
+            let lastUpdateTime = Date.now();
 
             // ========== Элементы ==========
             const notification = document.getElementById('notification');
@@ -573,7 +574,7 @@
 
             // ========== localStorage ==========
             function saveToLocalStorage() {
-                const data = { user, balance, transactions, stocks, myStocks };
+                const data = { user, balance, transactions, stocks, myStocks, investmentsLastUpdateTime: lastUpdateTime };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
 
@@ -587,6 +588,7 @@
                         transactions = data.transactions || [];
                         stocks = data.stocks || {};
                         myStocks = data.myStocks || {};
+                        lastUpdateTime = data.investmentsLastUpdateTime || Date.now();
                         if (user) {
                             let needSave = false;
                             if (balance === undefined) { balance = 0; needSave = true; }
@@ -604,6 +606,106 @@
                 }
             }
 
+            // ========== Инициализация акций ==========
+            function initStocks() {
+                const defaultStocks = {
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150, volatility: 0.02, history: [] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300, volatility: 0.015, history: [] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500, volatility: 0.025, history: [] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200, volatility: 0.03, history: [] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800, volatility: 0.04, history: [] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200, volatility: 0.022, history: [] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450, volatility: 0.035, history: [] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150, volatility: 0.01, history: [] }
+                };
+                let changed = false;
+                for (const [sym, val] of Object.entries(defaultStocks)) {
+                    if (!stocks[sym]) {
+                        const histLength = Math.floor(Math.random() * 10) + 5;
+                        let price = val.initialPrice;
+                        const history = [price];
+                        for (let i = 1; i < histLength; i++) {
+                            const change = (Math.random() - 0.5) * 2 * val.volatility * price;
+                            price = Math.max(0.01, price + change);
+                            history.push(price);
+                        }
+                        stocks[sym] = {
+                            name: val.name,
+                            initialPrice: val.initialPrice,
+                            volatility: val.volatility,
+                            history: history,
+                            currentPrice: price,
+                            trend: (Math.random() - 0.5) * 0.0002,
+                            trendDuration: Math.floor(Math.random() * 500) + 100,
+                            trendChange: (Math.random() - 0.5) * 0.0001,
+                            momentum: (Math.random() - 0.5) * val.volatility * val.initialPrice * 0.1,
+                            newsTimer: 0
+                        };
+                        changed = true;
+                    } else {
+                        if (!stocks[sym].currentPrice) {
+                            stocks[sym].currentPrice = stocks[sym].history[stocks[sym].history.length - 1] || val.initialPrice;
+                            changed = true;
+                        }
+                        if (!stocks[sym].trend) stocks[sym].trend = 0;
+                        if (!stocks[sym].momentum) stocks[sym].momentum = 0;
+                        if (!stocks[sym].newsTimer) stocks[sym].newsTimer = 0;
+                    }
+                }
+                if (changed) saveToLocalStorage();
+            }
+
+            // ========== Умная симуляция цен ==========
+            function simulateStockPrice(symbol) {
+                const stock = stocks[symbol];
+                if (!stock) return;
+                const lastPrice = stock.currentPrice || stock.history[stock.history.length - 1] || stock.initialPrice;
+                // Тренд
+                if (Math.random() < 0.02) {
+                    stock.trendChange = (Math.random() - 0.5) * 0.001;
+                    stock.trendDuration = Math.floor(Math.random() * 800) + 200;
+                }
+                if (stock.trendDuration > 0) {
+                    stock.trend += (stock.trendChange - stock.trend) * 0.1;
+                    stock.trendDuration--;
+                } else {
+                    stock.trend *= 0.995;
+                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0;
+                }
+                // Импульс
+                const targetPrice = lastPrice * (1 + stock.trend * 0.1);
+                stock.momentum = stock.momentum * 0.9 + (targetPrice - lastPrice) * 0.1;
+                // Новости
+                let newsEffect = 0;
+                if (Math.random() < 0.005) {
+                    const direction = Math.random() > 0.5 ? 1 : -1;
+                    const magnitude = 0.05 + Math.random() * 0.15;
+                    newsEffect = direction * magnitude * lastPrice;
+                    stock.newsTimer = 5;
+                }
+                if (stock.newsTimer > 0) {
+                    newsEffect *= stock.newsTimer / 5;
+                    stock.newsTimer--;
+                }
+                // Итог
+                const randomFactor = (Math.random() - 0.5) * 2;
+                const volatilityChange = randomFactor * stock.volatility * lastPrice;
+                const totalChange = volatilityChange + stock.momentum + newsEffect;
+                let newPrice = Math.max(0.01, lastPrice + totalChange);
+                stock.history.push(newPrice);
+                if (stock.history.length > 150) stock.history.shift();
+                stock.currentPrice = newPrice;
+            }
+
+            function updateAllPrices() {
+                lastUpdateTime = Date.now();
+                for (const sym in stocks) {
+                    simulateStockPrice(sym);
+                }
+                saveToLocalStorage();
+                renderMyStocks();
+            }
+
             // ========== Рендер ==========
             function renderUI() {
                 if (user) {
@@ -619,9 +721,11 @@
                         transactions = [];
                         stocks = {};
                         myStocks = {};
+                        lastUpdateTime = Date.now();
                         saveToLocalStorage();
                         window.location.href = 'index.html';
                     });
+                    if (Object.keys(stocks).length === 0) initStocks();
                     renderMyStocks();
                 }
             }
@@ -721,24 +825,40 @@
                 transactions = [];
                 stocks = {};
                 myStocks = {};
+                lastUpdateTime = Date.now();
                 saveToLocalStorage();
                 window.location.href = 'index.html';
             });
 
             // ========== Запуск ==========
             loadFromLocalStorage();
-            // Обновление портфеля каждые 5 секунд (цены обновятся)
+            // Запускаем симуляцию каждые 5 секунд на этой странице
+            setInterval(updateAllPrices, 5000);
+            // также перечитываем данные из localStorage на случай, если их изменили в другой вкладке
             setInterval(() => {
-                // Перезагружаем данные из localStorage (на случай, если их изменила админка или другая вкладка)
                 const saved = localStorage.getItem('annalithWalletData');
                 if (saved) {
                     try {
                         const data = JSON.parse(saved);
+                        // Обновляем только те поля, которые могли измениться извне
+                        // но не перезаписываем свои изменения, если они уже применены
+                        // Для простоты просто перезагружаем всё, но сохраняем текущие myStocks и balance,
+                        // если они не изменились извне? Мы можем просто синхронизировать stocks,
+                        // так как они обновляются в других вкладках.
                         stocks = data.stocks || {};
-                        myStocks = data.myStocks || {};
-                        balance = data.balance !== undefined ? data.balance : balance;
-                        transactions = data.transactions || transactions;
-                        renderMyStocks();
+                        // myStocks не перезаписываем, чтобы не потерять локальные изменения,
+                        // но если они изменились в другой вкладке (например, продали акции), то нужно обновить.
+                        // Лучше перезагрузить всё и перерисовать.
+                        const newMyStocks = data.myStocks || {};
+                        const newBalance = data.balance !== undefined ? data.balance : balance;
+                        // Проверяем, изменились ли myStocks
+                        if (JSON.stringify(newMyStocks) !== JSON.stringify(myStocks)) {
+                            myStocks = newMyStocks;
+                            balance = newBalance;
+                            transactions = data.transactions || transactions;
+                            renderMyStocks();
+                            // обновим также баланс, если он изменился
+                        }
                     } catch (e) {}
                 }
             }, 5000);

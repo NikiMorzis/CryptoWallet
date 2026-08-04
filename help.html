@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* стили без изменений (как в вашем файле) */
         :root {
-            /* Основные цвета Annalith */
-            --primary: #6a11cb; /* Градиент начало */
-            --primary-dark: #2575fc; /* Градиент конец */
-            --secondary: #ff6b6b; /* Акцентный цвет */
-            --accent: #4cc9f0; /* Дополнительный акцент */
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -45,7 +45,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -148,7 +147,6 @@
             grid-template-columns: 1fr 3fr;
             gap: 30px;
         }
-        /* Sidebar */
         .sidebar {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -212,7 +210,6 @@
             text-align: center;
             font-size: 1.1rem;
         }
-        /* Dashboard Content */
         .dashboard-content {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -228,7 +225,6 @@
             border-bottom: 2px solid #edf2f7;
             color: var(--text-primary);
         }
-        /* Help Content */
         .help-section {
             margin-bottom: 40px;
         }
@@ -259,7 +255,7 @@
         }
         .faq-answer.open {
             padding: 20px;
-            max-height: 500px; /* Достаточно большая высота для содержимого */
+            max-height: 500px;
         }
         .contact-info {
             margin-top: 30px;
@@ -295,7 +291,6 @@
             margin-bottom: 20px;
             color: var(--text-primary);
         }
-        /* Forms */
         .form-group {
             margin-bottom: 22px;
         }
@@ -325,7 +320,6 @@
             min-height: 120px;
             resize: vertical;
         }
-        /* Auth Forms */
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -354,7 +348,6 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
-        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
@@ -407,7 +400,6 @@
             color: var(--gray);
             font-size: 0.9rem;
         }
-        /* Responsive Design */
         @media (max-width: 992px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -459,7 +451,6 @@
                 padding: 12px 15px;
             }
         }
-        /* Utility Classes */
         .text-center {
             text-align: center;
         }
@@ -546,12 +537,13 @@
                         <li><a href="index.html#transfer">Переводы</a></li>
                         <li><a href="index.html#transactions">Транзакции</a></li>
                         <li><a href="investments.html">Инвестиции</a></li>
-                        <li><a href="settings.html">Настройки</a></li> <!-- Ссылка на settings.html -->
-                        <li><a href="#" class="active">Помощь</a></li> <!-- Активная ссылка -->
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="settings.html">Настройки</a></li>
+                        <li><a href="#" class="active">Помощь</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
-                    <!-- Информация о пользователе будет вставлена JS -->
+                    <!-- Информация о пользователе -->
                 </div>
             </div>
         </div>
@@ -572,7 +564,8 @@
                     <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
                     <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
-                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li> <!-- Ссылка на settings.html -->
+                    <li><a href="my_stocks.html"><i class="fas fa-folder-open"></i> Мои акции</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li>
                     <li><a href="#" class="active"><i class="fas fa-question-circle"></i> Помощь</a></li>
                     <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
                 </ul>
@@ -667,12 +660,13 @@
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
                         <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="help.html">Центр помощи</a></li>
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -695,10 +689,12 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // State management
             let user = null;
+            let balance = 0;
+            let transactions = [];
+            let stocks = {};
+            let myStocks = {};
 
-            // Elements
             const userName = document.getElementById('userName');
             const userEmail = document.getElementById('userEmail');
             const userActions = document.getElementById('userActions');
@@ -707,16 +703,6 @@
             const notification = document.getElementById('notification');
             const helpForm = document.getElementById('helpForm');
 
-            // Загрузка данных из localStorage при запуске
-            loadFromLocalStorage();
-
-            // Проверка авторизации
-            if (!user) {
-                window.location.href = 'index.html'; // Перенаправить на главную, если не авторизован
-                return;
-            }
-
-            // Показать уведомление
             function showNotification(message, isSuccess = true) {
                 notification.textContent = message;
                 notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
@@ -725,43 +711,65 @@
                 }, 3000);
             }
 
-            // Загрузка данных из localStorage
+            function saveToLocalStorage() {
+                const data = {
+                    user: user,
+                    balance: balance,
+                    transactions: transactions,
+                    stocks: stocks,
+                    myStocks: myStocks
+                };
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
+            }
+
             function loadFromLocalStorage() {
                 const savedData = localStorage.getItem('annalithWalletData');
                 if (savedData) {
                     try {
                         const data = JSON.parse(savedData);
-                        user = data.user;
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
+                        transactions = data.transactions || [];
+                        stocks = data.stocks || {};
+                        myStocks = data.myStocks || {};
                         if (user) {
+                            let needSave = false;
+                            if (balance === undefined) { balance = 0; needSave = true; }
+                            if (!transactions) { transactions = []; needSave = true; }
+                            if (!stocks) { stocks = {}; needSave = true; }
+                            if (!myStocks) { myStocks = {}; needSave = true; }
+                            if (needSave) saveToLocalStorage();
                             updateUI();
+                        } else {
+                            window.location.href = 'index.html';
                         }
                     } catch (e) {
                         console.error('Error loading saved data:', e);
-                        showNotification('Ошибка при загрузке данных', false);
+                        localStorage.removeItem('annalithWalletData');
+                        window.location.href = 'index.html';
                     }
                 } else {
-                    // Если данных нет, перенаправить на главную
                     window.location.href = 'index.html';
                 }
             }
 
-            // Обновление интерфейса
             function updateUI() {
                 if (user) {
                     userName.textContent = user.name;
                     userEmail.textContent = user.email;
-
-                    // Обновление информации о пользователе в шапке
                     userActions.innerHTML = `
                         <span style="color: white; font-weight: 500;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
                     document.getElementById('headerLogoutBtn').addEventListener('click', function() {
                         user = null;
-                        localStorage.removeItem('annalithWalletData'); // Очистить данные при выходе
-                        window.location.href = 'index.html'; // Перенаправить на главную после выхода
+                        balance = 0;
+                        transactions = [];
+                        stocks = {};
+                        myStocks = {};
+                        saveToLocalStorage();
+                        window.location.href = 'index.html';
                     });
-
                     sidebar.classList.remove('hidden');
                 }
             }
@@ -772,8 +780,6 @@
                 question.addEventListener('click', function() {
                     const answer = this.nextElementSibling;
                     const icon = this.querySelector('i');
-
-                    // Закрываем все открытые
                     document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
                         if (openAnswer !== answer) {
                             openAnswer.classList.remove('open');
@@ -781,8 +787,6 @@
                             openAnswer.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
                         }
                     });
-
-                    // Переключаем текущий
                     answer.classList.toggle('open');
                     if (answer.classList.contains('open')) {
                         icon.classList.remove('fa-chevron-down');
@@ -794,32 +798,27 @@
                 });
             });
 
-            // Обработчик формы помощи
             helpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const email = document.getElementById('helpEmail').value;
                 const subject = document.getElementById('helpSubject').value;
                 const message = document.getElementById('helpMessage').value;
-
-                // Здесь мог бы быть код для отправки запроса на сервер
                 console.log('Запрос поддержки:', { email, subject, message });
-
-                // Сброс формы
                 helpForm.reset();
-
-                // Показ уведомления
                 showNotification('Ваш запрос отправлен. Мы свяжемся с вами в ближайшее время.', true);
             });
 
-            // Обработчик кнопки "Выйти"
             logoutBtn.addEventListener('click', function() {
                 user = null;
-                localStorage.removeItem('annalithWalletData'); // Очистить данные при выходе
+                balance = 0;
+                transactions = [];
+                stocks = {};
+                myStocks = {};
+                saveToLocalStorage();
                 window.location.href = 'index.html';
             });
 
-            // Инициализация UI
-            updateUI();
+            loadFromLocalStorage();
         });
     </script>
 </body>

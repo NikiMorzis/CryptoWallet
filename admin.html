@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annalith | Админ-панель</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---- основные стили как на других страницах, плюс таблицы ---- */
+        :root {
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3748;
+            --light: #f8fafc;
+            --gray: #a0aec0;
+            --gray-dark: #718096;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: #ffd166;
+            font-size: 1.8rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        nav a:hover {
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd166;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #ffd166;
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, var(--danger));
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #27ae60, var(--success));
+            transform: translateY(-2px);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #e67e22);
+            color: white;
+        }
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e67e22, var(--warning));
+            transform: translateY(-2px);
+        }
+        .main-content {
+            padding: 30px 0;
+        }
+        .admin-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .admin-section h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-section h2 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        table th {
+            background: #f8fafc;
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: middle;
+        }
+        table tr:hover {
+            background: #f9fafb;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+            background-color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .form-row .form-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        .admin-password-form {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        .admin-password-form h4 {
+            margin-bottom: 15px;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+        }
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+        }
+        .text-muted {
+            color: var(--text-secondary);
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        .flex {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .flex .btn {
+            white-space: nowrap;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+        .badge-receive { background: var(--success); }
+        .badge-send { background: var(--danger); }
+        .badge-invest { background: var(--warning); }
+        .badge-sell { background: var(--primary); }
+        .badge-dividend { background: var(--accent); }
+        .hidden {
+            display: none;
+        }
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            margin-top: 25px;
+            border-top: 1px solid #4a5568;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            .form-row .form-group {
+                min-width: unset;
+            }
+            table th, table td {
+                padding: 8px 6px;
+                font-size: 0.85rem;
+            }
+            .admin-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification hidden" id="notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Annalith</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="settings.html">Настройки</a></li>
+                        <li><a href="help.html">Помощь</a></li>
+                        <li><a href="#" class="active" style="color:#ffd166;">Админ</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions" id="userActions">
+                    <!-- Информация о пользователе -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h1 class="section-title" style="margin-bottom:30px;">👑 Админ-панель</h1>
+
+        <!-- Авторизация -->
+        <div class="admin-password-form" id="adminAuth">
+            <h4>Введите пароль администратора</h4>
+            <div class="form-row">
+                <div class="form-group" style="flex: 0 0 300px;">
+                    <input type="password" id="adminPasswordInput" class="form-control" placeholder="Пароль (1111)">
+                </div>
+                <button class="btn btn-primary" id="adminLoginBtn">Войти</button>
+            </div>
+        </div>
+
+        <!-- Контент админки (скрыт до авторизации) -->
+        <div id="adminContent" class="hidden">
+
+            <!-- ==================== ТРАНЗАКЦИИ ==================== -->
+            <div class="admin-section">
+                <h2>📋 Управление транзакциями <small>всего: <span id="txCount">0</span></small></h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Дата/Время</th>
+                                <th>Тип</th>
+                                <th>Сумма</th>
+                                <th>Описание</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- заполняется JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-20">
+                    <button class="btn btn-success" id="addTransactionBtn"><i class="fas fa-plus"></i> Добавить транзакцию</button>
+                </div>
+                <!-- Форма добавления (скрыта) -->
+                <div id="addTransactionForm" class="hidden mt-20" style="background:#f8fafc; padding:20px; border-radius:12px;">
+                    <h4>Новая транзакция</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Тип</label>
+                            <select id="newTxType" class="form-control">
+                                <option value="receive">Входящий</option>
+                                <option value="send">Исходящий</option>
+                                <option value="invest">Инвестиция</option>
+                                <option value="sell_stock">Продажа акций</option>
+                                <option value="dividend">Дивиденды</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Сумма ($)</label>
+                            <input type="number" id="newTxAmount" class="form-control" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <input type="text" id="newTxDescription" class="form-control" placeholder="Описание">
+                        </div>
+                        <div class="form-group">
+                            <label>Дата/Время</label>
+                            <input type="datetime-local" id="newTxDate" class="form-control">
+                        </div>
+                        <div class="form-group" style="flex:0 0 auto;">
+                            <button class="btn btn-success" id="saveNewTxBtn"><i class="fas fa-save"></i> Сохранить</button>
+                            <button class="btn btn-outline" id="cancelNewTxBtn" style="border-color: var(--gray); color: var(--gray);">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== АКЦИИ ==================== -->
+            <div class="admin-section">
+                <h2>📈 Управление акциями</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Символ</th>
+                                <th>Название</th>
+                                <th>Цена ($)</th>
+                                <th>Волатильность</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stocksTableBody">
+                            <!-- заполняется JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-20 flex">
+                    <button class="btn btn-primary" id="refreshStocksBtn"><i class="fas fa-sync"></i> Обновить цены</button>
+                    <button class="btn btn-warning" id="randomizeAllStocksBtn"><i class="fas fa-dice"></i> Случайные изменения</button>
+                </div>
+            </div>
+
+            <!-- ==================== БАЛАНС ==================== -->
+            <div class="admin-section">
+                <h2>💰 Управление балансом</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Сумма</label>
+                        <input type="number" id="adminBalanceAmount" class="form-control" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <input type="text" id="adminBalanceDesc" class="form-control" placeholder="Описание операции" value="Админ-операция">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата (опционально)</label>
+                        <input type="datetime-local" id="adminBalanceDate" class="form-control">
+                    </div>
+                    <div class="form-group" style="flex:0 0 auto;">
+                        <button class="btn btn-success" id="adminBalanceAdd"><i class="fas fa-plus"></i> Пополнить</button>
+                        <button class="btn btn-danger" id="adminBalanceSub"><i class="fas fa-minus"></i> Списать</button>
+                    </div>
+                </div>
+                <div class="mt-20">
+                    <p>Текущий баланс пользователя: <strong id="adminCurrentBalance">$0.00</strong></p>
+                </div>
+            </div>
+
+            <!-- ==================== НАСТРОЙКИ ==================== -->
+            <div class="admin-section">
+                <h2>⚙️ Настройки</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Имя пользователя</label>
+                        <input type="text" id="adminUserName" class="form-control" placeholder="Имя">
+                    </div>
+                    <div class="form-group" style="flex:0 0 auto;">
+                        <button class="btn btn-primary" id="adminUpdateUserBtn">Обновить</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="exportDataBtn"><i class="fas fa-download"></i> Экспорт данных</button>
+                        <button class="btn btn-outline" id="importDataBtn" style="border-color:var(--primary);color:var(--primary);"><i class="fas fa-upload"></i> Импорт данных</button>
+                        <input type="file" id="importDataInput" accept=".json" style="display:none;">
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end adminContent -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-gem"></i>
+                        <span>Annalith</span>
+                    </div>
+                    <p class="footer-description">Административная панель управления.</p>
+                </div>
+                <div>
+                    <h4>Навигация</h4>
+                    <ul style="list-style:none; margin-top:10px;">
+                        <li><a href="index.html" style="color:var(--gray);text-decoration:none;">Главная</a></li>
+                        <li><a href="investments.html" style="color:var(--gray);text-decoration:none;">Инвестиции</a></li>
+                        <li><a href="my_stocks.html" style="color:var(--gray);text-decoration:none;">Мои акции</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Annalith. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ========== Глобальное состояние ==========
+            let user = null;
+            let balance = 0;
+            let transactions = [];
+            let stocks = {};
+            let myStocks = {};
+            let isAdmin = false;
+
+            // ========== Элементы ==========
+            const notification = document.getElementById('notification');
+            const adminAuth = document.getElementById('adminAuth');
+            const adminContent = document.getElementById('adminContent');
+            const adminPasswordInput = document.getElementById('adminPasswordInput');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const transactionsTableBody = document.getElementById('transactionsTableBody');
+            const txCount = document.getElementById('txCount');
+            const stocksTableBody = document.getElementById('stocksTableBody');
+            const adminBalanceAmount = document.getElementById('adminBalanceAmount');
+            const adminBalanceDesc = document.getElementById('adminBalanceDesc');
+            const adminBalanceDate = document.getElementById('adminBalanceDate');
+            const adminBalanceAdd = document.getElementById('adminBalanceAdd');
+            const adminBalanceSub = document.getElementById('adminBalanceSub');
+            const adminCurrentBalance = document.getElementById('adminCurrentBalance');
+            const adminUserName = document.getElementById('adminUserName');
+            const adminUpdateUserBtn = document.getElementById('adminUpdateUserBtn');
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            const importDataBtn = document.getElementById('importDataBtn');
+            const importDataInput = document.getElementById('importDataInput');
+            const refreshStocksBtn = document.getElementById('refreshStocksBtn');
+            const randomizeAllStocksBtn = document.getElementById('randomizeAllStocksBtn');
+            const addTransactionBtn = document.getElementById('addTransactionBtn');
+            const addTransactionForm = document.getElementById('addTransactionForm');
+            const cancelNewTxBtn = document.getElementById('cancelNewTxBtn');
+            const saveNewTxBtn = document.getElementById('saveNewTxBtn');
+            const newTxType = document.getElementById('newTxType');
+            const newTxAmount = document.getElementById('newTxAmount');
+            const newTxDescription = document.getElementById('newTxDescription');
+            const newTxDate = document.getElementById('newTxDate');
+            const userActions = document.getElementById('userActions');
+
+            // ========== Загрузка данных ==========
+            function loadData() {
+                const saved = localStorage.getItem('annalithWalletData');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
+                        transactions = data.transactions || [];
+                        stocks = data.stocks || {};
+                        myStocks = data.myStocks || {};
+                    } catch (e) { console.error(e); }
+                }
+            }
+
+            function saveData() {
+                const data = { user, balance, transactions, stocks, myStocks };
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
+            }
+
+            // ========== Уведомления ==========
+            function showNotification(msg, ok = true) {
+                notification.textContent = msg;
+                notification.className = `notification ${ok ? 'success' : 'error'} show`;
+                setTimeout(() => { notification.className = 'notification hidden'; }, 3000);
+            }
+
+            // ========== Рендер таблицы транзакций ==========
+            function renderTransactions() {
+                if (!transactions) transactions = [];
+                txCount.textContent = transactions.length;
+                if (transactions.length === 0) {
+                    transactionsTableBody.innerHTML = `<tr><td colspan="6" class="text-muted text-center">Нет транзакций</td></tr>`;
+                    return;
+                }
+                let html = '';
+                transactions.forEach((tx, index) => {
+                    const date = new Date(tx.date);
+                    const dateStr = date.toISOString().slice(0, 16).replace('T', ' ');
+                    const typeClass = {
+                        'receive': 'badge-receive',
+                        'send': 'badge-send',
+                        'invest': 'badge-invest',
+                        'sell_stock': 'badge-sell',
+                        'dividend': 'badge-dividend'
+                    }[tx.type] || 'badge-receive';
+                    const typeLabel = {
+                        'receive': 'Входящий',
+                        'send': 'Исходящий',
+                        'invest': 'Инвестиция',
+                        'sell_stock': 'Продажа',
+                        'dividend': 'Дивиденды'
+                    }[tx.type] || tx.type;
+                    html += `
+                        <tr data-index="${index}">
+                            <td>${index + 1}</td>
+                            <td><input type="datetime-local" class="form-control edit-tx-date" value="${dateStr}" style="width:180px;"></td>
+                            <td>
+                                <select class="form-control edit-tx-type" style="width:140px;">
+                                    <option value="receive" ${tx.type === 'receive' ? 'selected' : ''}>Входящий</option>
+                                    <option value="send" ${tx.type === 'send' ? 'selected' : ''}>Исходящий</option>
+                                    <option value="invest" ${tx.type === 'invest' ? 'selected' : ''}>Инвестиция</option>
+                                    <option value="sell_stock" ${tx.type === 'sell_stock' ? 'selected' : ''}>Продажа</option>
+                                    <option value="dividend" ${tx.type === 'dividend' ? 'selected' : ''}>Дивиденды</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="form-control edit-tx-amount" value="${tx.amount}" step="0.01" style="width:100px;"></td>
+                            <td><input type="text" class="form-control edit-tx-desc" value="${tx.description || ''}" style="min-width:150px;"></td>
+                            <td>
+                                <button class="btn btn-success btn-sm save-tx-btn" style="padding:4px 10px;font-size:0.85rem;"><i class="fas fa-save"></i></button>
+                                <button class="btn btn-danger btn-sm delete-tx-btn" style="padding:4px 10px;font-size:0.85rem;"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                transactionsTableBody.innerHTML = html;
+
+                // Обработчики сохранения
+                document.querySelectorAll('.save-tx-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const index = parseInt(tr.dataset.index);
+                        const dateInput = tr.querySelector('.edit-tx-date');
+                        const typeSelect = tr.querySelector('.edit-tx-type');
+                        const amountInput = tr.querySelector('.edit-tx-amount');
+                        const descInput = tr.querySelector('.edit-tx-desc');
+                        const newDate = new Date(dateInput.value);
+                        if (isNaN(newDate.getTime())) {
+                            showNotification('Неверная дата', false);
+                            return;
+                        }
+                        const newType = typeSelect.value;
+                        const newAmount = parseFloat(amountInput.value);
+                        if (isNaN(newAmount) || newAmount <= 0) {
+                            showNotification('Сумма должна быть > 0', false);
+                            return;
+                        }
+                        const newDesc = descInput.value.trim();
+                        // Обновляем транзакцию
+                        transactions[index] = {
+                            type: newType,
+                            amount: newAmount,
+                            description: newDesc || 'Без описания',
+                            date: newDate.toISOString()
+                        };
+                        saveData();
+                        renderTransactions();
+                        showNotification('Транзакция обновлена');
+                    });
+                });
+
+                // Обработчики удаления
+                document.querySelectorAll('.delete-tx-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (!confirm('Удалить эту транзакцию?')) return;
+                        const tr = this.closest('tr');
+                        const index = parseInt(tr.dataset.index);
+                        const tx = transactions[index];
+                        // Возвращаем баланс (если нужно)
+                        if (tx.type === 'receive') balance -= tx.amount;
+                        else if (tx.type === 'send' || tx.type === 'invest') balance += tx.amount;
+                        else if (tx.type === 'sell_stock' || tx.type === 'dividend') balance -= tx.amount;
+                        transactions.splice(index, 1);
+                        saveData();
+                        renderTransactions();
+                        updateBalanceDisplay();
+                        showNotification('Транзакция удалена');
+                    });
+                });
+            }
+
+            // ========== Рендер таблицы акций ==========
+            function renderStocks() {
+                if (!stocks || Object.keys(stocks).length === 0) {
+                    stocksTableBody.innerHTML = `<tr><td colspan="5" class="text-muted text-center">Нет данных об акциях</td></tr>`;
+                    return;
+                }
+                let html = '';
+                for (const sym in stocks) {
+                    const s = stocks[sym];
+                    const price = s.currentPrice || s.history[s.history.length - 1] || 0;
+                    html += `
+                        <tr data-symbol="${sym}">
+                            <td><strong>${sym}</strong></td>
+                            <td>${s.name}</td>
+                            <td><input type="number" class="form-control stock-price-input" value="${price.toFixed(2)}" step="0.01" style="width:120px;"></td>
+                            <td><input type="number" class="form-control stock-vol-input" value="${s.volatility || 0.02}" step="0.001" style="width:100px;"></td>
+                            <td>
+                                <button class="btn btn-success btn-sm stock-set-price" style="padding:4px 10px;"><i class="fas fa-check"></i></button>
+                                <button class="btn btn-warning btn-sm stock-up" style="padding:4px 10px;"><i class="fas fa-arrow-up"></i> +5%</button>
+                                <button class="btn btn-danger btn-sm stock-down" style="padding:4px 10px;"><i class="fas fa-arrow-down"></i> -5%</button>
+                                <button class="btn btn-primary btn-sm stock-mult" style="padding:4px 10px;">×2</button>
+                                <button class="btn btn-outline btn-sm stock-div" style="padding:4px 10px;">÷2</button>
+                                <button class="btn btn-secondary btn-sm stock-random" style="padding:4px 10px;"><i class="fas fa-dice"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                }
+                stocksTableBody.innerHTML = html;
+
+                // Обработчики для акций
+                document.querySelectorAll('.stock-set-price').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const priceInput = tr.querySelector('.stock-price-input');
+                        const price = parseFloat(priceInput.value);
+                        if (isNaN(price) || price <= 0) { showNotification('Неверная цена', false); return; }
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        stock.history.push(price);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = price;
+                        saveData();
+                        renderStocks();
+                        showNotification(`Цена ${sym} установлена`);
+                    });
+                });
+
+                document.querySelectorAll('.stock-up').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                        const newPrice = current * 1.05;
+                        stock.history.push(newPrice);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = newPrice;
+                        saveData();
+                        renderStocks();
+                        showNotification(`${sym} +5%`);
+                    });
+                });
+
+                document.querySelectorAll('.stock-down').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                        const newPrice = Math.max(0.01, current * 0.95);
+                        stock.history.push(newPrice);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = newPrice;
+                        saveData();
+                        renderStocks();
+                        showNotification(`${sym} -5%`);
+                    });
+                });
+
+                document.querySelectorAll('.stock-mult').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                        const newPrice = current * 2;
+                        stock.history.push(newPrice);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = newPrice;
+                        saveData();
+                        renderStocks();
+                        showNotification(`${sym} ×2`);
+                    });
+                });
+
+                document.querySelectorAll('.stock-div').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                        const newPrice = Math.max(0.01, current / 2);
+                        stock.history.push(newPrice);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = newPrice;
+                        saveData();
+                        renderStocks();
+                        showNotification(`${sym} ÷2`);
+                    });
+                });
+
+                document.querySelectorAll('.stock-random').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                        const change = (Math.random() - 0.5) * 2 * (stock.volatility || 0.02) * current;
+                        const newPrice = Math.max(0.01, current + change);
+                        stock.history.push(newPrice);
+                        if (stock.history.length > 150) stock.history.shift();
+                        stock.currentPrice = newPrice;
+                        saveData();
+                        renderStocks();
+                        showNotification(`${sym} случайное изменение`);
+                    });
+                });
+
+                // Обновление волатильности
+                document.querySelectorAll('.stock-vol-input').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const vol = parseFloat(this.value);
+                        if (isNaN(vol) || vol < 0) { showNotification('Волатильность >=0', false); return; }
+                        stock.volatility = vol;
+                        saveData();
+                        showNotification(`Волатильность ${sym} обновлена`);
+                    });
+                });
+            }
+
+            // ========== Обновление отображения баланса ==========
+            function updateBalanceDisplay() {
+                adminCurrentBalance.textContent = `$${balance.toFixed(2)}`;
+            }
+
+            // ========== Инициализация UI ==========
+            function initUI() {
+                if (user) {
+                    userActions.innerHTML = `
+                        <span style="color: white; font-weight: 500;">${user.name}</span>
+                        <a href="index.html" class="btn btn-outline" style="padding:8px 16px;font-size:0.85rem;">На главную</a>
+                    `;
+                } else {
+                    userActions.innerHTML = `<span style="color:white;">Не авторизован</span>`;
+                }
+                renderTransactions();
+                renderStocks();
+                updateBalanceDisplay();
+                adminUserName.value = user ? user.name : '';
+            }
+
+            // ========== Админ-логин ==========
+            adminLoginBtn.addEventListener('click', function() {
+                if (adminPasswordInput.value === '1111') {
+                    isAdmin = true;
+                    adminAuth.classList.add('hidden');
+                    adminContent.classList.remove('hidden');
+                    showNotification('Доступ разрешён');
+                } else {
+                    showNotification('Неверный пароль', false);
+                }
+            });
+
+            // ========== Добавление транзакции ==========
+            addTransactionBtn.addEventListener('click', function() {
+                addTransactionForm.classList.toggle('hidden');
+                if (!addTransactionForm.classList.contains('hidden')) {
+                    // Заполним дату текущей
+                    const now = new Date();
+                    newTxDate.value = now.toISOString().slice(0, 16);
+                    newTxAmount.value = '';
+                    newTxDescription.value = '';
+                }
+            });
+
+            cancelNewTxBtn.addEventListener('click', function() {
+                addTransactionForm.classList.add('hidden');
+            });
+
+            saveNewTxBtn.addEventListener('click', function() {
+                const type = newTxType.value;
+                const amount = parseFloat(newTxAmount.value);
+                const desc = newTxDescription.value.trim() || 'Без описания';
+                const dateVal = newTxDate.value;
+                if (isNaN(amount) || amount <= 0) {
+                    showNotification('Введите сумму > 0', false);
+                    return;
+                }
+                const date = new Date(dateVal);
+                if (isNaN(date.getTime())) {
+                    showNotification('Неверная дата', false);
+                    return;
+                }
+                // Добавляем
+                transactions.unshift({
+                    type,
+                    amount,
+                    description: desc,
+                    date: date.toISOString()
+                });
+                // Обновляем баланс
+                if (type === 'receive' || type === 'dividend' || type === 'sell_stock') {
+                    balance += amount;
+                } else if (type === 'send' || type === 'invest') {
+                    if (amount > balance) {
+                        showNotification('Недостаточно средств на балансе', false);
+                        return;
+                    }
+                    balance -= amount;
+                }
+                saveData();
+                renderTransactions();
+                updateBalanceDisplay();
+                showNotification('Транзакция добавлена');
+                addTransactionForm.classList.add('hidden');
+            });
+
+            // ========== Управление балансом ==========
+            function handleBalance(operation) {
+                const amount = parseFloat(adminBalanceAmount.value);
+                const desc = adminBalanceDesc.value.trim() || 'Админ-операция';
+                const dateVal = adminBalanceDate.value;
+                if (isNaN(amount) || amount <= 0) {
+                    showNotification('Введите сумму > 0', false);
+                    return;
+                }
+                if (operation === 'sub' && amount > balance) {
+                    showNotification('Недостаточно средств', false);
+                    return;
+                }
+                const date = dateVal ? new Date(dateVal) : new Date();
+                if (isNaN(date.getTime())) {
+                    showNotification('Неверная дата', false);
+                    return;
+                }
+                const type = operation === 'add' ? 'receive' : 'send';
+                const newBalance = operation === 'add' ? balance + amount : balance - amount;
+                transactions.unshift({
+                    type,
+                    amount,
+                    description: desc + (operation === 'add' ? ' (пополнение)' : ' (списание)'),
+                    date: date.toISOString()
+                });
+                balance = newBalance;
+                saveData();
+                renderTransactions();
+                updateBalanceDisplay();
+                showNotification(`Баланс ${operation === 'add' ? 'пополнен' : 'уменьшен'} на $${amount.toFixed(2)}`);
+                adminBalanceAmount.value = '';
+            }
+
+            adminBalanceAdd.addEventListener('click', function() { handleBalance('add'); });
+            adminBalanceSub.addEventListener('click', function() { handleBalance('sub'); });
+
+            // ========== Обновление имени пользователя ==========
+            adminUpdateUserBtn.addEventListener('click', function() {
+                const newName = adminUserName.value.trim();
+                if (!newName) { showNotification('Введите имя', false); return; }
+                if (user) {
+                    user.name = newName;
+                    saveData();
+                    showNotification('Имя обновлено');
+                    initUI();
+                } else {
+                    showNotification('Пользователь не найден', false);
+                }
+            });
+
+            // ========== Экспорт/Импорт ==========
+            exportDataBtn.addEventListener('click', function() {
+                const data = { user, balance, transactions, stocks, myStocks, exportDate: new Date().toISOString() };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `annalith_backup_${new Date().toISOString().slice(0,10)}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                showNotification('Экспорт выполнен');
+            });
+
+            importDataBtn.addEventListener('click', function() {
+                importDataInput.click();
+            });
+            importDataInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        const data = JSON.parse(ev.target.result);
+                        if (data.user && data.balance !== undefined && data.transactions && data.stocks) {
+                            user = data.user;
+                            balance = data.balance;
+                            transactions = data.transactions;
+                            stocks = data.stocks;
+                            myStocks = data.myStocks || {};
+                            saveData();
+                            initUI();
+                            showNotification('Импорт успешен');
+                        } else {
+                            showNotification('Неверный формат файла', false);
+                        }
+                    } catch (err) {
+                        showNotification('Ошибка импорта', false);
+                    }
+                };
+                reader.readAsText(file);
+                importDataInput.value = '';
+            });
+
+            // ========== Обновление цен акций ==========
+            refreshStocksBtn.addEventListener('click', function() {
+                // Просто перерисовываем акции (цены уже актуальны)
+                renderStocks();
+                showNotification('Акции обновлены');
+            });
+
+            randomizeAllStocksBtn.addEventListener('click', function() {
+                for (const sym in stocks) {
+                    const stock = stocks[sym];
+                    const current = stock.currentPrice || stock.history[stock.history.length - 1] || 0;
+                    const change = (Math.random() - 0.5) * 2 * (stock.volatility || 0.02) * current;
+                    const newPrice = Math.max(0.01, current + change);
+                    stock.history.push(newPrice);
+                    if (stock.history.length > 150) stock.history.shift();
+                    stock.currentPrice = newPrice;
+                }
+                saveData();
+                renderStocks();
+                showNotification('Все цены случайно изменены');
+            });
+
+            // ========== Загрузка данных при старте ==========
+            loadData();
+            initUI();
+
+            // Если админ уже был залогинен (сохраняем состояние в сессии), но проще оставить повторный вход
+            // Можно добавить проверку, но для простоты оставляем.
+
+            // Обновление данных каждые 5 секунд (для синхронизации с другими вкладками)
+            setInterval(() => {
+                loadData();
+                renderTransactions();
+                renderStocks();
+                updateBalanceDisplay();
+                if (user && adminUserName.value !== user.name) {
+                    adminUserName.value = user.name;
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

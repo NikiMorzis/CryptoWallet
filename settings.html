@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* стили без изменений (как в вашем файле) */
         :root {
-            /* Основные цвета Annalith */
-            --primary: #6a11cb; /* Градиент начало */
-            --primary-dark: #2575fc; /* Градиент конец */
-            --secondary: #ff6b6b; /* Акцентный цвет */
-            --accent: #4cc9f0; /* Дополнительный акцент */
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -45,7 +45,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -148,7 +147,6 @@
             grid-template-columns: 1fr 3fr;
             gap: 30px;
         }
-        /* Sidebar */
         .sidebar {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -212,7 +210,6 @@
             text-align: center;
             font-size: 1.1rem;
         }
-        /* Dashboard Content */
         .dashboard-content {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -228,7 +225,6 @@
             border-bottom: 2px solid #edf2f7;
             color: var(--text-primary);
         }
-        /* Settings Form */
         .settings-section {
             margin-bottom: 40px;
         }
@@ -323,7 +319,6 @@
         input:checked + .slider:before {
             transform: translateX(26px);
         }
-        /* Forms */
         .form-group {
             margin-bottom: 22px;
         }
@@ -349,7 +344,6 @@
             box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
             background-color: white;
         }
-        /* Auth Forms */
         .auth-container {
             max-width: 500px;
             margin: 50px auto;
@@ -378,7 +372,6 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
-        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
@@ -431,7 +424,6 @@
             color: var(--gray);
             font-size: 0.9rem;
         }
-        /* Responsive Design */
         @media (max-width: 992px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -483,7 +475,6 @@
                 padding: 12px 15px;
             }
         }
-        /* Utility Classes */
         .text-center {
             text-align: center;
         }
@@ -570,12 +561,13 @@
                         <li><a href="index.html#transfer">Переводы</a></li>
                         <li><a href="index.html#transactions">Транзакции</a></li>
                         <li><a href="investments.html">Инвестиции</a></li>
-                        <li><a href="#" class="active">Настройки</a></li> <!-- Активная ссылка -->
-                        <li><a href="help.html">Помощь</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="#" class="active">Настройки</a></li>
+                        <li><a href="help.html">Помощь</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
-                    <!-- Информация о пользователе будет вставлена JS -->
+                    <!-- Информация о пользователе -->
                 </div>
             </div>
         </div>
@@ -596,8 +588,9 @@
                     <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
                     <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="my_stocks.html"><i class="fas fa-folder-open"></i> Мои акции</a></li>
                     <li><a href="#" class="active"><i class="fas fa-cog"></i> Настройки</a></li>
-                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li> <!-- Ссылка на help.html -->
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li>
                     <li><a href="index.html#history"><i class="fas fa-history"></i> История</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
@@ -614,7 +607,7 @@
                     </div>
                     <div class="settings-group">
                         <label for="userEmailInput">Email</label>
-                        <input type="email" id="userEmailInput" class="settings-control" placeholder="Введите ваш email" disabled> <!-- Email нельзя менять -->
+                        <input type="email" id="userEmailInput" class="settings-control" placeholder="Введите ваш email" disabled>
                     </div>
                 </div>
                 <div class="settings-section">
@@ -715,12 +708,13 @@
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
                         <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="help.html">Центр помощи</a></li> <!-- Ссылка на help.html -->
+                        <li><a href="help.html">Центр помощи</a></li>
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -743,8 +737,11 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // State management
             let user = null;
+            let balance = 0;
+            let transactions = [];
+            let stocks = {};
+            let myStocks = {};
             let settings = {
                 emailNotifications: true,
                 pushNotifications: false,
@@ -755,7 +752,6 @@
                 analytics: true
             };
 
-            // Elements
             const userNameInput = document.getElementById('userNameInput');
             const userEmailInput = document.getElementById('userEmailInput');
             const emailNotificationsToggle = document.getElementById('emailNotificationsToggle');
@@ -773,16 +769,6 @@
             const sidebar = document.getElementById('sidebar');
             const notification = document.getElementById('notification');
 
-            // Загрузка данных из localStorage при запуске
-            loadFromLocalStorage();
-
-            // Проверка авторизации
-            if (!user) {
-                window.location.href = 'index.html'; // Перенаправить на главную, если не авторизован
-                return;
-            }
-
-            // Показать уведомление
             function showNotification(message, isSuccess = true) {
                 notification.textContent = message;
                 notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
@@ -791,37 +777,51 @@
                 }, 3000);
             }
 
-            // Сохранение данных в localStorage
             function saveToLocalStorage() {
                 const data = {
                     user: user,
+                    balance: balance,
+                    transactions: transactions,
+                    stocks: stocks,
+                    myStocks: myStocks,
                     settings: settings
                 };
                 localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
 
-            // Загрузка данных из localStorage
             function loadFromLocalStorage() {
                 const savedData = localStorage.getItem('annalithWalletData');
                 if (savedData) {
                     try {
                         const data = JSON.parse(savedData);
-                        user = data.user;
-                        settings = data.settings || settings; // Загружаем настройки или используем дефолтные
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
+                        transactions = data.transactions || [];
+                        stocks = data.stocks || {};
+                        myStocks = data.myStocks || {};
+                        settings = data.settings || settings;
                         if (user) {
+                            // Восстанавливаем недостающие поля
+                            let needSave = false;
+                            if (balance === undefined) { balance = 0; needSave = true; }
+                            if (!transactions) { transactions = []; needSave = true; }
+                            if (!stocks) { stocks = {}; needSave = true; }
+                            if (!myStocks) { myStocks = {}; needSave = true; }
+                            if (needSave) saveToLocalStorage();
                             updateUI();
+                        } else {
+                            window.location.href = 'index.html';
                         }
                     } catch (e) {
                         console.error('Error loading saved data:', e);
-                        showNotification('Ошибка при загрузке данных', false);
+                        localStorage.removeItem('annalithWalletData');
+                        window.location.href = 'index.html';
                     }
                 } else {
-                    // Если данных нет, перенаправить на главную
                     window.location.href = 'index.html';
                 }
             }
 
-            // Обновление интерфейса
             function updateUI() {
                 if (user) {
                     userName.textContent = user.name;
@@ -829,7 +829,6 @@
                     userNameInput.value = user.name;
                     userEmailInput.value = user.email;
 
-                    // Установка настроек
                     emailNotificationsToggle.checked = settings.emailNotifications;
                     pushNotificationsToggle.checked = settings.pushNotifications;
                     languageSelect.value = settings.language;
@@ -838,30 +837,31 @@
                     showBalanceToggle.checked = settings.showBalance;
                     analyticsToggle.checked = settings.analytics;
 
-                    // Применение темы
                     if (settings.darkTheme) {
                         document.body.classList.add('dark-theme');
                     } else {
                         document.body.classList.remove('dark-theme');
                     }
 
-                    // Обновление информации о пользователе в шапке
                     userActions.innerHTML = `
                         <span style="color: white; font-weight: 500;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
                     document.getElementById('headerLogoutBtn').addEventListener('click', function() {
                         user = null;
-                        settings = null;
+                        balance = 0;
+                        transactions = [];
+                        stocks = {};
+                        myStocks = {};
+                        settings = {};
                         saveToLocalStorage();
-                        window.location.href = 'index.html'; // Перенаправить на главную после выхода
+                        window.location.href = 'index.html';
                     });
 
                     sidebar.classList.remove('hidden');
                 }
             }
 
-            // Обработчики изменений настроек
             emailNotificationsToggle.addEventListener('change', function() {
                 settings.emailNotifications = this.checked;
             });
@@ -889,28 +889,28 @@
                 settings.analytics = this.checked;
             });
 
-            // Обработчик кнопки сохранения
             saveSettingsBtn.addEventListener('click', function() {
-                // Валидация и обновление данных пользователя (имени)
                 const newName = userNameInput.value.trim();
                 if (newName && newName !== user.name) {
                     user.name = newName;
                 }
-
                 saveToLocalStorage();
                 showNotification('Настройки успешно сохранены!');
+                updateUI();
             });
 
-            // Обработчик кнопки "Выйти"
             logoutBtn.addEventListener('click', function() {
                 user = null;
-                settings = null;
+                balance = 0;
+                transactions = [];
+                stocks = {};
+                myStocks = {};
+                settings = {};
                 saveToLocalStorage();
                 window.location.href = 'index.html';
             });
 
-            // Инициализация UI
-            updateUI();
+            loadFromLocalStorage();
         });
     </script>
 </body>

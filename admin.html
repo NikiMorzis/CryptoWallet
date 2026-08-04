@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ---- основные стили как на других страницах, плюс таблицы ---- */
+        /* все стили без изменений, как в предыдущей версии */
         :root {
             --primary: #6a11cb;
             --primary-dark: #2575fc;
@@ -476,6 +476,7 @@
                                 <th>Символ</th>
                                 <th>Название</th>
                                 <th>Цена ($)</th>
+                                <th>Базовая цена ($)</th>
                                 <th>Волатильность</th>
                                 <th>Действия</th>
                             </tr>
@@ -707,7 +708,6 @@
                             return;
                         }
                         const newDesc = descInput.value.trim();
-                        // Обновляем транзакцию
                         transactions[index] = {
                             type: newType,
                             amount: newAmount,
@@ -720,14 +720,12 @@
                     });
                 });
 
-                // Обработчики удаления
                 document.querySelectorAll('.delete-tx-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         if (!confirm('Удалить эту транзакцию?')) return;
                         const tr = this.closest('tr');
                         const index = parseInt(tr.dataset.index);
                         const tx = transactions[index];
-                        // Возвращаем баланс (если нужно)
                         if (tx.type === 'receive') balance -= tx.amount;
                         else if (tx.type === 'send' || tx.type === 'invest') balance += tx.amount;
                         else if (tx.type === 'sell_stock' || tx.type === 'dividend') balance -= tx.amount;
@@ -743,18 +741,20 @@
             // ========== Рендер таблицы акций ==========
             function renderStocks() {
                 if (!stocks || Object.keys(stocks).length === 0) {
-                    stocksTableBody.innerHTML = `<tr><td colspan="5" class="text-muted text-center">Нет данных об акциях</td></tr>`;
+                    stocksTableBody.innerHTML = `<tr><td colspan="6" class="text-muted text-center">Нет данных об акциях</td></tr>`;
                     return;
                 }
                 let html = '';
                 for (const sym in stocks) {
                     const s = stocks[sym];
                     const price = s.currentPrice || s.history[s.history.length - 1] || 0;
+                    const basePrice = s.basePrice || s.initialPrice || price;
                     html += `
                         <tr data-symbol="${sym}">
                             <td><strong>${sym}</strong></td>
                             <td>${s.name}</td>
                             <td><input type="number" class="form-control stock-price-input" value="${price.toFixed(2)}" step="0.01" style="width:120px;"></td>
+                            <td><input type="number" class="form-control stock-base-price" value="${basePrice.toFixed(2)}" step="0.01" style="width:120px;"></td>
                             <td><input type="number" class="form-control stock-vol-input" value="${s.volatility || 0.02}" step="0.001" style="width:100px;"></td>
                             <td>
                                 <button class="btn btn-success btn-sm stock-set-price" style="padding:4px 10px;"><i class="fas fa-check"></i></button>
@@ -775,16 +775,37 @@
                         const tr = this.closest('tr');
                         const sym = tr.dataset.symbol;
                         const priceInput = tr.querySelector('.stock-price-input');
+                        const baseInput = tr.querySelector('.stock-base-price');
                         const price = parseFloat(priceInput.value);
+                        const basePrice = parseFloat(baseInput.value);
                         if (isNaN(price) || price <= 0) { showNotification('Неверная цена', false); return; }
                         const stock = stocks[sym];
                         if (!stock) return;
                         stock.history.push(price);
                         if (stock.history.length > 150) stock.history.shift();
                         stock.currentPrice = price;
+                        if (!isNaN(basePrice) && basePrice > 0) {
+                            stock.basePrice = basePrice;
+                        }
                         saveData();
                         renderStocks();
                         showNotification(`Цена ${sym} установлена`);
+                    });
+                });
+
+                // Обработчики изменения базовой цены отдельно (при вводе)
+                document.querySelectorAll('.stock-base-price').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const tr = this.closest('tr');
+                        const sym = tr.dataset.symbol;
+                        const stock = stocks[sym];
+                        if (!stock) return;
+                        const basePrice = parseFloat(this.value);
+                        if (!isNaN(basePrice) && basePrice > 0) {
+                            stock.basePrice = basePrice;
+                            saveData();
+                            showNotification(`Базовая цена ${sym} обновлена`);
+                        }
                     });
                 });
 
@@ -874,7 +895,6 @@
                     });
                 });
 
-                // Обновление волатильности
                 document.querySelectorAll('.stock-vol-input').forEach(input => {
                     input.addEventListener('change', function() {
                         const tr = this.closest('tr');
@@ -927,7 +947,6 @@
             addTransactionBtn.addEventListener('click', function() {
                 addTransactionForm.classList.toggle('hidden');
                 if (!addTransactionForm.classList.contains('hidden')) {
-                    // Заполним дату текущей
                     const now = new Date();
                     newTxDate.value = now.toISOString().slice(0, 16);
                     newTxAmount.value = '';
@@ -953,14 +972,12 @@
                     showNotification('Неверная дата', false);
                     return;
                 }
-                // Добавляем
                 transactions.unshift({
                     type,
                     amount,
                     description: desc,
                     date: date.toISOString()
                 });
-                // Обновляем баланс
                 if (type === 'receive' || type === 'dividend' || type === 'sell_stock') {
                     balance += amount;
                 } else if (type === 'send' || type === 'invest') {
@@ -1073,7 +1090,6 @@
 
             // ========== Обновление цен акций ==========
             refreshStocksBtn.addEventListener('click', function() {
-                // Просто перерисовываем акции (цены уже актуальны)
                 renderStocks();
                 showNotification('Акции обновлены');
             });
@@ -1097,10 +1113,7 @@
             loadData();
             initUI();
 
-            // Если админ уже был залогинен (сохраняем состояние в сессии), но проще оставить повторный вход
-            // Можно добавить проверку, но для простоты оставляем.
-
-            // Обновление данных каждые 5 секунд (для синхронизации с другими вкладками)
+            // Обновление данных каждые 5 секунд (синхронизация)
             setInterval(() => {
                 loadData();
                 renderTransactions();

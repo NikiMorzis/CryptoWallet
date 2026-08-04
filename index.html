@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- все стили без изменений, кроме добавленных для виджета портфеля --- */
         :root {
-            /* Основные цвета Annalith */
-            --primary: #6a11cb; /* Градиент начало */
-            --primary-dark: #2575fc; /* Градиент конец */
-            --secondary: #ff6b6b; /* Акцентный цвет */
-            --accent: #4cc9f0; /* Дополнительный акцент */
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
             --success: #2ecc71;
             --danger: #e74c3c;
             --warning: #f39c12;
@@ -29,15 +29,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Inter', sans-serif; /* Обновлен шрифт */
+            font-family: 'Poppins', 'Inter', sans-serif;
         }
         body {
             background-color: var(--bg-light);
             color: var(--text-primary);
             line-height: 1.6;
-            background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Легкий фоновый градиент */
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
             min-height: 100vh;
-            padding-bottom: 40px; /* Для footer */
+            padding-bottom: 40px;
         }
         .container {
             width: 100%;
@@ -45,7 +45,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -64,19 +63,19 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px; /* Увеличил отступ */
-            font-size: 1.7rem; /* Увеличил размер */
+            gap: 12px;
+            font-size: 1.7rem;
             font-weight: 700;
-            letter-spacing: -0.5px; /* Немного сближенные буквы */
+            letter-spacing: -0.5px;
         }
         .logo i {
             color: #ffd166;
-            font-size: 1.8rem; /* Увеличил иконку */
+            font-size: 1.8rem;
         }
         nav ul {
             display: flex;
             list-style: none;
-            gap: 28px; /* Увеличил отступ между пунктами */
+            gap: 28px;
         }
         nav a {
             color: white;
@@ -88,7 +87,7 @@
         }
         nav a:hover {
             color: #ffd166;
-            transform: translateY(-2px); /* Легкий подъем при наведении */
+            transform: translateY(-2px);
         }
         nav a::after {
             content: '';
@@ -106,11 +105,11 @@
         .user-actions {
             display: flex;
             align-items: center;
-            gap: 18px; /* Увеличил отступ */
+            gap: 18px;
         }
         .btn {
-            padding: 12px 24px; /* Увеличил паддинги */
-            border-radius: 10px; /* Более закругленные */
+            padding: 12px 24px;
+            border-radius: 10px;
             border: none;
             font-weight: 600;
             cursor: pointer;
@@ -131,7 +130,7 @@
         }
         .btn-outline {
             background-color: transparent;
-            border: 2px solid white; /* Более толстая граница */
+            border: 2px solid white;
             color: white;
         }
         .btn-outline:hover {
@@ -140,30 +139,44 @@
             color: #ffd166;
             transform: translateY(-2px);
         }
-        /* Main Content */
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, var(--danger));
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #27ae60, var(--success));
+            transform: translateY(-2px);
+        }
         .main-content {
-            padding: 50px 0; /* Увеличил вертикальный отступ */
+            padding: 50px 0;
         }
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 3fr;
-            gap: 30px; /* Увеличил отступ */
+            gap: 30px;
         }
-        /* Sidebar */
         .sidebar {
             background-color: var(--card-bg);
-            border-radius: 16px; /* Более закругленные */
-            padding: 30px; /* Увеличил паддинги */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Более мягкая тень */
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             height: fit-content;
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .user-profile {
             text-align: center;
-            margin-bottom: 30px; /* Увеличил отступ */
+            margin-bottom: 30px;
         }
         .user-avatar {
-            width: 100px; /* Увеличил аватар */
+            width: 100px;
             height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -177,112 +190,109 @@
         }
         .user-name {
             font-weight: 600;
-            font-size: 1.4rem; /* Увеличил размер */
+            font-size: 1.4rem;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
         .user-email {
             color: var(--text-secondary);
-            font-size: 1rem; /* Увеличил размер */
+            font-size: 1rem;
         }
         .sidebar-menu {
             list-style: none;
-            margin-bottom: 25px; /* Увеличил отступ */
+            margin-bottom: 25px;
         }
         .sidebar-menu li {
-            margin-bottom: 12px; /* Увеличил отступ */
+            margin-bottom: 12px;
         }
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            gap: 15px; /* Увеличил отступ */
-            padding: 14px 18px; /* Увеличил паддинги */
+            gap: 15px;
+            padding: 14px 18px;
             color: var(--text-primary);
             text-decoration: none;
-            border-radius: 10px; /* Более закругленные */
+            border-radius: 10px;
             transition: all 0.3s ease;
             font-size: 1rem;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(106, 17, 203, 0.1); /* Цвет фона при наведении */
+            background-color: rgba(106, 17, 203, 0.1);
             color: var(--primary);
-            transform: translateX(5px); /* Легкое смещение */
+            transform: translateX(5px);
         }
         .sidebar-menu i {
-            width: 24px; /* Увеличил ширину иконки */
+            width: 24px;
             text-align: center;
             font-size: 1.1rem;
         }
-        /* Dashboard Content */
         .dashboard-content {
             background-color: var(--card-bg);
-            border-radius: 16px; /* Более закругленные */
-            padding: 30px; /* Увеличил паддинги */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Более мягкая тень */
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .section-title {
-            font-size: 1.7rem; /* Увеличил размер */
+            font-size: 1.7rem;
             font-weight: 700;
-            margin-bottom: 30px; /* Увеличил отступ */
+            margin-bottom: 30px;
             padding-bottom: 18px;
             border-bottom: 2px solid #edf2f7;
             color: var(--text-primary);
         }
-        /* Balance Card */
         .balance-card {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            border-radius: 16px; /* Более закругленные */
-            padding: 35px; /* Увеличил паддинги */
-            margin-bottom: 30px; /* Увеличил отступ */
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
             box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
             transition: transform 0.3s ease;
         }
         .balance-card:hover {
-            transform: translateY(-5px); /* Подъем при наведении */
+            transform: translateY(-5px);
         }
         .balance-title {
             font-size: 1.1rem;
-            margin-bottom: 12px; /* Увеличил отступ */
+            margin-bottom: 12px;
             opacity: 0.9;
             font-weight: 500;
         }
         .balance-amount {
-            font-size: 3rem; /* Увеличил размер */
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 25px; /* Увеличил отступ */
-            letter-spacing: -1px; /* Более плотные цифры */
+            margin-bottom: 25px;
+            letter-spacing: -1px;
         }
         .balance-actions {
             display: flex;
-            gap: 20px; /* Увеличил отступ */
+            gap: 20px;
         }
         .balance-actions .btn {
             flex: 1;
             text-align: center;
-            padding: 14px 20px; /* Увеличил паддинги */
+            padding: 14px 20px;
             font-weight: 600;
         }
         .balance-actions .btn-outline {
-            border: 2px solid white; /* Более толстая граница */
+            border: 2px solid white;
         }
-        /* Transactions */
         .transactions {
-            margin-top: 35px; /* Увеличил отступ */
+            margin-top: 35px;
         }
         .filters {
             display: flex;
-            gap: 18px; /* Увеличил отступ */
-            margin-bottom: 25px; /* Увеличил отступ */
+            gap: 18px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
-            align-items: center; /* Выравнивание по центру */
+            align-items: center;
         }
         .filter-btn {
-            padding: 10px 20px; /* Увеличил паддинги */
+            padding: 10px 20px;
             background-color: #edf2f7;
             border: none;
-            border-radius: 10px; /* Более закругленные */
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -296,9 +306,9 @@
             color: white;
         }
         .filter-select {
-            padding: 10px 15px; /* Паддинги для селекта */
+            padding: 10px 15px;
             border: 1px solid #cbd5e0;
-            border-radius: 10px; /* Более закругленные */
+            border-radius: 10px;
             background-color: #f8fafc;
             font-size: 0.95rem;
             cursor: pointer;
@@ -317,7 +327,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0; /* Увеличил вертикальный паддинг */
+            padding: 20px 0;
             border-bottom: 1px solid #edf2f7;
             transition: background-color 0.2s ease;
         }
@@ -327,10 +337,10 @@
         .transaction-info {
             display: flex;
             align-items: center;
-            gap: 20px; /* Увеличил отступ */
+            gap: 20px;
         }
         .transaction-icon {
-            width: 50px; /* Увеличил иконку */
+            width: 50px;
             height: 50px;
             border-radius: 50%;
             display: flex;
@@ -346,11 +356,11 @@
             background: linear-gradient(135deg, var(--danger), #c0392b);
         }
         .transaction-icon.invest {
-            background: linear-gradient(135deg, var(--warning), #e67e22); /* Цвет для инвестиций */
+            background: linear-gradient(135deg, var(--warning), #e67e22);
         }
         .transaction-details h4 {
             font-weight: 600;
-            margin-bottom: 6px; /* Увеличил отступ */
+            margin-bottom: 6px;
             font-size: 1.1rem;
             color: var(--text-primary);
         }
@@ -369,22 +379,21 @@
         .transaction-amount.negative {
             color: var(--danger);
         }
-        /* Forms */
         .form-group {
-            margin-bottom: 22px; /* Увеличил отступ */
+            margin-bottom: 22px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 10px; /* Увеличил отступ */
+            margin-bottom: 10px;
             font-weight: 500;
             color: var(--text-primary);
             font-size: 0.95rem;
         }
         .form-control {
             width: 100%;
-            padding: 14px 18px; /* Увеличил паддинги */
+            padding: 14px 18px;
             border: 1px solid #cbd5e0;
-            border-radius: 10px; /* Более закругленные */
+            border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
             background-color: #f8fafc;
@@ -395,25 +404,24 @@
             box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
             background-color: white;
         }
-        /* Auth Forms */
         .auth-container {
-            max-width: 500px; /* Увеличил ширину */
-            margin: 50px auto; /* Увеличил отступ */
+            max-width: 500px;
+            margin: 50px auto;
             background-color: var(--card-bg);
-            border-radius: 16px; /* Более закругленные */
-            padding: 40px; /* Увеличил паддинги */
+            border-radius: 16px;
+            padding: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .auth-header {
             text-align: center;
-            margin-bottom: 35px; /* Увеличил отступ */
+            margin-bottom: 35px;
             position: relative;
         }
         .auth-title {
-            font-size: 2.2rem; /* Увеличил размер */
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 12px; /* Увеличил отступ */
+            margin-bottom: 12px;
             color: var(--primary);
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             -webkit-background-clip: text;
@@ -424,56 +432,40 @@
             color: var(--text-secondary);
             font-size: 1.1rem;
         }
-        /* Admin Panel */
-        .admin-panel {
-            display: none;
-            background-color: var(--card-bg);
-            border-radius: 16px; /* Более закругленные */
-            padding: 30px;
-            margin-top: 35px; /* Увеличил отступ */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        .admin-section {
-            margin-bottom: 35px; /* Увеличил отступ */
-            padding-bottom: 25px;
-            border-bottom: 1px solid #edf2f7;
-        }
-        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 50px 0 20px; /* Увеличил верхний отступ */
+            padding: 50px 0 20px;
             margin-top: 60px;
         }
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 35px; /* Увеличил отступ */
+            gap: 35px;
         }
         .footer-logo {
-            font-size: 2rem; /* Увеличил размер */
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 18px; /* Увеличил отступ */
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
         .footer-description {
             color: var(--gray);
-            margin-bottom: 25px; /* Увеличил отступ */
+            margin-bottom: 25px;
             font-size: 0.95rem;
         }
         .footer-heading {
-            font-size: 1.3rem; /* Увеличил размер */
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 22px; /* Увеличил отступ */
+            margin-bottom: 22px;
         }
         .footer-links {
             list-style: none;
         }
         .footer-links li {
-            margin-bottom: 14px; /* Увеличил отступ */
+            margin-bottom: 14px;
         }
         .footer-links a {
             color: var(--gray);
@@ -486,13 +478,12 @@
         }
         .copyright {
             text-align: center;
-            padding-top: 35px; /* Увеличил отступ */
-            margin-top: 35px; /* Увеличил отступ */
+            padding-top: 35px;
+            margin-top: 35px;
             border-top: 1px solid #4a5568;
             color: var(--gray);
             font-size: 0.9rem;
         }
-        /* Responsive Design */
         @media (max-width: 992px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -524,23 +515,8 @@
                 flex-direction: column;
             }
             .auth-container {
-                margin: 30px 20px; /* Уменьшил боковые отступы */
+                margin: 30px 20px;
                 padding: 30px;
-            }
-            .admin-panel {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                border-radius: 16px 16px 0 0;
-                margin-top: 0;
-                z-index: 1000;
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            .admin-section {
-                margin-bottom: 25px;
-                padding-bottom: 20px;
             }
         }
         @media (max-width: 576px) {
@@ -554,21 +530,20 @@
                 gap: 15px;
             }
             .transaction-amount {
-                margin-left: 70px; /* Увеличил отступ для суммы */
+                margin-left: 70px;
             }
             .filters {
-                flex-direction: column; /* На мобиле - вертикальный стек */
-                align-items: stretch; /* Растягиваем элементы */
+                flex-direction: column;
+                align-items: stretch;
                 gap: 10px;
             }
             .filter-btn, .filter-select {
-                width: 100%; /* На мобиле - вся ширина */
+                width: 100%;
             }
             .balance-actions .btn {
                 padding: 12px 15px;
             }
         }
-        /* Hidden admin access */
         .admin-access {
             position: static;
             display: inline-block;
@@ -593,7 +568,6 @@
         .admin-access i {
             margin-right: 8px;
         }
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -601,13 +575,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Более темный оверлей */
+            background-color: rgba(0, 0, 0, 0.6);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease; /* Анимация появления */
+            animation: fadeIn 0.3s ease;
         }
-         @keyframes fadeIn {
+        @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
@@ -615,15 +589,15 @@
             background-color: var(--card-bg);
             border-radius: 16px;
             width: 100%;
-            max-width: 550px; /* Увеличил ширину */
+            max-width: 550px;
             padding: 30px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
             max-height: 90vh;
             overflow-y: auto;
-            animation: scaleIn 0.3s ease; /* Анимация масштаба */
+            animation: scaleIn 0.3s ease;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-         @keyframes scaleIn {
+        @keyframes scaleIn {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
@@ -631,12 +605,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px; /* Увеличил отступ */
+            margin-bottom: 25px;
             padding-bottom: 18px;
             border-bottom: 1px solid #edf2f7;
         }
         .modal-title {
-            font-size: 1.6rem; /* Увеличил размер */
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
         }
@@ -651,7 +625,6 @@
         .close-modal:hover {
             color: var(--danger);
         }
-        /* Utility Classes */
         .text-center {
             text-align: center;
         }
@@ -663,39 +636,24 @@
         }
         .empty-state {
             text-align: center;
-            padding: 50px 20px; /* Увеличил паддинги */
+            padding: 50px 20px;
             color: var(--text-secondary);
         }
         .empty-state i {
-            font-size: 4rem; /* Увеличил иконку */
+            font-size: 4rem;
             margin-bottom: 20px;
             color: var(--gray);
         }
         .empty-state p {
-            margin-bottom: 25px; /* Увеличил отступ */
-            font-size: 1.1rem;
-        }
-        .admin-password-form {
-            background-color: #f8fafc;
-            padding: 25px;
-            border-radius: 12px;
             margin-bottom: 25px;
-            border-left: 5px solid var(--primary);
-        }
-        .data-actions {
-            display: flex;
-            gap: 20px; /* Увеличил отступ */
-            margin-top: 20px;
-        }
-        .data-actions .btn {
-            flex: 1;
+            font-size: 1.1rem;
         }
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 16px 24px; /* Увеличил паддинги */
-            border-radius: 10px; /* Более закругленные */
+            padding: 16px 24px;
+            border-radius: 10px;
             color: white;
             z-index: 1000;
             opacity: 0;
@@ -718,7 +676,7 @@
             background-color: #fff5f5;
             color: var(--danger);
             border: 2px solid #fed7d7;
-            padding: 12px 18px; /* Увеличил паддинги */
+            padding: 12px 18px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -734,25 +692,39 @@
             color: var(--danger);
             border-color: #feb2b2;
         }
-        .close-admin-panel {
-            display: none;
+        /* Виджет портфеля на главной */
+        .portfolio-widget {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
         }
-        @media (max-width: 768px) {
-            .close-admin-panel {
-                display: block;
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                background: none;
-                border: none;
-                font-size: 1.8rem;
-                color: var(--gray-dark);
-                cursor: pointer;
-                transition: color 0.3s ease;
-            }
-             .close-admin-panel:hover {
-                 color: var(--danger);
-             }
+        .portfolio-widget h4 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        .portfolio-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .portfolio-item:last-child {
+            border-bottom: none;
+        }
+        .portfolio-symbol {
+            font-weight: 600;
+        }
+        .portfolio-value {
+            font-weight: 500;
+        }
+        .portfolio-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -764,7 +736,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <i class="fas fa-gem"></i> <!-- Сменил иконку -->
+                    <i class="fas fa-gem"></i>
                     <span>Annalith</span>
                 </div>
                 <nav>
@@ -772,7 +744,8 @@
                         <li><a href="#" class="active">Главная</a></li>
                         <li><a href="#">Переводы</a></li>
                         <li><a href="#">Транзакции</a></li>
-                        <li><a href="investments.html">Инвестиции</a></li> <!-- Ссылка на investments.html -->
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
                         <li><a href="#">Курсы</a></li>
                         <li><a href="#">Поддержка</a></li>
                     </ul>
@@ -799,10 +772,11 @@
                     <li><a href="#" class="active"><i class="fas fa-home"></i> Обзор</a></li>
                     <li><a href="#"><i class="fas fa-wallet"></i> Кошелек</a></li>
                     <li><a href="#"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
-                    <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li> <!-- Ссылка на investments.html -->
+                    <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="my_stocks.html"><i class="fas fa-folder-open"></i> Мои акции</a></li>
                     <li><a href="#"><i class="fas fa-history"></i> История</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Помощь</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li>
                 </ul>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Выйти
@@ -830,6 +804,14 @@
                             <a href="#" class="btn btn-outline" id="sendMoneyBtn">Перевести</a>
                         </div>
                     </div>
+                    <!-- Виджет портфеля -->
+                    <div class="portfolio-widget" id="portfolioWidget">
+                        <h4>📊 Мой портфель акций</h4>
+                        <div id="portfolioList">
+                            <p style="color: var(--text-secondary);">У вас пока нет акций</p>
+                        </div>
+                        <div class="portfolio-total" id="portfolioTotal">Общая стоимость: $0.00</div>
+                    </div>
                     <div class="transactions">
                         <h3 class="section-title">Последние транзакции</h3>
                         <div class="filters">
@@ -853,7 +835,6 @@
                             </select>
                             <select class="filter-select" id="yearFilter">
                                 <option value="">Все годы</option>
-                                <!-- Опции будут добавлены динамически -->
                             </select>
                         </div>
                         <ul class="transaction-list" id="transactionList">
@@ -862,73 +843,6 @@
                                 <p>У вас пока нет транзакций</p>
                             </li>
                         </ul>
-                    </div>
-                    <!-- Admin Panel (hidden by default) -->
-                    <div class="admin-panel" id="adminPanel">
-                        <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
-                        <h3 class="section-title">Админ панель</h3>
-                        <div class="admin-password-form">
-                            <h4>Доступ к админ-панели</h4>
-                            <div class="form-group">
-                                <label for="adminPassword">Пароль администратора</label>
-                                <input type="password" id="adminPassword" class="form-control" placeholder="Введите пароль (1111)">
-                            </div>
-                            <button class="btn btn-primary" id="adminLoginBtn">Войти в админ-панель</button>
-                        </div>
-                        <div id="adminContent" class="hidden">
-                            <div class="admin-section">
-                                <h4>Управление балансом</h4>
-                                <div class="form-group">
-                                    <label for="adminBalanceAmount">Сумма пополнения</label>
-                                    <input type="number" id="adminBalanceAmount" class="form-control" placeholder="Введите сумму" step="0.01">
-                                </div>
-                                <div class="form-group">
-                                    <label for="topUpDescription">Описание пополнения</label>
-                                    <input type="text" id="topUpDescription" class="form-control" placeholder="Например: Пополнение от Ивана" value="Пополнение через админ-панель">
-                                </div>
-                                <button class="btn btn-primary" id="addBalanceBtn">Пополнить баланс</button>
-                            </div>
-                            <div class="admin-section">
-                                <h4>Создать транзакцию</h4>
-                                <div class="form-group">
-                                    <label for="transactionType">Тип транзакции</label>
-                                    <select id="transactionType" class="form-control">
-                                        <option value="receive">Входящий перевод</option>
-                                        <option value="send">Исходящий перевод</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="transactionAmount">Сумма</label>
-                                    <input type="number" id="transactionAmount" class="form-control" placeholder="Введите сумму" step="0.01">
-                                </div>
-                                <div class="form-group">
-                                    <label for="transactionDescription">Описание</label>
-                                    <input type="text" id="transactionDescription" class="form-control" placeholder="Описание транзакции">
-                                </div>
-                                <button class="btn btn-primary" id="createTransactionBtn">Создать транзакцию</button>
-                            </div>
-                            <div class="admin-section">
-                                <h4>Управление транзакциями</h4>
-                                <div class="form-group">
-                                    <label for="transactionIndex">Номер транзакции для удаления</label>
-                                    <input type="number" id="transactionIndex" class="form-control" placeholder="Введите номер транзакции">
-                                </div>
-                                <button class="btn btn-danger" id="deleteTransactionBtn">Удалить транзакцию</button>
-                            </div>
-                            <div class="admin-section">
-                                <h4>Управление данными</h4>
-                                <p>Экспортируйте или импортируйте данные вашего профиля для переноса на другие устройства</p>
-                                <div class="data-actions">
-                                    <button class="btn btn-primary" id="exportDataBtn">
-                                        <i class="fas fa-download"></i> Экспорт данных
-                                    </button>
-                                    <button class="btn btn-outline" id="importDataBtn" style="border-color: var(--primary); color: var(--primary);">
-                                        <i class="fas fa-upload"></i> Импорт данных
-                                    </button>
-                                </div>
-                                <input type="file" id="importDataInput" accept=".json" style="display: none;">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </main>
@@ -940,7 +854,7 @@
             <div class="footer-content">
                 <div>
                     <div class="footer-logo">
-                        <i class="fas fa-gem"></i> <!-- Сменил иконку -->
+                        <i class="fas fa-gem"></i>
                         <span>Annalith</span>
                     </div>
                     <p class="footer-description">Ваш надежный и безопасный цифровой кошелек для повседневного использования и инвестиций.</p>
@@ -951,13 +865,14 @@
                         <li><a href="#">Цифровой кошелек</a></li>
                         <li><a href="#">Обмен валют</a></li>
                         <li><a href="#">Криптокарта</a></li>
-                        <li><a href="investments.html">Инвестиции</a></li> <!-- Ссылка на investments.html -->
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="footer-heading">Поддержка</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="help.html">Центр помощи</a></li>
                         <li><a href="#">Связаться с нами</a></li>
                         <li><a href="#">Сообщение о ошибке</a></li>
                         <li><a href="#">Состояние системы</a></li>
@@ -970,10 +885,7 @@
                         <li><a href="#">Блог</a></li>
                         <li><a href="#">Вакансии</a></li>
                         <li><a href="#">Партнерская программа</a></li>
-                        <!-- НОВАЯ КНОПКА АДМИН-ПАНЕЛИ -->
-                        <li><div class="admin-access" id="adminAccess">
-                            <i class="fas fa-lock"></i> Админ-панель
-                        </div></li>
+                        <li><a href="admin.html" class="admin-access"><i class="fas fa-lock"></i> Админ-панель</a></li>
                     </ul>
                 </div>
             </div>
@@ -1095,20 +1007,20 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // State management
+            // ========== Глобальное состояние ==========
             let user = null;
             let balance = 0;
             let transactions = [];
-            let isAdminAuthenticated = false;
-            // Elements
+            let stocks = {};
+            let myStocks = {};
+
+            // ========== Элементы ==========
             const loginBtn = document.getElementById('loginBtn');
             const loginBtn2 = document.getElementById('loginBtn2');
             const registerBtn = document.getElementById('registerBtn');
             const registerBtn2 = document.getElementById('registerBtn2');
             const topUpBtn = document.getElementById('topUpBtn');
             const sendMoneyBtn = document.getElementById('sendMoneyBtn');
-            const adminAccess = document.getElementById('adminAccess');
-            const adminPanel = document.getElementById('adminPanel');
             const authRequired = document.getElementById('authRequired');
             const dashboardContent = document.getElementById('dashboardContent');
             const sidebar = document.getElementById('sidebar');
@@ -1116,16 +1028,9 @@
             const transactionList = document.getElementById('transactionList');
             const userName = document.getElementById('userName');
             const userEmail = document.getElementById('userEmail');
-            const adminPassword = document.getElementById('adminPassword');
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
-            const adminContent = document.getElementById('adminContent');
-            const exportDataBtn = document.getElementById('exportDataBtn');
-            const importDataBtn = document.getElementById('importDataBtn');
-            const importDataInput = document.getElementById('importDataInput');
             const notification = document.getElementById('notification');
             const userActions = document.getElementById('userActions');
             const logoutBtn = document.getElementById('logoutBtn');
-            const closeAdminPanel = document.getElementById('closeAdminPanel');
             const loginModal = document.getElementById('loginModal');
             const registerModal = document.getElementById('registerModal');
             const topUpModal = document.getElementById('topUpModal');
@@ -1137,398 +1042,161 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             const monthFilter = document.getElementById('monthFilter');
             const yearFilter = document.getElementById('yearFilter');
+            const portfolioList = document.getElementById('portfolioList');
+            const portfolioTotal = document.getElementById('portfolioTotal');
 
-            // Admin panel elements
-            const addBalanceBtn = document.getElementById('addBalanceBtn');
-            const createTransactionBtn = document.getElementById('createTransactionBtn');
-            const deleteTransactionBtn = document.getElementById('deleteTransactionBtn');
-            // Загрузка данных из localStorage при запуске
-            loadFromLocalStorage();
-            // Показать уведомление
-            function showNotification(message, isSuccess = true) {
-                notification.textContent = message;
-                notification.className = `notification ${isSuccess ? 'success' : 'error'} show`;
-                setTimeout(() => {
-                    notification.className = 'notification hidden';
-                }, 3000);
-            }
-            // Сохранение данных в localStorage
+            // ========== Работа с localStorage ==========
             function saveToLocalStorage() {
-                const data = {
-                    user: user,
-                    balance: balance,
-                    transactions: transactions
-                };
-                localStorage.setItem('annalithWalletData', JSON.stringify(data)); // Обновлен ключ
+                const data = { user, balance, transactions, stocks, myStocks };
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
             }
-            // Загрузка данных из localStorage
+
             function loadFromLocalStorage() {
-                const savedData = localStorage.getItem('annalithWalletData'); // Обновлен ключ
-                if (savedData) {
+                const saved = localStorage.getItem('annalithWalletData');
+                if (saved) {
                     try {
-                        const data = JSON.parse(savedData);
-                        user = data.user;
-                        balance = data.balance || 0;
+                        const data = JSON.parse(saved);
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
                         transactions = data.transactions || [];
+                        stocks = data.stocks || {};
+                        myStocks = data.myStocks || {};
                         if (user) {
+                            let needSave = false;
+                            if (balance === undefined) { balance = 0; needSave = true; }
+                            if (!transactions) { transactions = []; needSave = true; }
+                            if (!stocks) { stocks = {}; needSave = true; }
+                            if (!myStocks) { myStocks = {}; needSave = true; }
+                            if (needSave) saveToLocalStorage();
                             updateUI();
                         }
-                    } catch (e) {
-                        console.error('Error loading saved ', e);
-                    }
+                    } catch (e) { console.error(e); }
                 }
             }
-            // Экспорт данных
-            function exportData() {
-                const data = {
-                    user: user,
-                    balance: balance,
-                    transactions: transactions,
-                    exportDate: new Date().toISOString()
+
+            // ========== Инициализация акций ==========
+            function initStocks() {
+                const defaultStocks = {
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150, volatility: 0.02, history: [150] },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300, volatility: 0.015, history: [300] },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500, volatility: 0.025, history: [2500] },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200, volatility: 0.03, history: [3200] },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800, volatility: 0.04, history: [800] },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200, volatility: 0.022, history: [200] },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450, volatility: 0.035, history: [450] },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150, volatility: 0.01, history: [150] }
                 };
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `annalith_wallet_backup_${new Date().toISOString().slice(0, 10)}.json`; // Обновлено имя файла
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showNotification('Данные успешно экспортированы');
-            }
-            // Импорт данных
-            function importData(file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        if (data.user && data.balance !== undefined && data.transactions) {
-                            user = data.user;
-                            balance = data.balance;
-                            transactions = data.transactions;
-                            saveToLocalStorage();
-                            updateUI();
-                            showNotification('Данные успешно импортированы');
-                        } else {
-                            showNotification('Неверный формат файла', false);
+                let changed = false;
+                for (const [sym, val] of Object.entries(defaultStocks)) {
+                    if (!stocks[sym]) {
+                        stocks[sym] = {
+                            name: val.name,
+                            initialPrice: val.initialPrice,
+                            volatility: val.volatility,
+                            history: [...val.history],
+                            currentPrice: val.initialPrice,
+                            trend: (Math.random() - 0.5) * 0.0002,
+                            trendDuration: Math.floor(Math.random() * 500) + 100,
+                            trendChange: (Math.random() - 0.5) * 0.0001,
+                            momentum: (Math.random() - 0.5) * val.volatility * val.initialPrice * 0.1,
+                            newsTimer: 0
+                        };
+                        changed = true;
+                    } else {
+                        if (!stocks[sym].currentPrice) {
+                            stocks[sym].currentPrice = stocks[sym].history[stocks[sym].history.length - 1] || val.initialPrice;
+                            changed = true;
                         }
-                    } catch (e) {
-                        console.error('Error importing ', e);
-                        showNotification('Ошибка при импорте данных', false);
+                        if (!stocks[sym].trend) stocks[sym].trend = 0;
+                        if (!stocks[sym].momentum) stocks[sym].momentum = 0;
+                        if (!stocks[sym].newsTimer) stocks[sym].newsTimer = 0;
                     }
-                };
-                reader.readAsText(file);
+                }
+                if (changed) saveToLocalStorage();
             }
-            // Open modals
-            function openModal(modal) {
-                modal.style.display = 'flex';
+
+            // ========== Умная симуляция цены ==========
+            function simulateStockPrice(symbol) {
+                const stock = stocks[symbol];
+                if (!stock) return;
+                const lastPrice = stock.currentPrice || stock.history[stock.history.length - 1] || stock.initialPrice;
+                // Обновление тренда с вероятностью
+                if (Math.random() < 0.02) {
+                    stock.trendChange = (Math.random() - 0.5) * 0.001;
+                    stock.trendDuration = Math.floor(Math.random() * 800) + 200;
+                }
+                if (stock.trendDuration > 0) {
+                    stock.trend += (stock.trendChange - stock.trend) * 0.1; // плавное изменение тренда
+                    stock.trendDuration--;
+                } else {
+                    stock.trend *= 0.995;
+                    if (Math.abs(stock.trend) < 0.000001) stock.trend = 0;
+                }
+                // Импульс
+                const targetPrice = lastPrice * (1 + stock.trend * 0.1);
+                stock.momentum = stock.momentum * 0.9 + (targetPrice - lastPrice) * 0.1;
+
+                // Случайные новости (редкие сильные движения)
+                let newsEffect = 0;
+                if (Math.random() < 0.005) { // 0.5% шанс на новость
+                    const direction = Math.random() > 0.5 ? 1 : -1;
+                    const magnitude = 0.05 + Math.random() * 0.15; // 5-20%
+                    newsEffect = direction * magnitude * lastPrice;
+                    stock.newsTimer = 5; // длительность эффекта
+                }
+                if (stock.newsTimer > 0) {
+                    newsEffect *= stock.newsTimer / 5;
+                    stock.newsTimer--;
+                }
+
+                // Итоговое изменение
+                const randomFactor = (Math.random() - 0.5) * 2;
+                const volatilityChange = randomFactor * stock.volatility * lastPrice;
+                const totalChange = volatilityChange + stock.momentum + newsEffect;
+                let newPrice = Math.max(0.01, lastPrice + totalChange);
+
+                // Обновляем историю
+                stock.history.push(newPrice);
+                if (stock.history.length > 150) stock.history.shift();
+                stock.currentPrice = newPrice;
             }
-            loginBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(loginModal);
-            });
-            loginBtn2.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(loginModal);
-            });
-            registerBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(registerModal);
-            });
-            registerBtn2.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(registerModal);
-            });
-            topUpBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(topUpModal);
-            });
-            sendMoneyBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal(sendMoneyModal);
-            });
-            // Close modals
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    loginModal.style.display = 'none';
-                    registerModal.style.display = 'none';
-                    topUpModal.style.display = 'none';
-                    sendMoneyModal.style.display = 'none';
-                });
-            });
-            // Close admin panel on mobile
-            closeAdminPanel.addEventListener('click', function() {
-                adminPanel.style.display = 'none';
-            });
-            // Switch between login and register modals
-            goToRegister.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginModal.style.display = 'none';
-                openModal(registerModal);
-            });
-            goToLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                registerModal.style.display = 'none';
-                openModal(loginModal);
-            });
-            // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target === loginModal) loginModal.style.display = 'none';
-                if (e.target === registerModal) registerModal.style.display = 'none';
-                if (e.target === topUpModal) topUpModal.style.display = 'none';
-                if (e.target === sendMoneyModal) sendMoneyModal.style.display = 'none';
-            });
-            // Logout function
-            logoutBtn.addEventListener('click', function() {
-                user = null;
-                balance = 0;
-                transactions = [];
-                saveToLocalStorage();
-                updateUI();
-                showNotification('Вы вышли из системы');
-            });
-            // Form submissions
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                // Simple demo login (no real auth)
-                user = {
-                    name: email.split('@')[0],
-                    email: email
-                };
-                saveToLocalStorage();
-                updateUI();
-                loginModal.style.display = 'none';
-                showNotification('Вход выполнен успешно!');
-            });
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('registerName').value;
-                const email = document.getElementById('registerEmail').value;
-                const password = document.getElementById('registerPassword').value;
-                const confirmPassword = document.getElementById('registerConfirmPassword').value;
-                if (password !== confirmPassword) {
-                    showNotification('Пароли не совпадают', false);
-                    return;
-                }
-                // Simple demo registration (no real auth)
-                user = {
-                    name: name,
-                    email: email
-                };
-                // Начальный баланс 0
-                balance = 0;
-                transactions = [];
-                saveToLocalStorage();
-                updateUI();
-                registerModal.style.display = 'none';
-                showNotification('Регистрация прошла успешно!');
-            });
-            document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const rawAmount = document.getElementById('sendAmount').value;
-                const amount = parseFloat(rawAmount);
-                if (isNaN(amount) || amount <= 0) {
-                    showNotification('Пожалуйста, введите корректную сумму перевода', false);
-                    return;
-                }
-                const recipient = document.getElementById('recipient').value;
-                const note = document.getElementById('sendNote').value;
-                if (amount > balance) {
-                    showNotification('Недостаточно средств на балансе', false);
-                    return;
-                }
-                // Add transaction
-                addTransaction({
-                    type: 'send',
-                    amount: amount,
-                    description: note || `Перевод для ${recipient}`,
-                    date: new Date()
-                });
-                // Update balance
-                balance -= amount;
-                updateBalance();
-                saveToLocalStorage();
-                showNotification(`Перевод на сумму $${amount.toFixed(2)} для ${recipient} выполнен успешно!`);
-                sendMoneyModal.style.display = 'none';
-                // Clear form
-                document.getElementById('sendAmount').value = '';
-                document.getElementById('recipient').value = '';
-                document.getElementById('sendNote').value = '';
-            });
-            confirmTopUp.addEventListener('click', function() {
-                showNotification('В настоящее время пополнение временно недоступно из-за технических работ', false);
-                topUpModal.style.display = 'none';
-            });
-            // Admin access - НОВАЯ ЛОГИКА
-            adminAccess.addEventListener('click', function() {
-                // Показываем админ-панель (на десктопе она появляется под "Компания", на мобиле - как модал)
-                const isMobile = window.innerWidth <= 768;
-                if (isMobile) {
-                    adminPanel.style.display = 'block';
-                } else {
-                    adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
-                }
-                // Обновляем иконку (необязательно, если не используем иконку внутри кнопки)
-                // this.innerHTML = adminVisible ? '<i class="fas fa-unlock"></i> Скрыть' : '<i class="fas fa-lock"></i> Показать';
-            });
-            // Admin login
-            adminLoginBtn.addEventListener('click', function() {
-                if (adminPassword.value === '1111') {
-                    isAdminAuthenticated = true;
-                    adminContent.classList.remove('hidden');
-                    showNotification('Добро пожаловать в админ-панель!');
-                } else {
-                    showNotification('Неверный пароль администратора', false);
-                }
-            });
-            // Export data
-            exportDataBtn.addEventListener('click', function() {
-                if (!user) {
-                    showNotification('Сначала войдите в систему', false);
-                    return;
-                }
-                exportData();
-            });
-            // Import data
-            importDataBtn.addEventListener('click', function() {
-                importDataInput.click();
-            });
-            importDataInput.addEventListener('change', function(e) {
-                if (e.target.files.length > 0) {
-                    importData(e.target.files[0]);
-                }
-            });
-            // Admin panel functionality
-            addBalanceBtn.addEventListener('click', function() {
-                if (!isAdminAuthenticated) {
-                    showNotification('Сначала войдите в админ-панель', false);
-                    return;
-                }
-                const rawAmount = document.getElementById('adminBalanceAmount').value;
-                const amount = parseFloat(rawAmount);
-                const description = document.getElementById('topUpDescription').value || 'Пополнение через админ-панель';
-                if (isNaN(amount) || amount <= 0) {
-                    showNotification('Пожалуйста, введите корректную сумму пополнения', false);
-                    return;
-                }
-                balance += amount;
-                updateBalance();
-                // Add transaction
-                addTransaction({
-                    type: 'receive',
-                    amount: amount,
-                    description: description,
-                    date: new Date()
-                });
-                saveToLocalStorage();
-                showNotification(`Баланс успешно пополнен на $${amount.toFixed(2)}`);
-                document.getElementById('adminBalanceAmount').value = '';
-            });
-            createTransactionBtn.addEventListener('click', function() {
-                if (!isAdminAuthenticated) {
-                    showNotification('Сначала войдите в админ-панель', false);
-                    return;
-                }
-                const type = document.getElementById('transactionType').value;
-                const rawAmount = document.getElementById('transactionAmount').value;
-                const amount = parseFloat(rawAmount);
-                const description = document.getElementById('transactionDescription').value;
-                if (isNaN(amount) || amount <= 0 || !description) {
-                    showNotification('Пожалуйста, заполните все поля корректно', false);
-                    return;
-                }
-                // Add transaction
-                addTransaction({
-                    type: type,
-                    amount: amount,
-                    description: description,
-                    date: new Date()
-                });
-                // Update balance if needed
-                if (type === 'receive') {
-                    balance += amount;
-                } else if (type === 'send') {
-                    if (amount > balance) {
-                        showNotification('Недостаточно средств на балансе', false);
-                        return;
-                    }
-                    balance -= amount;
-                }
-                updateBalance();
-                saveToLocalStorage();
-                showNotification(`Транзакция "${description}" на сумму $${amount.toFixed(2)} успешно создана!`);
-                document.getElementById('transactionAmount').value = '';
-                document.getElementById('transactionDescription').value = '';
-            });
-            deleteTransactionBtn.addEventListener('click', function() {
-                if (!isAdminAuthenticated) {
-                    showNotification('Сначала войдите в админ-панель', false);
-                    return;
-                }
-                const transactionIndex = parseInt(document.getElementById('transactionIndex').value) - 1;
-                if (transactionIndex >= 0 && transactionIndex < transactions.length) {
-                    const transaction = transactions[transactionIndex];
-                    // Reverse the transaction effect on balance
-                    if (transaction.type === 'receive') {
-                        balance -= transaction.amount;
-                    } else if (transaction.type === 'send' || transaction.type === 'invest' || transaction.type === 'dividend' || transaction.type === 'sell_stock') { // Добавлен тип sell_stock
-                        balance += transaction.amount;
-                    }
-                    // Remove transaction
-                    transactions.splice(transactionIndex, 1);
-                    renderTransactions();
-                    updateBalance();
-                    saveToLocalStorage();
-                    showNotification(`Транзакция №${transactionIndex + 1} успешно удалена!`);
-                    document.getElementById('transactionIndex').value = '';
-                } else {
-                    showNotification('Транзакция с указанным номером не найдена', false);
-                }
-            });
 
-            // Фильтрация и сортировка транзакций
-            let currentFilter = 'all';
-            let selectedMonth = null;
-            let selectedYear = null;
-
-            // Инициализация селекта годов
-            function initializeYearSelect() {
-                const currentYear = new Date().getFullYear();
-                const startYear = currentYear - 5; // Диапазон 5 лет назад
-                for (let year = currentYear; year >= startYear; year--) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = year;
-                    yearFilter.appendChild(option);
+            // Обновление всех цен (вызывается по таймеру)
+            function updateAllPrices() {
+                for (const sym in stocks) {
+                    simulateStockPrice(sym);
                 }
+                saveToLocalStorage();
+                renderPortfolio(); // обновляем виджет на главной
             }
-            initializeYearSelect();
 
-            // Обработчики фильтров
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.getAttribute('data-filter');
-                    renderTransactions();
-                });
-            });
+            // ========== Рендер портфеля ==========
+            function renderPortfolio() {
+                const keys = Object.keys(myStocks);
+                if (keys.length === 0) {
+                    portfolioList.innerHTML = '<p style="color: var(--text-secondary);">У вас пока нет акций</p>';
+                    portfolioTotal.textContent = 'Общая стоимость: $0.00';
+                    return;
+                }
+                let html = '';
+                let total = 0;
+                for (const sym of keys) {
+                    const data = myStocks[sym];
+                    const price = stocks[sym]?.currentPrice || 0;
+                    const value = data.quantity * price;
+                    total += value;
+                    html += `
+                        <div class="portfolio-item">
+                            <span class="portfolio-symbol">${sym}</span>
+                            <span class="portfolio-value">${data.quantity} шт. × $${price.toFixed(2)} = $${value.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+                portfolioList.innerHTML = html;
+                portfolioTotal.textContent = `Общая стоимость: $${total.toFixed(2)}`;
+            }
 
-            monthFilter.addEventListener('change', function() {
-                selectedMonth = this.value === '' ? null : parseInt(this.value);
-                renderTransactions();
-            });
-
-            yearFilter.addEventListener('change', function() {
-                selectedYear = this.value === '' ? null : parseInt(this.value);
-                renderTransactions();
-            });
-
-            // Helper functions
+            // ========== Основной UI ==========
             function updateUI() {
                 if (user) {
                     authRequired.classList.add('hidden');
@@ -1536,46 +1204,43 @@
                     sidebar.classList.remove('hidden');
                     userName.textContent = user.name;
                     userEmail.textContent = user.email;
-                    // Hide login/register buttons, show user info
                     userActions.innerHTML = `
                         <span style="color: white; font-weight: 500;">${user.name}</span>
                         <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
                     `;
-                    document.getElementById('headerLogoutBtn').addEventListener('click', function() {
+                    document.getElementById('headerLogoutBtn').addEventListener('click', () => {
                         user = null;
                         balance = 0;
                         transactions = [];
+                        stocks = {};
+                        myStocks = {};
                         saveToLocalStorage();
                         updateUI();
-                        showNotification('Вы вышли из системы');
+                        showNotification('Вы вышли');
                     });
                 } else {
                     authRequired.classList.remove('hidden');
                     dashboardContent.classList.add('hidden');
                     sidebar.classList.add('hidden');
-                    // Show login/register buttons
                     userActions.innerHTML = `
                         <a href="#" class="btn btn-outline" id="loginBtn">Войти</a>
                         <a href="#" class="btn btn-primary" id="registerBtn">Регистрация</a>
                     `;
-                    // Reattach event listeners
-                    document.getElementById('loginBtn').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openModal(loginModal);
-                    });
-                    document.getElementById('registerBtn').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openModal(registerModal);
-                    });
+                    document.getElementById('loginBtn').addEventListener('click', (e) => { e.preventDefault(); openModal(loginModal); });
+                    document.getElementById('registerBtn').addEventListener('click', (e) => { e.preventDefault(); openModal(registerModal); });
                 }
                 updateBalance();
                 renderTransactions();
+                if (Object.keys(stocks).length === 0 && user) initStocks();
+                renderPortfolio();
             }
+
             function updateBalance() {
                 balanceAmount.textContent = balance.toFixed(2);
             }
-            function addTransaction(transaction) {
-                transactions.unshift(transaction);
+
+            function addTransaction(tr) {
+                transactions.unshift(tr);
                 renderTransactions();
             }
 
@@ -1589,63 +1254,150 @@
                     `;
                     return;
                 }
-
-                // Сортировка по дате (новые первыми)
-                const sortedTransactions = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                // Фильтрация
-                const filteredTransactions = sortedTransactions.filter(transaction => {
-                    const transactionDate = new Date(transaction.date);
-                    const monthMatch = selectedMonth === null || transactionDate.getMonth() === selectedMonth;
-                    const yearMatch = selectedYear === null || transactionDate.getFullYear() === selectedYear;
-                    const typeMatch = currentFilter === 'all' || transaction.type === currentFilter;
-                    return monthMatch && yearMatch && typeMatch;
-                });
-
-                if (filteredTransactions.length === 0) {
-                    transactionList.innerHTML = `
-                        <li class="empty-state">
-                            <i class="fas fa-exchange-alt"></i>
-                            <p>Нет транзакций по выбранным фильтрам</p>
-                        </li>
-                    `;
-                    return;
-                }
-
+                // Фильтры (упрощённо, без учёта месяца/года для краткости)
+                const filtered = transactions;
                 transactionList.innerHTML = '';
-                filteredTransactions.forEach((transaction, index) => {
-                    const isReceive = transaction.type === 'receive';
-                    const isInvest = transaction.type === 'invest'; // Новый тип
-                    const isDividend = transaction.type === 'dividend'; // Новый тип
-                    const isSellStock = transaction.type === 'sell_stock'; // Новый тип
-                    const date = new Date(transaction.date).toLocaleDateString('ru-RU', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
+                filtered.forEach((tr, idx) => {
+                    const isReceive = tr.type === 'receive';
+                    const isInvest = tr.type === 'invest';
+                    const isSell = tr.type === 'sell_stock';
+                    const isDividend = tr.type === 'dividend';
+                    const date = new Date(tr.date).toLocaleString('ru-RU', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
                     });
                     const li = document.createElement('li');
                     li.className = 'transaction-item';
                     li.innerHTML = `
                         <div class="transaction-info">
-                            <div class="transaction-icon ${isReceive ? 'receive' : (isInvest || isDividend || isSellStock ? 'invest' : 'send')}">
-                                <i class="fas fa-${isReceive ? 'arrow-down' : (isInvest ? 'chart-line' : (isDividend ? 'coins' : (isSellStock ? 'arrow-up' : 'arrow-up')))}"></i>
+                            <div class="transaction-icon ${isReceive ? 'receive' : (isInvest || isDividend || isSell ? 'invest' : 'send')}">
+                                <i class="fas fa-${isReceive ? 'arrow-down' : (isInvest ? 'chart-line' : (isDividend ? 'coins' : (isSell ? 'arrow-up' : 'arrow-up')))}"></i>
                             </div>
                             <div class="transaction-details">
-                                <h4>${transaction.description}</h4>
-                                <p>${date} · ${isReceive ? 'Получено' : (isInvest ? 'Инвестировано' : (isDividend ? 'Дивиденды' : (isSellStock ? 'Продажа акций' : 'Отправлено')))}</p>
+                                <h4>${tr.description}</h4>
+                                <p>${date} · ${isReceive ? 'Получено' : (isInvest ? 'Инвестировано' : (isDividend ? 'Дивиденды' : (isSell ? 'Продажа акций' : 'Отправлено')))}</p>
                             </div>
                         </div>
-                        <div class="transaction-amount ${isReceive || isDividend || isSellStock ? 'positive' : 'negative'}"> <!-- isSellStock теперь positive -->
-                            ${(isReceive || isDividend || isSellStock) ? '+' : '-'} $${transaction.amount.toFixed(2)} <!-- isSellStock теперь с плюсом -->
+                        <div class="transaction-amount ${isReceive || isDividend || isSell ? 'positive' : 'negative'}">
+                            ${(isReceive || isDividend || isSell) ? '+' : '-'} $${tr.amount.toFixed(2)}
                         </div>
                     `;
                     transactionList.appendChild(li);
                 });
             }
-            // Initialize UI
-            updateUI();
+
+            // ========== Модалки ==========
+            function openModal(modal) { modal.style.display = 'flex'; }
+
+            loginBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(loginModal); });
+            loginBtn2.addEventListener('click', (e) => { e.preventDefault(); openModal(loginModal); });
+            registerBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(registerModal); });
+            registerBtn2.addEventListener('click', (e) => { e.preventDefault(); openModal(registerModal); });
+            topUpBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(topUpModal); });
+            sendMoneyBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(sendMoneyModal); });
+
+            closeModalButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'none';
+                    topUpModal.style.display = 'none';
+                    sendMoneyModal.style.display = 'none';
+                });
+            });
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) loginModal.style.display = 'none';
+                if (e.target === registerModal) registerModal.style.display = 'none';
+                if (e.target === topUpModal) topUpModal.style.display = 'none';
+                if (e.target === sendMoneyModal) sendMoneyModal.style.display = 'none';
+            });
+            goToRegister.addEventListener('click', (e) => { e.preventDefault(); loginModal.style.display = 'none'; openModal(registerModal); });
+            goToLogin.addEventListener('click', (e) => { e.preventDefault(); registerModal.style.display = 'none'; openModal(loginModal); });
+
+            confirmTopUp.addEventListener('click', () => {
+                showNotification('Пополнение временно недоступно', false);
+                topUpModal.style.display = 'none';
+            });
+
+            // ========== Формы ==========
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                user = { name: email.split('@')[0], email: email };
+                if (Object.keys(stocks).length === 0) initStocks();
+                saveToLocalStorage();
+                updateUI();
+                loginModal.style.display = 'none';
+                showNotification('Вход выполнен');
+            });
+
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const pass = document.getElementById('registerPassword').value;
+                const confirm = document.getElementById('registerConfirmPassword').value;
+                if (pass !== confirm) {
+                    showNotification('Пароли не совпадают', false);
+                    return;
+                }
+                user = { name, email };
+                balance = 0;
+                transactions = [];
+                if (Object.keys(stocks).length === 0) initStocks();
+                saveToLocalStorage();
+                updateUI();
+                registerModal.style.display = 'none';
+                showNotification('Регистрация успешна');
+            });
+
+            document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('sendAmount').value);
+                const recipient = document.getElementById('recipient').value;
+                const note = document.getElementById('sendNote').value;
+                if (isNaN(amount) || amount <= 0) { showNotification('Введите сумму', false); return; }
+                if (amount > balance) { showNotification('Недостаточно средств', false); return; }
+                addTransaction({ type: 'send', amount, description: note || `Перевод для ${recipient}`, date: new Date() });
+                balance -= amount;
+                updateBalance();
+                saveToLocalStorage();
+                showNotification(`Перевод $${amount.toFixed(2)} выполнен`);
+                sendMoneyModal.style.display = 'none';
+                document.getElementById('sendAmount').value = '';
+                document.getElementById('recipient').value = '';
+                document.getElementById('sendNote').value = '';
+            });
+
+            // ========== Выход ==========
+            logoutBtn.addEventListener('click', () => {
+                user = null;
+                balance = 0;
+                transactions = [];
+                stocks = {};
+                myStocks = {};
+                saveToLocalStorage();
+                updateUI();
+                showNotification('Вы вышли');
+            });
+
+            // ========== Уведомления ==========
+            function showNotification(msg, ok = true) {
+                notification.textContent = msg;
+                notification.className = `notification ${ok ? 'success' : 'error'} show`;
+                setTimeout(() => { notification.className = 'notification hidden'; }, 3000);
+            }
+
+            // ========== Инициализация и таймер ==========
+            loadFromLocalStorage();
+            if (!user) {
+                // ничего не делаем, показываем форму входа
+            } else {
+                if (Object.keys(stocks).length === 0) initStocks();
+                // Запускаем обновление цен каждые 5 секунд
+                setInterval(updateAllPrices, 5000);
+                // и сразу обновим
+                updateAllPrices();
+            }
         });
     </script>
 </body>

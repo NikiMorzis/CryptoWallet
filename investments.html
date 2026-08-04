@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* все стили как в предыдущей версии (без изменений) */
+        /* Стили без изменений (такие же как в предыдущей версии) */
+        /* (опущены для краткости, но в реальном файле они есть) */
         :root {
             --primary: #6a11cb;
             --primary-dark: #2575fc;
@@ -625,7 +626,7 @@
                         <li><a href="my_stocks.html">Мои акции</a></li>
                         <li><a href="settings.html">Настройки</a></li>
                         <li><a href="help.html">Помощь</a></li>
-                        <li><a href="admin.html" style="color: #ffd166;">Админ</a></li>
+                        <li><a href="admin.html" style="color:#ffd166;">Админ</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions" id="userActions">
@@ -783,17 +784,17 @@
                 }
             }
 
-            // ========== Инициализация акций ==========
+            // ========== Инициализация акций с базовой ценой ==========
             function initStocks() {
                 const defaultStocks = {
-                    "AAPL": { name: "Apple Inc.", initialPrice: 150, volatility: 0.02, history: [] },
-                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300, volatility: 0.015, history: [] },
-                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500, volatility: 0.025, history: [] },
-                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200, volatility: 0.03, history: [] },
-                    "TSLA": { name: "Tesla Inc.", initialPrice: 800, volatility: 0.04, history: [] },
-                    "META": { name: "Meta Platforms Inc.", initialPrice: 200, volatility: 0.022, history: [] },
-                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450, volatility: 0.035, history: [] },
-                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150, volatility: 0.01, history: [] }
+                    "AAPL": { name: "Apple Inc.", initialPrice: 150, volatility: 0.02, basePrice: 150 },
+                    "MSFT": { name: "Microsoft Corp.", initialPrice: 300, volatility: 0.015, basePrice: 300 },
+                    "GOOGL": { name: "Alphabet Inc.", initialPrice: 2500, volatility: 0.025, basePrice: 2500 },
+                    "AMZN": { name: "Amazon.com Inc.", initialPrice: 3200, volatility: 0.03, basePrice: 3200 },
+                    "TSLA": { name: "Tesla Inc.", initialPrice: 800, volatility: 0.04, basePrice: 800 },
+                    "META": { name: "Meta Platforms Inc.", initialPrice: 200, volatility: 0.022, basePrice: 200 },
+                    "NVDA": { name: "NVIDIA Corp.", initialPrice: 450, volatility: 0.035, basePrice: 450 },
+                    "JPM": { name: "JPMorgan Chase & Co.", initialPrice: 150, volatility: 0.01, basePrice: 150 }
                 };
                 let changed = false;
                 for (const [sym, val] of Object.entries(defaultStocks)) {
@@ -810,6 +811,7 @@
                             name: val.name,
                             initialPrice: val.initialPrice,
                             volatility: val.volatility,
+                            basePrice: val.basePrice,
                             history: history,
                             currentPrice: price,
                             trend: (Math.random() - 0.5) * 0.0002,
@@ -824,6 +826,7 @@
                             stocks[sym].currentPrice = stocks[sym].history[stocks[sym].history.length - 1] || val.initialPrice;
                             changed = true;
                         }
+                        if (!stocks[sym].basePrice) stocks[sym].basePrice = val.initialPrice;
                         if (!stocks[sym].trend) stocks[sym].trend = 0;
                         if (!stocks[sym].momentum) stocks[sym].momentum = 0;
                         if (!stocks[sym].newsTimer) stocks[sym].newsTimer = 0;
@@ -832,12 +835,18 @@
                 if (changed) saveToLocalStorage();
             }
 
-            // ========== Умная симуляция ==========
+            // ========== Умная симуляция цен с возвратом к базе ==========
             function simulateStockPrice(symbol) {
                 const stock = stocks[symbol];
                 if (!stock) return;
-                const lastPrice = stock.currentPrice || stock.history[stock.history.length - 1] || stock.initialPrice;
-                // Тренд
+                const basePrice = stock.basePrice || stock.initialPrice || 100;
+                const lastPrice = stock.currentPrice || stock.history[stock.history.length - 1] || basePrice;
+
+                // 1. Случайный шум
+                const randomFactor = (Math.random() - 0.5) * 2;
+                const volatilityChange = randomFactor * stock.volatility * lastPrice;
+
+                // 2. Тренд
                 if (Math.random() < 0.02) {
                     stock.trendChange = (Math.random() - 0.5) * 0.001;
                     stock.trendDuration = Math.floor(Math.random() * 800) + 200;
@@ -849,10 +858,17 @@
                     stock.trend *= 0.995;
                     if (Math.abs(stock.trend) < 0.000001) stock.trend = 0;
                 }
-                // Импульс
-                const targetPrice = lastPrice * (1 + stock.trend * 0.1);
+                const trendComponent = lastPrice * stock.trend * 0.1;
+
+                // 3. Импульс
+                const targetPrice = lastPrice + trendComponent;
                 stock.momentum = stock.momentum * 0.9 + (targetPrice - lastPrice) * 0.1;
-                // Новости
+
+                // 4. Возврат к базовой цене (mean reversion)
+                const reversionForce = (basePrice - lastPrice) * 0.005; // 0.5% от отклонения за тик
+                stock.momentum += reversionForce;
+
+                // 5. Новости (редкие скачки)
                 let newsEffect = 0;
                 if (Math.random() < 0.005) {
                     const direction = Math.random() > 0.5 ? 1 : -1;
@@ -864,17 +880,22 @@
                     newsEffect *= stock.newsTimer / 5;
                     stock.newsTimer--;
                 }
-                // Итог
-                const randomFactor = (Math.random() - 0.5) * 2;
-                const volatilityChange = randomFactor * stock.volatility * lastPrice;
+
+                // Итоговое изменение
                 const totalChange = volatilityChange + stock.momentum + newsEffect;
                 let newPrice = Math.max(0.01, lastPrice + totalChange);
+
+                // Если цена сильно отклонилась, дополнительно подтягиваем к базе (защита)
+                if (newPrice > basePrice * 2) newPrice = basePrice * 2;
+                if (newPrice < basePrice * 0.3) newPrice = basePrice * 0.3;
+
                 stock.history.push(newPrice);
                 if (stock.history.length > 150) stock.history.shift();
                 stock.currentPrice = newPrice;
             }
 
             function updateAllPrices() {
+                lastUpdateTime = Date.now();
                 for (const sym in stocks) {
                     simulateStockPrice(sym);
                 }
@@ -925,7 +946,7 @@
                             <div class="stock-name">${symbol} - ${stock.name}</div>
                             <div class="stock-price ${isUp ? 'up' : 'down'}">$${currentPrice.toFixed(2)} (${isUp ? '+' : ''}${changePercent}%)</div>
                         </div>
-                        <div class="stock-description">Текущая цена акции ${symbol} на симулированном рынке.</div>
+                        <div class="stock-description">Базовая цена: $${(stock.basePrice || stock.initialPrice || 0).toFixed(2)}</div>
                         <div class="stock-actions">
                             <input type="number" id="quantity_${symbol}" class="form-control" placeholder="Количество" step="1" min="1" value="1">
                             <button class="buy-btn" data-symbol="${symbol}">Купить</button>
@@ -1047,7 +1068,6 @@
 
             // ========== Запуск ==========
             loadFromLocalStorage();
-            // Запускаем обновление каждые 5 секунд
             setInterval(updateAllPrices, 5000);
             updateAllPrices();
         });

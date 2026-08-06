@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annalith | Кейсы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---- общие стили (как на других страницах) ---- */
+        :root {
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff6b6b;
+            --accent: #4cc9f0;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2d3748;
+            --light: #f8fafc;
+            --gray: #a0aec0;
+            --gray-dark: #718096;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: #ffd166;
+            font-size: 1.8rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        nav a:hover {
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffd166;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #ffd166;
+            color: #ffd166;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #27ae60, var(--success));
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, var(--danger));
+            transform: translateY(-2px);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #e67e22);
+            color: white;
+        }
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e67e22, var(--warning));
+            transform: translateY(-2px);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #2d3748;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);
+        }
+        .main-content {
+            padding: 50px 0;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .user-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 15px rgba(106, 17, 203, 0.3);
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .user-email {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(106, 17, 203, 0.1);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .dashboard-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #edf2f7;
+            color: var(--text-primary);
+        }
+        /* ---- БАЛАНС ---- */
+        .balance-display {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+        }
+        .balance-display .label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .balance-display .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        /* ---- КАРТОЧКИ КЕЙСОВ ---- */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .case-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        .case-card .case-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        .case-card.basic .case-icon { color: var(--bronze); }
+        .case-card.standard .case-icon { color: var(--silver); }
+        .case-card.premium .case-icon { color: var(--gold); }
+        .case-card .case-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .case-card .case-price {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin: 8px 0 15px;
+        }
+        .case-card .case-price span {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .case-card .case-stats {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .case-card .case-stats .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .case-card .case-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .case-card .case-controls input {
+            width: 70px;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1rem;
+            background: #f8fafc;
+        }
+        .case-card .case-controls input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+        }
+        .case-card .btn {
+            min-width: 100px;
+        }
+        .case-card.basic { border-top: 4px solid var(--bronze); }
+        .case-card.standard { border-top: 4px solid var(--silver); }
+        .case-card.premium { border-top: 4px solid var(--gold); }
+
+        /* ---- РУЛЕТКА ---- */
+        .roulette-wrapper {
+            background: #1a202c;
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin: 30px 0 20px;
+            border: 2px solid #4a5568;
+            position: relative;
+            overflow: hidden;
+        }
+        .roulette-track {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
+            transition: all 0.3s ease;
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+        .roulette-item {
+            flex: 0 0 90px;
+            height: 100px;
+            background: #2d3748;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            transition: all 0.4s ease;
+            border: 2px solid #4a5568;
+            padding: 8px;
+            position: relative;
+        }
+        .roulette-item .amount {
+            font-size: 0.8rem;
+            color: var(--silver);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .roulette-item.win {
+            border-color: var(--gold);
+            background: #3d2a00;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            transform: scale(1.12);
+            z-index: 2;
+        }
+        .roulette-item.win .amount {
+            color: var(--gold);
+        }
+        .roulette-result {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            min-height: 60px;
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        .roulette-result .sub {
+            font-size: 1rem;
+            color: var(--silver);
+            font-weight: 400;
+        }
+
+        /* ---- ИСТОРИЯ ---- */
+        .case-history {
+            margin-top: 40px;
+        }
+        .history-stats {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            background: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .history-stats div {
+            font-size: 1rem;
+        }
+        .history-stats .stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .history-table-wrap {
+            overflow-x: auto;
+        }
+        .history-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .history-table-wrap th {
+            background: #f8fafc;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+        }
+        .history-table-wrap td {
+            padding: 10px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .win-positive { color: var(--success); font-weight: 600; }
+        .win-negative { color: var(--danger); font-weight: 600; }
+        .badge-case {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+        .badge-basic { background: var(--bronze); }
+        .badge-standard { background: var(--silver); color: #2d3748; }
+        .badge-premium { background: var(--gold); color: #2d3748; }
+
+        /* ---- УВЕДОМЛЕНИЯ ---- */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 10px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification.success { background: linear-gradient(135deg, var(--success), #27ae60); }
+        .notification.error { background: linear-gradient(135deg, var(--danger), #c0392b); }
+        .notification.info { background: linear-gradient(135deg, var(--accent), #2575fc); }
+
+        /* ---- FOOTER ---- */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 35px;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .footer-heading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 22px;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid #4a5568;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 992px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .sidebar { order: 2; margin-top: 30px; }
+            .dashboard-content { order: 1; }
+            nav ul { gap: 20px; }
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 20px; }
+            nav ul { justify-content: center; flex-wrap: wrap; }
+            .user-actions { justify-content: center; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .balance-display { flex-direction: column; text-align: center; }
+            .roulette-item { flex: 0 0 70px; height: 80px; font-size: 1.8rem; }
+            .roulette-item .amount { font-size: 0.7rem; }
+            .history-stats { flex-direction: column; gap: 10px; }
+        }
+        @media (max-width: 576px) {
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .roulette-item { flex: 0 0 60px; height: 70px; font-size: 1.4rem; }
+            .roulette-item .amount { font-size: 0.6rem; }
+            .case-card .case-controls { flex-direction: column; }
+            .case-card .case-controls input { width: 100%; }
+        }
+        .hidden { display: none; }
+        .admin-link { color: white; text-decoration: none; font-weight: 500; }
+        .admin-link:hover { color: #ffd166; }
+        .logout-btn {
+            background-color: #fff5f5;
+            color: var(--danger);
+            border: 2px solid #fed7d7;
+            padding: 12px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background-color: #fed7d7;
+            color: var(--danger);
+            border-color: #feb2b2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification hidden" id="notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Annalith</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="index.html#transfer">Переводы</a></li>
+                        <li><a href="index.html#transactions">Транзакции</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="#" class="active">Кейсы</a></li>
+                        <li><a href="settings.html">Настройки</a></li>
+                        <li><a href="help.html">Помощь</a></li>
+                        <li><a href="admin.html" style="color:#ffd166;">Админ</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions" id="userActions">
+                    <!-- Информация о пользователе -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="dashboard">
+            <aside class="sidebar" id="sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name" id="userName">Загрузка...</div>
+                    <div class="user-email" id="userEmail">Загрузка...</div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Обзор</a></li>
+                    <li><a href="index.html"><i class="fas fa-wallet"></i> Кошелек</a></li>
+                    <li><a href="index.html"><i class="fas fa-exchange-alt"></i> Переводы</a></li>
+                    <li><a href="investments.html"><i class="fas fa-chart-line"></i> Инвестиции</a></li>
+                    <li><a href="my_stocks.html"><i class="fas fa-folder-open"></i> Мои акции</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-gift"></i> Кейсы</a></li>
+                    <li><a href="settings.html"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> Помощь</a></li>
+                </ul>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </aside>
+            <main class="dashboard-content">
+                <!-- БАЛАНС -->
+                <div class="balance-display">
+                    <span class="label"><i class="fas fa-wallet"></i> Ваш баланс:</span>
+                    <span class="amount" id="balanceDisplay">$0.00</span>
+                </div>
+
+                <h2 class="section-title">🎁 Кейсы</h2>
+
+                <!-- Карточки кейсов -->
+                <div class="cases-grid">
+                    <!-- Базовый кейс (10$) -->
+                    <div class="case-card basic">
+                        <div class="case-icon"><i class="fas fa-box"></i></div>
+                        <div class="case-name">Базовый</div>
+                        <div class="case-price">Цена: <span>10 $</span></div>
+                        <div class="case-stats">
+                            Выигрыш: <span class="highlight">0.1 – 50 $</span><br>
+                            Шанс джекпота (50$): <span class="highlight">1%</span>
+                        </div>
+                        <div class="case-controls">
+                            <input type="number" class="case-count" data-type="basic" value="1" min="1" max="10">
+                            <button class="btn btn-warning open-case-btn" data-type="basic">Открыть</button>
+                        </div>
+                    </div>
+
+                    <!-- Стандартный кейс (100$) -->
+                    <div class="case-card standard">
+                        <div class="case-icon"><i class="fas fa-box-open"></i></div>
+                        <div class="case-name">Стандартный</div>
+                        <div class="case-price">Цена: <span>100 $</span></div>
+                        <div class="case-stats">
+                            Выигрыш: <span class="highlight">1 – 10 000 $</span><br>
+                            Шанс джекпота (10k$): <span class="highlight">0.1%</span>
+                        </div>
+                        <div class="case-controls">
+                            <input type="number" class="case-count" data-type="standard" value="1" min="1" max="10">
+                            <button class="btn btn-gold open-case-btn" data-type="standard">Открыть</button>
+                        </div>
+                    </div>
+
+                    <!-- Премиум кейс (1000$) -->
+                    <div class="case-card premium">
+                        <div class="case-icon"><i class="fas fa-gem"></i></div>
+                        <div class="case-name">Премиум</div>
+                        <div class="case-price">Цена: <span>1000 $</span></div>
+                        <div class="case-stats">
+                            Выигрыш: <span class="highlight">10 – 100 000 $</span><br>
+                            Шанс джекпота (100k$): <span class="highlight">0.02%</span>
+                        </div>
+                        <div class="case-controls">
+                            <input type="number" class="case-count" data-type="premium" value="1" min="1" max="10">
+                            <button class="btn btn-danger open-case-btn" data-type="premium">Открыть</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Рулетка -->
+                <div class="roulette-wrapper" id="rouletteWrapper">
+                    <div class="roulette-track" id="rouletteTrack">
+                        <!-- заполняется JS -->
+                    </div>
+                    <div class="roulette-result" id="rouletteResult">
+                        <i class="fas fa-arrow-right"></i> Выберите кейс и нажмите "Открыть"
+                    </div>
+                </div>
+
+                <!-- История -->
+                <div class="case-history">
+                    <h3 class="section-title">📜 История открытий</h3>
+                    <div class="history-stats" id="historyStats">
+                        <div>Всего открыто: <span class="stat-value" id="totalOpened">0</span></div>
+                        <div>Общий выигрыш: <span class="stat-value" id="totalWon">$0.00</span></div>
+                        <div>Чистая прибыль: <span class="stat-value" id="netProfit">$0.00</span></div>
+                    </div>
+                    <div id="historyTableWrap" class="history-table-wrap">
+                        <div class="empty-state" style="text-align:center;padding:30px;color:var(--text-secondary);">
+                            <i class="fas fa-history" style="font-size:2rem;display:block;margin-bottom:10px;"></i>
+                            <p>Вы ещё не открывали кейсы</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-gem"></i>
+                        <span>Annalith</span>
+                    </div>
+                    <p class="footer-description">Ваш надёжный цифровой кошелёк с кейсами и инвестициями.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Продукты</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Кошелёк</a></li>
+                        <li><a href="investments.html">Инвестиции</a></li>
+                        <li><a href="my_stocks.html">Мои акции</a></li>
+                        <li><a href="cases.html">Кейсы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Поддержка</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">Центр помощи</a></li>
+                        <li><a href="#">Связаться с нами</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Компания</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="admin.html" class="admin-link"><i class="fas fa-lock"></i> Админ-панель</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Annalith. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ===================== СОСТОЯНИЕ =====================
+            let user = null;
+            let balance = 0;
+            let transactions = []; // общие транзакции (без кейсов)
+            let caseHistory = []; // история кейсов
+
+            // ===================== ЭЛЕМЕНТЫ =====================
+            const notification = document.getElementById('notification');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userActions = document.getElementById('userActions');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const balanceDisplay = document.getElementById('balanceDisplay');
+            const rouletteTrack = document.getElementById('rouletteTrack');
+            const rouletteResult = document.getElementById('rouletteResult');
+            const historyTableWrap = document.getElementById('historyTableWrap');
+            const totalOpened = document.getElementById('totalOpened');
+            const totalWon = document.getElementById('totalWon');
+            const netProfit = document.getElementById('netProfit');
+
+            // ===================== ЗАГРУЗКА ДАННЫХ =====================
+            function loadData() {
+                const saved = localStorage.getItem('annalithWalletData');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        user = data.user || null;
+                        balance = data.balance !== undefined ? data.balance : 0;
+                        // транзакции – оставляем как есть, но мы не будем добавлять в них кейсы
+                        transactions = data.transactions || [];
+                        caseHistory = data.caseHistory || [];
+                        if (user) {
+                            updateUI();
+                            updateBalanceDisplay();
+                            renderHistory();
+                            renderRoulettePlaceholder();
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    } catch (e) { console.error(e); window.location.href = 'index.html'; }
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }
+
+            function saveData() {
+                const data = {
+                    user,
+                    balance,
+                    transactions, // общие транзакции (без кейсов)
+                    caseHistory,
+                    // сохраняем также остальные данные, чтобы не потерять
+                };
+                const saved = localStorage.getItem('annalithWalletData');
+                if (saved) {
+                    try {
+                        const old = JSON.parse(saved);
+                        data.stocks = old.stocks || {};
+                        data.myStocks = old.myStocks || {};
+                        data.settings = old.settings || {};
+                    } catch (e) {}
+                }
+                localStorage.setItem('annalithWalletData', JSON.stringify(data));
+            }
+
+            // ===================== UI =====================
+            function updateUI() {
+                if (user) {
+                    userName.textContent = user.name;
+                    userEmail.textContent = user.email;
+                    userActions.innerHTML = `
+                        <span style="color: white; font-weight: 500;">${user.name}</span>
+                        <button class="btn btn-outline" id="headerLogoutBtn">Выйти</button>
+                    `;
+                    document.getElementById('headerLogoutBtn').addEventListener('click', () => {
+                        user = null;
+                        balance = 0;
+                        transactions = [];
+                        caseHistory = [];
+                        saveData();
+                        window.location.href = 'index.html';
+                    });
+                }
+            }
+
+            function updateBalanceDisplay() {
+                balanceDisplay.textContent = `$${balance.toFixed(2)}`;
+            }
+
+            // ===================== УВЕДОМЛЕНИЯ =====================
+            function showNotification(msg, type = 'success') {
+                notification.textContent = msg;
+                notification.className = `notification ${type} show`;
+                setTimeout(() => { notification.className = 'notification hidden'; }, 4000);
+            }
+
+            // ===================== СИСТЕМА ВЫИГРЫШЕЙ =====================
+            function generateWin(type) {
+                let r = Math.random();
+                let win;
+                const configs = {
+                    basic: {
+                        levels: [
+                            { prob: 0.50, min: 0.1, max: 2 },
+                            { prob: 0.30, min: 2, max: 8 },
+                            { prob: 0.15, min: 8, max: 25 },
+                            { prob: 0.04, min: 25, max: 45 },
+                            { prob: 0.01, min: 45, max: 50 }
+                        ]
+                    },
+                    standard: {
+                        levels: [
+                            { prob: 0.50, min: 1, max: 5 },
+                            { prob: 0.25, min: 5, max: 20 },
+                            { prob: 0.15, min: 20, max: 100 },
+                            { prob: 0.07, min: 100, max: 500 },
+                            { prob: 0.025, min: 500, max: 2000 },
+                            { prob: 0.005, min: 2000, max: 10000 }
+                        ]
+                    },
+                    premium: {
+                        levels: [
+                            { prob: 0.50, min: 10, max: 50 },
+                            { prob: 0.25, min: 50, max: 200 },
+                            { prob: 0.15, min: 200, max: 1000 },
+                            { prob: 0.07, min: 1000, max: 5000 },
+                            { prob: 0.025, min: 5000, max: 20000 },
+                            { prob: 0.005, min: 20000, max: 100000 }
+                        ]
+                    }
+                };
+                const levels = configs[type].levels;
+                let cum = 0;
+                for (let level of levels) {
+                    cum += level.prob;
+                    if (r <= cum) {
+                        win = level.min + Math.random() * (level.max - level.min);
+                        break;
+                    }
+                }
+                if (win === undefined) win = levels[levels.length - 1].min + Math.random() * (levels[levels.length - 1].max - levels[levels.length - 1].min);
+                return Math.round(win * 100) / 100;
+            }
+
+            // ===================== РУЛЕТКА =====================
+            function renderRoulettePlaceholder() {
+                const items = [0, 0, 0, 0, 0, 0, 0];
+                rouletteTrack.innerHTML = items.map(() => `
+                    <div class="roulette-item">
+                        <i class="fas fa-question-circle" style="color:#4a5568;"></i>
+                        <span class="amount">?</span>
+                    </div>
+                `).join('');
+            }
+
+            function renderRoulette(winAmount, type) {
+                // Генерируем 7 ячеек: 6 случайных (но в пределах разумного) и 1 выигрышная в центре (индекс 3)
+                const items = [];
+                const configs = {
+                    basic: { min: 0.1, max: 50 },
+                    standard: { min: 1, max: 10000 },
+                    premium: { min: 10, max: 100000 }
+                };
+                const range = configs[type];
+                for (let i = 0; i < 6; i++) {
+                    let rand = range.min + Math.random() * (range.max - range.min);
+                    items.push(Math.round(rand * 100) / 100);
+                }
+                // Вставляем выигрыш на позицию 3 (центр)
+                items.splice(3, 0, winAmount);
+
+                rouletteTrack.innerHTML = items.map((val, idx) => {
+                    const isWin = (idx === 3);
+                    let icon = 'fa-coins';
+                    let color = '#c0c0c0';
+                    if (val >= 20000) { icon = 'fa-crown'; color = '#ffd700'; }
+                    else if (val >= 5000) { icon = 'fa-gem'; color = '#ff6b6b'; }
+                    else if (val >= 500) { icon = 'fa-star'; color = '#f39c12'; }
+                    else if (val >= 50) { icon = 'fa-trophy'; color = '#4cc9f0'; }
+                    else { icon = 'fa-circle'; color = '#a0aec0'; }
+                    return `
+                        <div class="roulette-item ${isWin ? 'win' : ''}">
+                            <i class="fas ${icon}" style="color:${color};"></i>
+                            <span class="amount">$${val.toFixed(2)}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function animateRoulette(winAmount, type, callback) {
+                // Показываем стартовый набор
+                const items = [];
+                const range = { basic: { min: 0.1, max: 50 }, standard: { min: 1, max: 10000 }, premium: { min: 10, max: 100000 } } [type];
+                for (let i = 0; i < 7; i++) {
+                    let rand = range.min + Math.random() * (range.max - range.min);
+                    items.push(Math.round(rand * 100) / 100);
+                }
+                items[3] = winAmount; // в центре выигрыш
+                renderRoulette(winAmount, type);
+
+                // Анимация: быстрое переключение (вращение) с изменением иконок
+                let counter = 0;
+                const maxSteps = 12;
+                const interval = setInterval(() => {
+                    // Сдвигаем массив влево
+                    const first = items.shift();
+                    items.push(first);
+                    // Обновляем отображение
+                    rouletteTrack.innerHTML = items.map((val, idx) => {
+                        const isWin = (idx === 3);
+                        let icon = 'fa-coins';
+                        let color = '#c0c0c0';
+                        if (val >= 20000) { icon = 'fa-crown'; color = '#ffd700'; }
+                        else if (val >= 5000) { icon = 'fa-gem'; color = '#ff6b6b'; }
+                        else if (val >= 500) { icon = 'fa-star'; color = '#f39c12'; }
+                        else if (val >= 50) { icon = 'fa-trophy'; color = '#4cc9f0'; }
+                        else { icon = 'fa-circle'; color = '#a0aec0'; }
+                        return `
+                            <div class="roulette-item ${isWin ? 'win' : ''}">
+                                <i class="fas ${icon}" style="color:${color};"></i>
+                                <span class="amount">$${val.toFixed(2)}</span>
+                            </div>
+                        `;
+                    }).join('');
+                    counter++;
+                    if (counter >= maxSteps) {
+                        clearInterval(interval);
+                        // Финальный результат – гарантируем, что выигрыш в центре
+                        const finalItems = [];
+                        for (let i = 0; i < 6; i++) {
+                            let rand = range.min + Math.random() * (range.max - range.min);
+                            finalItems.push(Math.round(rand * 100) / 100);
+                        }
+                        finalItems.splice(3, 0, winAmount);
+                        rouletteTrack.innerHTML = finalItems.map((val, idx) => {
+                            const isWin = (idx === 3);
+                            let icon = 'fa-coins';
+                            let color = '#c0c0c0';
+                            if (val >= 20000) { icon = 'fa-crown'; color = '#ffd700'; }
+                            else if (val >= 5000) { icon = 'fa-gem'; color = '#ff6b6b'; }
+                            else if (val >= 500) { icon = 'fa-star'; color = '#f39c12'; }
+                            else if (val >= 50) { icon = 'fa-trophy'; color = '#4cc9f0'; }
+                            else { icon = 'fa-circle'; color = '#a0aec0'; }
+                            return `
+                                <div class="roulette-item ${isWin ? 'win' : ''}">
+                                    <i class="fas ${icon}" style="color:${color};"></i>
+                                    <span class="amount">$${val.toFixed(2)}</span>
+                                </div>
+                            `;
+                        }).join('');
+                        // Показываем результат
+                        rouletteResult.innerHTML = `
+                            <i class="fas fa-trophy" style="color:var(--gold);"></i>
+                            Вы выиграли <span style="color:var(--gold);">$${winAmount.toFixed(2)}</span>!
+                            <div class="sub">(тип: ${type})</div>
+                        `;
+                        if (callback) callback();
+                    }
+                }, 100);
+            }
+
+            // ===================== ОТКРЫТИЕ КЕЙСОВ =====================
+            function openCases(type, count) {
+                if (!user) {
+                    showNotification('Сначала войдите в аккаунт', 'error');
+                    return;
+                }
+                const costs = { basic: 10, standard: 100, premium: 1000 };
+                const cost = costs[type] * count;
+                if (balance < cost) {
+                    showNotification(`Недостаточно средств. Нужно $${cost.toFixed(2)}`, 'error');
+                    return;
+                }
+
+                // Списываем деньги (без транзакции в общую историю)
+                balance -= cost;
+                updateBalanceDisplay();
+
+                // Блокируем все кнопки на время
+                document.querySelectorAll('.open-case-btn').forEach(b => b.disabled = true);
+                const btn = document.querySelector(`.open-case-btn[data-type="${type}"]`);
+                if (btn) { btn.disabled = true; btn.textContent = 'Открытие...'; }
+
+                let opened = 0;
+                let totalWin = 0;
+
+                function openNext() {
+                    if (opened >= count) {
+                        // Разблокируем кнопки
+                        document.querySelectorAll('.open-case-btn').forEach(b => b.disabled = false);
+                        if (btn) { btn.disabled = false; btn.textContent = 'Открыть'; }
+                        // Сохраняем историю
+                        saveData();
+                        renderHistory();
+                        showNotification(`Открыто ${count} кейсов. Общий выигрыш: $${totalWin.toFixed(2)}`, 'success');
+                        if (count > 1) {
+                            rouletteResult.innerHTML = `
+                                <i class="fas fa-chart-line"></i>
+                                Итог за ${count} кейсов: выигрыш $${totalWin.toFixed(2)} (чистый ${(totalWin - cost).toFixed(2)})
+                                <div class="sub">(тип: ${type})</div>
+                            `;
+                        }
+                        return;
+                    }
+
+                    const win = generateWin(type);
+                    totalWin += win;
+                    balance += win;
+                    updateBalanceDisplay();
+
+                    // Сохраняем в историю кейсов
+                    caseHistory.unshift({
+                        date: new Date().toISOString(),
+                        type: type,
+                        cost: costs[type],
+                        win: win
+                    });
+
+                    // Анимация рулетки
+                    animateRoulette(win, type, () => {
+                        opened++;
+                        setTimeout(() => {
+                            openNext();
+                        }, 700);
+                    });
+                }
+
+                openNext();
+            }
+
+            // ===================== ИСТОРИЯ =====================
+            function renderHistory() {
+                if (caseHistory.length === 0) {
+                    historyTableWrap.innerHTML = `
+                        <div class="empty-state" style="text-align:center;padding:30px;color:var(--text-secondary);">
+                            <i class="fas fa-history" style="font-size:2rem;display:block;margin-bottom:10px;"></i>
+                            <p>Вы ещё не открывали кейсы</p>
+                        </div>
+                    `;
+                    totalOpened.textContent = '0';
+                    totalWon.textContent = '$0.00';
+                    netProfit.textContent = '$0.00';
+                    return;
+                }
+
+                let html = `<table>
+                    <thead><tr><th>Дата</th><th>Тип</th><th>Стоимость</th><th>Выигрыш</th><th>Чистый результат</th></tr></thead><tbody>`;
+                let totalCost = 0, totalWinSum = 0;
+                caseHistory.slice(0, 30).forEach(item => {
+                    const date = new Date(item.date).toLocaleString('ru-RU');
+                    const net = item.win - item.cost;
+                    totalCost += item.cost;
+                    totalWinSum += item.win;
+                    const typeLabel = { basic: 'Базовый', standard: 'Стандартный', premium: 'Премиум' } [item.type] || item.type;
+                    const badgeClass = { basic: 'badge-basic', standard: 'badge-standard', premium: 'badge-premium' } [item.type] || '';
+                    html += `
+                        <tr>
+                            <td>${date}</td>
+                            <td><span class="badge-case ${badgeClass}">${typeLabel}</span></td>
+                            <td>$${item.cost.toFixed(2)}</td>
+                            <td class="win-positive">+$${item.win.toFixed(2)}</td>
+                            <td class="${net >= 0 ? 'win-positive' : 'win-negative'}">${net >= 0 ? '+' : ''}$${net.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                html += '</tbody></table>';
+                historyTableWrap.innerHTML = html;
+                const net = totalWinSum - totalCost;
+                totalOpened.textContent = caseHistory.length;
+                totalWon.textContent = `$${totalWinSum.toFixed(2)}`;
+                netProfit.textContent = `$${net.toFixed(2)}`;
+                netProfit.style.color = net >= 0 ? 'var(--success)' : 'var(--danger)';
+            }
+
+            // ===================== ОБРАБОТЧИКИ КНОПОК =====================
+            document.querySelectorAll('.open-case-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const input = document.querySelector(`.case-count[data-type="${type}"]`);
+                    let count = parseInt(input.value);
+                    if (isNaN(count) || count < 1) count = 1;
+                    if (count > 10) count = 10;
+                    input.value = count;
+                    openCases(type, count);
+                });
+            });
+
+            // Также обрабатываем нажатие Enter в полях ввода
+            document.querySelectorAll('.case-count').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const type = this.getAttribute('data-type');
+                        const btn = document.querySelector(`.open-case-btn[data-type="${type}"]`);
+                        if (btn) btn.click();
+                    }
+                });
+            });
+
+            // ===================== ВЫХОД =====================
+            logoutBtn.addEventListener('click', () => {
+                user = null;
+                balance = 0;
+                transactions = [];
+                caseHistory = [];
+                saveData();
+                window.location.href = 'index.html';
+            });
+
+            // ===================== ЗАПУСК =====================
+            loadData();
+        });
+    </script>
+</body>
+</html>

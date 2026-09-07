@@ -1,0 +1,6 @@
+{
+  "name": "Личный Кабинет Разработчика",
+  "description": "Панель управления фриланс-заданиями и крипто-кошелек.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

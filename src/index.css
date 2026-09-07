@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-theme-canvas: var(--bg-canvas);
+  --color-theme-surface: var(--bg-surface);
+  --color-theme-hover: var(--bg-surface-hover);
+  --color-theme-border: var(--border-color);
+  --color-theme-text: var(--text-primary);
+  --color-theme-muted: var(--text-secondary);
+  --color-theme-accent: var(--accent-primary);
+  --color-theme-accent-hover: var(--accent-primary-hover);
+  --color-theme-glass: var(--glass-bg);
+  --color-theme-glass-border: var(--glass-border);
+}
+
+@layer base {
+  :root, [data-theme="light"] {
+    --bg-canvas: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --accent-primary: #6366f1;
+    --accent-primary-hover: #4f46e5;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+  }
+  [data-theme="dark"] {
+    --bg-canvas: #09090b;
+    --bg-surface: #18181b;
+    --bg-surface-hover: #27272a;
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --border-color: #27272a;
+    --accent-primary: #818cf8;
+    --accent-primary-hover: #6366f1;
+    --glass-bg: rgba(24, 24, 27, 0.7);
+    --glass-border: rgba(39, 39, 42, 0.4);
+  }
+  [data-theme="sage"] {
+    --bg-canvas: #f4f5f0;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #eaece4;
+    --text-primary: #2d3730;
+    --text-secondary: #738076;
+    --border-color: #dbe0d8;
+    --accent-primary: #6b8e72;
+    --accent-primary-hover: #55755b;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.6);
+  }
+  [data-theme="midnight"] {
+    --bg-canvas: #0b1120;
+    --bg-surface: #131c31;
+    --bg-surface-hover: #1e293b;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --border-color: #1e293b;
+    --accent-primary: #38bdf8;
+    --accent-primary-hover: #0ea5e9;
+    --glass-bg: rgba(19, 28, 49, 0.7);
+    --glass-border: rgba(30, 41, 59, 0.5);
+  }
+  [data-theme="latte"] {
+    --bg-canvas: #faf6f0;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #fcf9f5;
+    --text-primary: #4a3f35;
+    --text-secondary: #968677;
+    --border-color: #e8ded3;
+    --accent-primary: #b8865c;
+    --accent-primary-hover: #9c6f4a;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.6);
+  }
+}
